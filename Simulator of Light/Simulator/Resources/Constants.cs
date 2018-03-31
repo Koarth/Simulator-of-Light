@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Simulator.Resources
+namespace Simulator_of_Light.Simulator.Resources
 {
     
 
@@ -67,6 +67,15 @@ namespace Simulator.Resources
             MAGIC,
             HEAL,
             UNKNOWN
+        }
+
+        public enum ActionAspect
+        {
+            BLUNT,
+            SLASHING,
+            PIERCING,
+            MAGIC,
+            UNASPECTED
         }
 
         public static ActionType DefaultActionType(JobID id)

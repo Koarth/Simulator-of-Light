@@ -1,11 +1,10 @@
 ﻿using System;
-using static System.Double;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Simulator.Resources
+namespace Simulator_of_Light.Simulator.Resources
 {
     public static class Formulas
     {
