@@ -25,10 +25,12 @@ namespace Simulator_of_Light
     {
         public MainPage()
         {
-            this.InitializeComponent();
-            double result = Formulas.calculateActionDamage(250, 140, 2819, 1390, Constants.JobID.WHM, Constants.ActionType.MAGIC);
-            result = Formulas.calculateCriticalHitMultiplier(1970);
-            System.Diagnostics.Debug.WriteLine("CH multiplier: " + result.ToString());
+            //this.InitializeComponent();
+            ///double result = Formulas.calculateActionDamage(250, 140, 2819, 1390, Constants.JobID.WHM, Constants.ActionType.MAGIC);
+            //result = Formulas.calculateCriticalHitMultiplier(1970);
+            //System.Diagnostics.Debug.WriteLine("CH multiplier: " + result.ToString());
+            double result = Formulas.calculateTotalMana(1115, Constants.JobID.WHM);
+            System.Diagnostics.Debug.WriteLine("Total Mana: " + result.ToString());
         }
 
         private void button_Click(object sender, RoutedEventArgs e)

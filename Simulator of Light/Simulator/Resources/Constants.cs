@@ -21,16 +21,22 @@ namespace Simulator.Resources
         public static readonly double BaseSkillSpeed70 = 364;
         public static readonly double BaseSpellSpeed70 = 364;
         public static readonly double BaseTenacity70 = 364;
+        public static readonly double BasePiety70 = 292;
         public static readonly double BaseAttackPower70 = 292; // TODO: verify that there is no variance between jobs.
+        public static readonly double BaseMana70 = 12000;
 
         /* "Magic Numbers" for secondary stat formulas. */
-        public static readonly double SecondaryLevelMod70 = 2170;
-        public static readonly double DeterminationModifier = 130;
-        public static readonly double CriticalHitModifier = 200;
-        public static readonly double DirectHitModifier = 550;
-        public static readonly double SpeedModifier = 130;
-        public static readonly double TenacityModifier = 100;
+        // Characters earn less benefit per stat point at higher levels.  This is the penalty divisor at 70.
+        public static readonly double LevelGrowthPenalty70 = 2170;
+        // These determine the difference in conversion rates from stat to multiplier for secondary stats.
+        public static readonly double DeterminationGrowthModifier = 130;
+        public static readonly double CriticalHitGrowthModifier = 200;
+        public static readonly double DirectHitGrowthModifier = 550;
+        public static readonly double SpeedGrowthModifier = 130;
+        public static readonly double TenacityGrowthModifier = 100;
+        public static readonly double PietyGrowthModifier = 6000;
 
+        /* These are the base multipliers for various secondary stats. */
         public static readonly double BaseCriticalHitRate = 0.05;
         public static readonly double BaseCriticalHitMultiplier = 1.4;
         public static readonly double DirectHitMultiplier = 1.25;
@@ -108,8 +114,8 @@ namespace Simulator.Resources
                     case JobID.MNK: return 110;
                     case JobID.NIN: return 105;
                     case JobID.PLD: return 100;
-                    case JobID.RDM: return 90; // Assumed
-                    case JobID.SAM: return 112; // Assumed
+                    case JobID.RDM: return 55;
+                    case JobID.SAM: return 112;
                     case JobID.SCH: return 90;
                     case JobID.SMN: return 90;
                     case JobID.WAR: return 105;
@@ -121,7 +127,7 @@ namespace Simulator.Resources
             {
                 switch (id)
                 {
-                    case JobID.AST: return 105;
+                    case JobID.AST: return 115;
                     case JobID.BLM: return 115;
                     case JobID.BRD: return 85;
                     case JobID.DRG: return 45;
@@ -131,8 +137,8 @@ namespace Simulator.Resources
                     case JobID.NIN: return 65;
                     case JobID.PLD: return 60;
                     case JobID.RDM: return 115;
-                    case JobID.SAM: return 50;
-                    case JobID.SCH: return 105;
+                    case JobID.SAM: return 60;
+                    case JobID.SCH: return 115;
                     case JobID.SMN: return 115;
                     case JobID.WAR: return 40;
                     case JobID.WHM: return 115;
@@ -152,8 +158,8 @@ namespace Simulator.Resources
                     case JobID.MNK: return 90;
                     case JobID.NIN: return 75;
                     case JobID.PLD: return 100;
-                    case JobID.RDM: return 100; // Unknown
-                    case JobID.SAM: return 90; // Unknown
+                    case JobID.RDM: return 110;
+                    case JobID.SAM: return 50;
                     case JobID.SCH: return 115;
                     case JobID.SMN: return 80;
                     case JobID.WAR: return 55;
@@ -163,6 +169,52 @@ namespace Simulator.Resources
             }
             throw new System.ArgumentException("Invalid Action Type");
 
+        }
+
+        public static double MPMod(JobID id)
+        {
+            switch (id)
+            {
+                case JobID.AST: return 124;
+                case JobID.BLM: return 129;
+                case JobID.BRD: return 79;
+                case JobID.DRG: return 49;
+                case JobID.DRK: return 79;
+                case JobID.MCH: return 79;
+                case JobID.MNK: return 43;
+                case JobID.NIN: return 48;
+                case JobID.PLD: return 59;
+                case JobID.RDM: return 120;
+                case JobID.SAM: return 40;
+                case JobID.SCH: return 119;
+                case JobID.SMN: return 111;
+                case JobID.WAR: return 38;
+                case JobID.WHM: return 124;
+            }
+            throw new System.ArgumentException("Invalid JobID");
+        }
+
+        public static double AutoAttackPotency(JobID id)
+        {
+            switch (id)
+            {
+                case JobID.AST: return 110;
+                case JobID.BLM: return 110;
+                case JobID.BRD: return 100;
+                case JobID.DRG: return 110;
+                case JobID.DRK: return 110;
+                case JobID.MCH: return 100;
+                case JobID.MNK: return 110;
+                case JobID.NIN: return 110;
+                case JobID.PLD: return 110;
+                case JobID.RDM: return 110;
+                case JobID.SAM: return 110;
+                case JobID.SCH: return 110;
+                case JobID.SMN: return 110;
+                case JobID.WAR: return 110;
+                case JobID.WHM: return 110;
+            }
+            throw new System.ArgumentException("Invalid JobID");
         }
     }
 }
