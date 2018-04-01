@@ -100,6 +100,8 @@
     </Compile>
     <Compile Include="Simulator\Models\Action.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Simulator\Models\Aura.cs" />
+    <Compile Include="Simulator\Models\Actor.cs" />
     <Compile Include="Simulator\sandbox.cs" />
     <Compile Include="Simulator\Resources\Constants.cs" />
     <Compile Include="Simulator\Resources\Formulas.cs" />

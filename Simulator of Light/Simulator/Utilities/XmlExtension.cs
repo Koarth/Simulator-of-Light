@@ -13,6 +13,8 @@ namespace Simulator_of_Light.Simulator.Utilities
     {
         public static string Serialize<T>(this T value)
         {
+
+            // Credit to https://stackoverflow.com/a/16853268
             if (value == null) return string.Empty;
 
             var xmlSerializer = new XmlSerializer(typeof(T));

@@ -43,6 +43,8 @@ namespace Simulator_of_Light
             250, 600, 0, 2.5, 2.5));
             actions.Add(new Simulator.Models.Action("Stone III", JobID.WHM, ActionType.MAGIC, ActionAspect.MAGIC,
                 210, 600, 0, 2.5, 2.5));
+            actions.Add(new Simulator.Models.Action("Aero III", JobID.WHM, ActionType.MAGIC, ActionAspect.MAGIC,
+                50, 700, 0, 2.5, 2.5));
 
             //var stoneIV = new Simulator.Models.Action("Stone IV", JobID.WHM, ActionType.MAGIC, ActionAspect.MAGIC,
             //250, 600, 0, 2.5, 2.5);

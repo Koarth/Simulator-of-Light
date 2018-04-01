@@ -13,8 +13,10 @@ namespace Simulator_of_Light.Simulator.Models
         private double _potency;
         private double _mpCost;
         private double _tpCost;
-        private double _cast;
-        private double _recast;
+        private double _castTime;
+        private double _recastTime;
+        private double range;
+        private double radius;
 
         public string Name { get => _name; set => _name = value; }
         public JobID JobID { get => _jobID; set => _jobID = value; }
@@ -23,11 +25,11 @@ namespace Simulator_of_Light.Simulator.Models
         public double Potency { get => _potency; set => _potency = value; }
         public double MpCost { get => _mpCost; set => _mpCost = value; }
         public double TpCost { get => _tpCost; set => _tpCost = value; }
-        public double Cast { get => _cast; set => _cast = value; }
-        public double Recast { get => _recast; set => _recast = value; }
+        public double CastTime { get => _castTime; set => _castTime = value; }
+        public double RecastTime { get => _recastTime; set => _recastTime = value; }
 
         public Action(string name, JobID jobID, ActionType type, ActionAspect aspect,
-            double potency, double mpCost, double tpCost, double cast, double recast)
+            double potency, double mpCost, double tpCost, double castTime, double recastTime)
         {
             Name = name;
             JobID = jobID;
@@ -36,8 +38,8 @@ namespace Simulator_of_Light.Simulator.Models
             Potency = potency;
             MpCost = mpCost;
             TpCost = tpCost;
-            Cast = cast;
-            Recast = recast;
+            CastTime = castTime;
+            RecastTime = recastTime;
         }
 
         private Action()
