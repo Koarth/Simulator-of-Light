@@ -18,6 +18,7 @@ using static Simulator_of_Light.Simulator.Resources.Constants;
 using Simulator_of_Light.Simulator.Models;
 using Simulator_of_Light.Simulator.Utilities;
 using System.Text;
+using Newtonsoft.Json;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -37,28 +38,28 @@ namespace Simulator_of_Light
             //double result = Formulas.calculateTotalMana(1115, Constants.JobID.WHM);
             //System.Diagnostics.Debug.WriteLine("Total Mana: " + result.ToString());
 
-            var actions = new List<Simulator.Models.Action>();
+            var actions = new List<BaseAction>();
 
-            actions.Add(new Simulator.Models.Action("Stone IV", JobID.WHM, ActionType.MAGIC, ActionAspect.MAGIC,
-            250, 600, 0, 2.5, 2.5));
-            actions.Add(new Simulator.Models.Action("Stone III", JobID.WHM, ActionType.MAGIC, ActionAspect.MAGIC,
-                210, 600, 0, 2.5, 2.5));
-            actions.Add(new Simulator.Models.Action("Aero III", JobID.WHM, ActionType.MAGIC, ActionAspect.MAGIC,
-                50, 700, 0, 2.5, 2.5));
+            actions.Add(new BaseAction("Stone IV", JobID.WHM, ActionType.MAGIC, ActionAspect.MAGIC, false,
+            250, 600, 0, 2.5, 2.5, 25, 0));
+            actions.Add(new BaseAction("Stone III", JobID.WHM, ActionType.MAGIC, ActionAspect.MAGIC, false,
+                210, 600, 0, 2.5, 2.5, 25, 0));
+            actions.Add(new BaseAction("Aero III", JobID.WHM, ActionType.MAGIC, ActionAspect.MAGIC, false,
+                50, 700, 0, 2.5, 2.5, 25, 5));
 
-            //var stoneIV = new Simulator.Models.Action("Stone IV", JobID.WHM, ActionType.MAGIC, ActionAspect.MAGIC,
-            //250, 600, 0, 2.5, 2.5);
+            string json = JsonConvert.SerializeObject(actions, Formatting.Indented, new Newtonsoft.Json.Converters.StringEnumConverter());
+            System.Diagnostics.Debug.WriteLine(json);
 
-            string serialized = actions.Serialize();
+            var retrievedActions = new List<BaseAction>();
 
-            byte[] byteArray = Encoding.UTF8.GetBytes(serialized);
-            var stream = new MemoryStream(byteArray);
+            retrievedActions = JsonConvert.DeserializeObject<List<BaseAction>>(json);
 
-            var serializer = new XmlSerializer(typeof(List<Simulator.Models.Action>));
-            List<Simulator.Models.Action> deserialized = (List<Simulator.Models.Action>)serializer.Deserialize(stream);
+            System.Diagnostics.Debug.WriteLine(retrievedActions[0].Name);
+            System.Diagnostics.Debug.WriteLine(retrievedActions[0].JobID);
 
-            System.Diagnostics.Debug.WriteLine(serialized);
-            System.Diagnostics.Debug.WriteLine(((int)deserialized.ElementAt(1).Aspect).ToString());
+
+            Application.Current.Exit();
+
         }
 
         private void button_Click(object sender, RoutedEventArgs e)

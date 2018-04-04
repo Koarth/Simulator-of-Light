@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace Simulator_of_Light.Simulator.Models
 {
-    class BaseActionFactory
+    public static class BaseActionFactory
     {
         private static Dictionary<string, BaseAction> _baseActions = new Dictionary<string, BaseAction>();
 
-        public static BaseAction getBaseAura(string name)
+        public static BaseAction getBaseAction(string name)
         {
             if (_baseActions.ContainsKey(name))
             {

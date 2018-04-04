@@ -7,7 +7,7 @@ using static Simulator_of_Light.Simulator.Resources.Constants;
 
 namespace Simulator_of_Light.Simulator.Models
 {
-    public class BaseAura
+    public sealed class BaseAura
     {
 
         // Flyweight for base auras.
