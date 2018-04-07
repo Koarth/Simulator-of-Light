@@ -18,7 +18,9 @@ namespace Simulator_of_Light.Simulator.Resources
         public Dictionary<string, BaseAction> getActionsByJobID(JobID jobID)
         {
             string jobString = jobID.ToString();
-            string filePath = Path.Combine(Directory.GetCurrentDirectory(), "Simulator\\Resources\\BaseActions\\" + jobString + ".json");
+            //string partialpath = Simulator_of_Light.Resources.WHMActions;
+            string partialpath = Simulator_of_Light.Resources.ResourceManager.GetString("BASEACTIONS_JSON_" + jobString);
+            string filePath = Path.Combine(Directory.GetCurrentDirectory(), partialpath);
             StreamReader file = File.OpenText(filePath);
             System.Diagnostics.Debug.WriteLine(filePath);
 
