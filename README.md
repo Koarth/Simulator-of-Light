@@ -1,7 +1,7 @@
 # Simulator of Light
 (working name)
 
-This goal of this project is to accurately simulate the Battle System for the MMORPG [Final Fantasy XIV Online](https://www.finalfantasyxiv.com/), with the purpose of allowing users to simulate the results of varying their rotations, gear, and raid composition.
+This goal of this project is to accurately simulate the Battle System for the MMORPG [Final Fantasy XIV Online](https://www.finalfantasyxiv.com/), with the purpose of allowing users to simulate the results of varying their rotations, gear, and raid composition.  Inspired by [SimulationCraft](http://simulationcraft.org/) for World of Warcraft.
 
 **Below is a rough plan for development:**
 

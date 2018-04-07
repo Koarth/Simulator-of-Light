@@ -1,0 +1,44 @@
+﻿[
+  {
+    "Name": "Stone IV",
+    "JobID": "WHM",
+    "Type": "MAGIC",
+    "Aspect": "MAGIC",
+    "Ogcd": false,
+    "Potency": 250.0,
+    "MpCost": 600.0,
+    "TpCost": 0.0,
+    "CastTime": 2.5,
+    "RecastTime": 2.5,
+    "Range": 25.0,
+    "Radius": 0.0
+  },
+  {
+    "Name": "Stone III",
+    "JobID": "WHM",
+    "Type": "MAGIC",
+    "Aspect": "MAGIC",
+    "Ogcd": false,
+    "Potency": 210.0,
+    "MpCost": 600.0,
+    "TpCost": 0.0,
+    "CastTime": 2.5,
+    "RecastTime": 2.5,
+    "Range": 25.0,
+    "Radius": 0.0
+  },
+  {
+    "Name": "Aero III",
+    "JobID": "WHM",
+    "Type": "MAGIC",
+    "Aspect": "MAGIC",
+    "Ogcd": false,
+    "Potency": 50.0,
+    "MpCost": 700.0,
+    "TpCost": 0.0,
+    "CastTime": 2.5,
+    "RecastTime": 2.5,
+    "Range": 25.0,
+    "Radius": 5.0
+  }
+]

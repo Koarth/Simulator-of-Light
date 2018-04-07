@@ -106,17 +106,21 @@
     <Compile Include="Simulator\Models\BaseAuraFactory.cs" />
     <Compile Include="Simulator\Models\BaseAura.cs" />
     <Compile Include="Simulator\Models\BaseAction.cs" />
+    <Compile Include="Simulator\Resources\AuraDAO.cs" />
+    <Compile Include="Simulator\Resources\ActionDAOJsonImpl.cs" />
     <Compile Include="Simulator\sandbox.cs" />
     <Compile Include="Simulator\Resources\Constants.cs" />
     <Compile Include="Simulator\Resources\Formulas.cs" />
     <Compile Include="Simulator\Resources\Strings.cs" />
     <Compile Include="Simulator\Utilities\Class1.cs" />
+    <Compile Include="Simulator\Resources\ActionDAO.cs" />
     <Compile Include="Simulator\Utilities\XmlExtension.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
+    <PRIResource Include="Resources.resw" />
     <None Include="Simulator of Light_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
@@ -128,6 +132,7 @@
     <Content Include="Assets\Square44x44Logo.targetsize-24_altform-unplated.png" />
     <Content Include="Assets\StoreLogo.png" />
     <Content Include="Assets\Wide310x150Logo.scale-200.png" />
+    <Content Include="Simulator\Resources\BaseActions\WHM.json" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -146,6 +151,9 @@
     <PackageReference Include="Newtonsoft.Json">
       <Version>11.0.2</Version>
     </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Simulator\Resources\BaseAuras\" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

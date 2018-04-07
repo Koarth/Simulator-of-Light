@@ -57,6 +57,10 @@ namespace Simulator_of_Light
             System.Diagnostics.Debug.WriteLine(retrievedActions[0].Name);
             System.Diagnostics.Debug.WriteLine(retrievedActions[0].JobID);
 
+            var jsonDAO = new Simulator.Resources.ActionDAOJsonImpl();
+
+            jsonDAO.getActionsByJobID(JobID.WHM);
+
 
             Application.Current.Exit();
 
