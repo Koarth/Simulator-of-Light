@@ -7,10 +7,9 @@ using Simulator_of_Light.Simulator.Resources;
 using static Simulator_of_Light.Simulator.Resources.Constants;
 using Newtonsoft.Json;
 
-namespace Simulator_of_Light.Simulator.Models
-{
-    public sealed class BaseAction
-    {
+namespace Simulator_of_Light.Simulator.Models {
+
+    public sealed class BaseAction {
 
         private string _name;
         private JobID _jobID;
@@ -25,16 +24,14 @@ namespace Simulator_of_Light.Simulator.Models
         private double _range;
         private double _radius;
 
-        public BaseAction(string name)
-        {
+        public BaseAction(string name) {
             // TODO: retrieve base aura information from configuration
             throw new NotImplementedException();
         }
 
         [JsonConstructor]
         public BaseAction(string name, JobID jobID, ActionType type, ActionAspect aspect, bool ogcd, double potency,
-            double mpCost, double tpCost, double castTime, double recastTime, double range, double radius)
-        {
+            double mpCost, double tpCost, double castTime, double recastTime, double range, double radius) {
             _name = name;
             _jobID = jobID;
             _type = type;

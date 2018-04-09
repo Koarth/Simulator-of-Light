@@ -5,10 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using static Simulator_of_Light.Simulator.Resources.Constants;
 
-namespace Simulator_of_Light.Simulator.Models
-{
-    public sealed class BaseAura
-    {
+namespace Simulator_of_Light.Simulator.Models {
+
+    public sealed class BaseAura {
 
         // Flyweight for base auras.
         private static Dictionary<string, BaseAura> _baseAuras = new Dictionary<string, BaseAura>();
@@ -43,10 +42,9 @@ namespace Simulator_of_Light.Simulator.Models
         private double _bluntResistanceModifier;
         private double _damageTakenModifier;
         private double _incomingCriticalHitRateModifier;
-        
 
-        public BaseAura(string name)
-        {
+
+        public BaseAura(string name) {
             // TODO: retrieve base aura information from configuration
             throw new NotImplementedException();
         }

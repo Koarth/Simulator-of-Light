@@ -4,12 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Simulator_of_Light.Simulator.Resources
-{
-    
+namespace Simulator_of_Light.Simulator.Resources {
 
-    public static class Constants
-    {
+    public static class Constants {
 
         /* Credit for the derivation of all formulas and constants goes 
          to the TheoryJerks and their contributors. */
@@ -18,8 +15,7 @@ namespace Simulator_of_Light.Simulator.Resources
         public static readonly double BaseDetermination70 = 292;
         public static readonly double BaseCriticalHit70 = 364;
         public static readonly double BaseDirectHit70 = 364;
-        public static readonly double BaseSkillSpeed70 = 364;
-        public static readonly double BaseSpellSpeed70 = 364;
+        public static readonly double BaseSpeed70 = 364;
         public static readonly double BaseTenacity70 = 364;
         public static readonly double BasePiety70 = 292;
         public static readonly double BaseAttackPower70 = 292; // TODO: verify that there is no variance between jobs.
@@ -42,8 +38,7 @@ namespace Simulator_of_Light.Simulator.Resources
         public static readonly double DirectHitMultiplier = 1.25;
 
         /* Job IDs to help store constants and for easy reference. */
-        public enum JobID
-        {
+        public enum JobID {
             AST,
             BLM,
             BRD,
@@ -61,16 +56,14 @@ namespace Simulator_of_Light.Simulator.Resources
             WHM
         }
 
-        public enum ActionType
-        {
+        public enum ActionType {
             ATTACK,
             MAGIC,
             HEAL,
             UNKNOWN
         }
 
-        public enum ActionAspect
-        {
+        public enum ActionAspect {
             BLUNT,
             SLASHING,
             PIERCING,
@@ -78,10 +71,8 @@ namespace Simulator_of_Light.Simulator.Resources
             UNASPECTED
         }
 
-        public static ActionType DefaultActionType(JobID id)
-        {
-            switch (id)
-            {
+        public static ActionType DefaultActionType(JobID id) {
+            switch (id) {
                 case JobID.AST: return ActionType.HEAL;
                 case JobID.BLM: return ActionType.MAGIC;
                 case JobID.BRD: return ActionType.ATTACK;
@@ -103,17 +94,13 @@ namespace Simulator_of_Light.Simulator.Resources
 
 
         // TODO: verify JobMods are still accurate; this is data from level 60.
-        public static double JobMod(JobID id, ActionType type=ActionType.UNKNOWN)
-        {
-            if (type == ActionType.UNKNOWN)
-            {
+        public static double JobMod(JobID id, ActionType type = ActionType.UNKNOWN) {
+            if (type == ActionType.UNKNOWN) {
                 return JobMod(id, DefaultActionType(id));
             }
 
-            if (type == ActionType.ATTACK)
-            {
-                switch (id)
-                {
+            if (type == ActionType.ATTACK) {
+                switch (id) {
                     case JobID.AST: return 50;
                     case JobID.BLM: return 45;
                     case JobID.BRD: return 115;
@@ -131,11 +118,8 @@ namespace Simulator_of_Light.Simulator.Resources
                     case JobID.WHM: return 40;
                 }
                 throw new System.ArgumentException("Invalid JobID");
-            }
-            else if (type == ActionType.MAGIC)
-            {
-                switch (id)
-                {
+            } else if (type == ActionType.MAGIC) {
+                switch (id) {
                     case JobID.AST: return 115;
                     case JobID.BLM: return 115;
                     case JobID.BRD: return 85;
@@ -153,11 +137,8 @@ namespace Simulator_of_Light.Simulator.Resources
                     case JobID.WHM: return 115;
                 }
                 throw new System.ArgumentException("Invalid JobID");
-            }
-            else if (type == ActionType.HEAL)
-            {
-                switch (id)
-                {
+            } else if (type == ActionType.HEAL) {
+                switch (id) {
                     case JobID.AST: return 115;
                     case JobID.BLM: return 75;
                     case JobID.BRD: return 80;
@@ -180,10 +161,8 @@ namespace Simulator_of_Light.Simulator.Resources
 
         }
 
-        public static double MPMod(JobID id)
-        {
-            switch (id)
-            {
+        public static double MPMod(JobID id) {
+            switch (id) {
                 case JobID.AST: return 124;
                 case JobID.BLM: return 129;
                 case JobID.BRD: return 79;
@@ -203,10 +182,8 @@ namespace Simulator_of_Light.Simulator.Resources
             throw new System.ArgumentException("Invalid JobID");
         }
 
-        public static double AutoAttackPotency(JobID id)
-        {
-            switch (id)
-            {
+        public static double AutoAttackPotency(JobID id) {
+            switch (id) {
                 case JobID.AST: return 110;
                 case JobID.BLM: return 110;
                 case JobID.BRD: return 100;

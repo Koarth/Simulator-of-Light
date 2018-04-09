@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Simulator.Resources
-{
-    public static class Strings
-    {
+namespace Simulator.Resources {
+
+    public static class Strings {
 
     }
 }

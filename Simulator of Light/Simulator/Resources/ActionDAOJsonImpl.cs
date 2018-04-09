@@ -8,15 +8,13 @@ using static Simulator_of_Light.Simulator.Resources.Constants;
 using Newtonsoft.Json;
 using System.IO;
 
-namespace Simulator_of_Light.Simulator.Resources
-{
-    public class ActionDAOJsonImpl : ActionDAO
-    {
+namespace Simulator_of_Light.Simulator.Resources {
+
+    public class ActionDAOJsonImpl : ActionDAO {
 
         public ActionDAOJsonImpl() { }
 
-        public Dictionary<string, BaseAction> getActionsByJobID(JobID jobID)
-        {
+        public Dictionary<string, BaseAction> getActionsByJobID(JobID jobID) {
             string jobString = jobID.ToString();
             //string partialpath = Simulator_of_Light.Resources.WHMActions;
             string partialpath = Simulator_of_Light.Resources.ResourceManager.GetString("BASEACTIONS_JSON_" + jobString);
@@ -29,8 +27,7 @@ namespace Simulator_of_Light.Simulator.Resources
             return null;
 
         }
-        public BaseAction getActionByName(string name)
-        {
+        public BaseAction getActionByName(string name) {
             return null;
         }
 

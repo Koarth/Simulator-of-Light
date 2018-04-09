@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Simulator_of_Light.Simulator.Resources
-{
-    public static class Formulas
-    {
+namespace Simulator_of_Light.Simulator.Resources {
+
+    public static class Formulas {
 
         /* Credit for the derivation of all formulas and constants goes 
          to the TheoryJerks and their contributors. */
@@ -24,31 +23,29 @@ namespace Simulator_of_Light.Simulator.Resources
         /// <param name="type">The type of action (attack/spell/heal).</param>
         /// <returns>The base damage of an action, before being modified by auras,
         /// traits, or critical/direct hits.</returns>
-        public static double calculateActionDamage(double potency, double weaponDamage, 
-            double attackPower, double determination, 
-            Constants.JobID jobID, 
-            Constants.ActionType type = Constants.ActionType.UNKNOWN)
-        {
+        public static double calculateActionDamage(double potency, double weaponDamage,
+            double attackPower, double determination,
+            Constants.JobID jobID,
+            Constants.ActionType type = Constants.ActionType.UNKNOWN) {
             // Base damage from job and weapon.
             double jobBaseDamage = Math.Truncate(Constants.BaseDetermination70 * Constants.JobMod(jobID) / 1000);
             double baseDamage = weaponDamage + jobBaseDamage;
 
             // Multiplier from Attack Power
-            double apMultiplier = Math.Truncate(125 * (attackPower - Constants.BaseAttackPower70) / 292 + 100) / 100;
+            double apMultiplier = Math.Truncate(125 * (attackPower - Constants.BaseAttackPower70) / Constants.BaseAttackPower70 + 100) / 100;
 
             // Total damage after Attack Power and Potency multipliers.
             double totalDamage = Math.Truncate(potency * baseDamage * apMultiplier / 100);
 
             // Multiplier from Determination.
             double determinationMultiplier = calculateDeterminationMultiplier(determination);
-            
+
             // Total damage after all multipliers.
             return Math.Truncate(Math.Round(totalDamage * determinationMultiplier, 1));
         }
 
-        public static double calculateAutoAttackDamage(double weaponDamage, double autoAttackDelay, double attackPower, 
-            double determination, Constants.JobID jobID)
-        {
+        public static double calculateAutoAttackDamage(double weaponDamage, double autoAttackDelay, double attackPower,
+            double determination, Constants.JobID jobID) {
             double jobBaseDamage = Math.Truncate(Constants.BaseDetermination70 * Constants.JobMod(jobID) / 1000);
             double baseDamage = (weaponDamage + jobBaseDamage) * (autoAttackDelay / 3);
 
@@ -67,9 +64,8 @@ namespace Simulator_of_Light.Simulator.Resources
         /// </summary>
         /// <param name="criticalHit">The critical hit statistic to convert.</param>
         /// <returns></returns>
-        public static double calculateCriticalHitRate(double criticalHit)
-        {
-            return Math.Floor(Constants.CriticalHitGrowthModifier * (criticalHit - Constants.BaseCriticalHit70) / Constants.LevelGrowthPenalty70) / 1000 + 0.05;
+        public static double calculateCriticalHitRate(double criticalHit) {
+            return Math.Floor(Constants.CriticalHitGrowthModifier * (criticalHit - Constants.BaseCriticalHit70) / Constants.LevelGrowthPenalty70 + 50) / 1000;
         }
 
         /// <summary>
@@ -77,9 +73,8 @@ namespace Simulator_of_Light.Simulator.Resources
         /// </summary>
         /// <param name="criticalHit">The critical hit statistic to convert.</param>
         /// <returns></returns>
-        public static double calculateCriticalHitMultiplier(double criticalHit)
-        {
-            return Math.Floor(Constants.CriticalHitGrowthModifier * (criticalHit - Constants.BaseCriticalHit70) / Constants.LevelGrowthPenalty70) / 1000 + Constants.BaseCriticalHitMultiplier;
+        public static double calculateCriticalHitMultiplier(double criticalHit) {
+            return Math.Floor(Constants.CriticalHitGrowthModifier * (criticalHit - Constants.BaseCriticalHit70) / Constants.LevelGrowthPenalty70 + 1400) / 1000;
         }
 
         /// <summary>
@@ -87,9 +82,8 @@ namespace Simulator_of_Light.Simulator.Resources
         /// </summary>
         /// <param name="determination">The determination statistic to be converted.</param>
         /// <returns></returns>
-        public static double calculateDeterminationMultiplier(double determination)
-        {
-            return 1 + Math.Floor(Constants.DeterminationGrowthModifier * (determination - Constants.BaseDetermination70) / Constants.LevelGrowthPenalty70) / 1000;
+        public static double calculateDeterminationMultiplier(double determination) {
+            return Math.Floor(Constants.DeterminationGrowthModifier * (determination - Constants.BaseDetermination70) / Constants.LevelGrowthPenalty70 + 1000) / 1000;
         }
 
         /// <summary>
@@ -97,16 +91,21 @@ namespace Simulator_of_Light.Simulator.Resources
         /// </summary>
         /// <param name="directHit">The direct hit statistic to convert.</param>
         /// <returns></returns>
-        public static double calculateDirectHitRate(double directHit)
-        {
+        public static double calculateDirectHitRate(double directHit) {
             return Math.Floor(Constants.DirectHitGrowthModifier * (directHit - Constants.BaseDirectHit70) / Constants.LevelGrowthPenalty70) / 1000;
         }
 
-        public static double calculateTotalMana(double piety, Constants.JobID jobID)
-        {
-            return Math.Floor((Constants.MPMod(jobID) / 100) * (Constants.PietyGrowthModifier * (piety - Constants.BasePiety70) / Constants.LevelGrowthPenalty70 + Constants.BaseMana70));
+        public static double calculateTotalMana(double piety, Constants.JobID jobID) {
+            return Math.Floor(Constants.MPMod(jobID) / 100) * (Constants.PietyGrowthModifier * (piety - Constants.BasePiety70) / Constants.LevelGrowthPenalty70 + Constants.BaseMana70);
         }
 
+        public static double calculateSpeedMultiplier(double speed) {
+            return Math.Floor(Constants.SpeedGrowthModifier * (speed - Constants.BaseSpeed70) / Constants.LevelGrowthPenalty70 + 1000) / 1000;
+        }
+
+        public static double calculateTenacityMultiplier(double tenacity) {
+            return Math.Floor(Constants.TenacityGrowthModifier * (tenacity - Constants.BaseTenacity70) / Constants.LevelGrowthPenalty70 + 1000) / 1000;
+        }
 
     }
 }
