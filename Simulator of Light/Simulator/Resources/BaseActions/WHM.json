@@ -4,41 +4,78 @@
     "JobID": "WHM",
     "Type": "MAGIC",
     "Aspect": "MAGIC",
-    "Ogcd": false,
     "Potency": 250.0,
     "MpCost": 600.0,
-    "TpCost": 0.0,
     "CastTime": 2.5,
     "RecastTime": 2.5,
-    "Range": 25.0,
-    "Radius": 0.0
+    "Range": 25.0
   },
   {
     "Name": "Stone III",
     "JobID": "WHM",
     "Type": "MAGIC",
     "Aspect": "MAGIC",
-    "Ogcd": false,
     "Potency": 210.0,
     "MpCost": 600.0,
-    "TpCost": 0.0,
     "CastTime": 2.5,
     "RecastTime": 2.5,
+    "Range": 25.0
+  },
+  {
+    "Name": "Stone II",
+    "JobID": "WHM",
+    "Type": "MAGIC",
+    "Aspect": "MAGIC",
+    "Potency": 200.0,
+    "MpCost": 600.0,
+    "CastTime": 2.5,
+    "RecastTime": 2.5,
+    "Range": 25.0
+  },
+  {
+    "Name": "Stone",
+    "JobID": "WHM",
+    "Type": "MAGIC",
+    "Aspect": "MAGIC",
+    "Potency": 140.0,
+    "MpCost": 600.0,
+    "CastTime": 2.5,
+    "RecastTime": 2.5,
+    "Range": 25.0
+  },
+  {
+    "Name": "Aero",
+    "JobID": "WHM",
+    "Type": "MAGIC",
+    "Aspect": "MAGIC",
+    "Potency": 30.0,
+    "MpCost": 480.0,
+    "RecastTime": 2.5,
     "Range": 25.0,
-    "Radius": 0.0
+    "Auras": [ "Aero" ]
+  },
+  {
+    "Name": "Aero II",
+    "JobID": "WHM",
+    "Type": "MAGIC",
+    "Aspect": "MAGIC",
+    "Potency": 50.0,
+    "MpCost": 600.0,
+    "RecastTime": 2.5,
+    "Range": 25.0,
+    "Auras": [ "Aero II" ]
   },
   {
     "Name": "Aero III",
     "JobID": "WHM",
     "Type": "MAGIC",
     "Aspect": "MAGIC",
-    "Ogcd": false,
     "Potency": 50.0,
     "MpCost": 700.0,
-    "TpCost": 0.0,
     "CastTime": 2.5,
     "RecastTime": 2.5,
     "Range": 25.0,
-    "Radius": 5.0
+    "Radius": 5.0,
+    "Auras": [ "Aero III" ]
   }
 ]

@@ -42,6 +42,7 @@ namespace Simulator_of_Light
 
             actions.Add(new BaseAction("Stone IV", JobID.WHM, ActionType.MAGIC, ActionAspect.MAGIC, false,
             250, 600, 0, 2.5, 2.5, 25, 0));
+            //actions.Add(new BaseAction("Stone IV", JobID.WHM, ActionType.MAGIC, ActionAspect.MAGIC, potency:250,mpCost:600,castTime:2.5,recastTime:2.5,range:25));
             actions.Add(new BaseAction("Stone III", JobID.WHM, ActionType.MAGIC, ActionAspect.MAGIC, false,
                 210, 600, 0, 2.5, 2.5, 25, 0));
             actions.Add(new BaseAction("Aero III", JobID.WHM, ActionType.MAGIC, ActionAspect.MAGIC, false,
@@ -50,16 +51,21 @@ namespace Simulator_of_Light
             string json = JsonConvert.SerializeObject(actions, Formatting.Indented, new Newtonsoft.Json.Converters.StringEnumConverter());
             System.Diagnostics.Debug.WriteLine(json);
 
+            string jsonAction = "[{\"Name\": \"Stone IV\",\"JobID\": \"WHM\",\"Type\": \"MAGIC\",\"Aspect\": \"MAGIC\",\"Ogcd\": false,\"Potency\": 250.0,\"MpCost\": 600.0,\"CastTime\": 2.5,\"RecastTime\": 2.5}]";
+
             var retrievedActions = new List<BaseAction>();
 
-            retrievedActions = JsonConvert.DeserializeObject<List<BaseAction>>(json);
+            retrievedActions = JsonConvert.DeserializeObject<List<BaseAction>>(jsonAction, new JsonSerializerSettings {
+                DefaultValueHandling = DefaultValueHandling.Populate
+            });
 
             System.Diagnostics.Debug.WriteLine(retrievedActions[0].Name);
             System.Diagnostics.Debug.WriteLine(retrievedActions[0].JobID);
+            System.Diagnostics.Debug.WriteLine(retrievedActions[0].Range);
 
-            var jsonDAO = new Simulator.Resources.ActionDAOJsonImpl();
+            //var jsonDAO = new Simulator.Resources.ActionDAOJsonImpl();
 
-            jsonDAO.getActionsByJobID(JobID.WHM);
+            //jsonDAO.getActionsByJobID(JobID.WHM);
 
 
             Application.Current.Exit();
