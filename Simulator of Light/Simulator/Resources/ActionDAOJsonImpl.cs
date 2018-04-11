@@ -15,20 +15,30 @@ namespace Simulator_of_Light.Simulator.Resources {
         public ActionDAOJsonImpl() { }
 
         public Dictionary<string, BaseAction> getActionsByJobID(JobID jobID) {
+
+            // Build the path to the configuration file.
             string jobString = jobID.ToString();
-            //string partialpath = Simulator_of_Light.Resources.WHMActions;
             string partialpath = Simulator_of_Light.Resources.ResourceManager.GetString("BASEACTIONS_JSON_" + jobString);
             string filePath = Path.Combine(Directory.GetCurrentDirectory(), partialpath);
-            StreamReader file = File.OpenText(filePath);
-            System.Diagnostics.Debug.WriteLine(filePath);
 
-            //StreamReader file = file.OpenText()
+            // Deserialize the file.
+            var retrievedActions = new List<BaseAction>();
+            retrievedActions = JsonConvert.DeserializeObject<List<BaseAction>>(File.ReadAllText(filePath), new JsonSerializerSettings {
+                DefaultValueHandling = DefaultValueHandling.Populate
+            });
 
-            return null;
+            // Convert to dictionary.
+            var dict = new Dictionary<string, BaseAction>();
+            foreach (BaseAction action in retrievedActions) {
+                dict.Add(action.Name, action);
+            }
+
+            return dict;
 
         }
+
         public BaseAction getActionByName(string name) {
-            return null;
+            throw new NotImplementedException();
         }
 
     }

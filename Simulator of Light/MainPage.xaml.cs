@@ -38,15 +38,16 @@ namespace Simulator_of_Light
             //double result = Formulas.calculateTotalMana(1115, Constants.JobID.WHM);
             //System.Diagnostics.Debug.WriteLine("Total Mana: " + result.ToString());
 
+            /**
             var actions = new List<BaseAction>();
 
             actions.Add(new BaseAction("Stone IV", JobID.WHM, ActionType.MAGIC, ActionAspect.MAGIC, false,
-            250, 600, 0, 2.5, 2.5, 25, 0));
+            250, 600, 0, 2.5, 2.5, 25, 0, null));
             //actions.Add(new BaseAction("Stone IV", JobID.WHM, ActionType.MAGIC, ActionAspect.MAGIC, potency:250,mpCost:600,castTime:2.5,recastTime:2.5,range:25));
             actions.Add(new BaseAction("Stone III", JobID.WHM, ActionType.MAGIC, ActionAspect.MAGIC, false,
-                210, 600, 0, 2.5, 2.5, 25, 0));
+                210, 600, 0, 2.5, 2.5, 25, 0, null));
             actions.Add(new BaseAction("Aero III", JobID.WHM, ActionType.MAGIC, ActionAspect.MAGIC, false,
-                50, 700, 0, 2.5, 2.5, 25, 5));
+                50, 700, 0, 2.5, 2.5, 25, 5, null));
 
             string json = JsonConvert.SerializeObject(actions, Formatting.Indented, new Newtonsoft.Json.Converters.StringEnumConverter());
             System.Diagnostics.Debug.WriteLine(json);
@@ -62,10 +63,11 @@ namespace Simulator_of_Light
             System.Diagnostics.Debug.WriteLine(retrievedActions[0].Name);
             System.Diagnostics.Debug.WriteLine(retrievedActions[0].JobID);
             System.Diagnostics.Debug.WriteLine(retrievedActions[0].Range);
+            **/
 
-            //var jsonDAO = new Simulator.Resources.ActionDAOJsonImpl();
+            var dict = BaseActionFactory.getBaseActionsByJobID(Constants.JobID.WHM);
 
-            //jsonDAO.getActionsByJobID(JobID.WHM);
+            System.Diagnostics.Debug.WriteLine(dict["Stone IV"]);
 
 
             Application.Current.Exit();

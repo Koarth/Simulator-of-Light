@@ -3,22 +3,27 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static Simulator_of_Light.Simulator.Resources.Constants;
+using Simulator_of_Light.Simulator.Resources;
 
 namespace Simulator_of_Light.Simulator.Models {
 
     public static class BaseActionFactory {
 
-        private static Dictionary<string, BaseAction> _baseActions = new Dictionary<string, BaseAction>();
+        private static Dictionary<JobID, Dictionary<string, BaseAction>> _baseActions = new Dictionary<JobID, Dictionary<string,BaseAction>>(); 
 
-        public static BaseAction getBaseAction(string name) {
-
-            if (_baseActions.ContainsKey(name)) {
-                return _baseActions[name];
-            } else {
-                var newAction = new BaseAction(name);
-                _baseActions.Add(name, newAction);
-                return newAction;
+        public static Dictionary<string, BaseAction> getBaseActionsByJobID(JobID jobID) {
+            
+            if (_baseActions.Keys.Contains(jobID)) {
+                return _baseActions[jobID];
             }
+
+            ActionDAO DAO = new ActionDAOJsonImpl();
+            var dict = DAO.getActionsByJobID(jobID);
+            _baseActions.Add(jobID, dict);
+
+            return _baseActions[jobID];
+
         }
 
     }
