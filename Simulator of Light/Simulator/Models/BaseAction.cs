@@ -49,7 +49,8 @@ namespace Simulator_of_Light.Simulator.Models {
             RecastTime = recastTime;
             Range = range;
             Radius = radius;
-            AurasApplied = aurasApplied; //TODO
+            AurasApplied = aurasApplied;
+
         }
 
         override public string ToString() {

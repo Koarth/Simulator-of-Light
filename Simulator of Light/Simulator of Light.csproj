@@ -108,10 +108,8 @@
     <Compile Include="Simulator\Models\Aura.cs" />
     <Compile Include="Simulator\Models\Actor.cs" />
     <Compile Include="Simulator\Models\BaseActionFactory.cs" />
-    <Compile Include="Simulator\Models\BaseAuraFactory.cs" />
     <Compile Include="Simulator\Models\BaseAura.cs" />
     <Compile Include="Simulator\Models\BaseAction.cs" />
-    <Compile Include="Simulator\Resources\AuraDAO.cs" />
     <Compile Include="Simulator\Resources\ActionDAOJsonImpl.cs" />
     <Compile Include="Simulator\sandbox.cs" />
     <Compile Include="Simulator\Resources\Constants.cs" />
@@ -160,9 +158,7 @@
       <Version>11.0.2</Version>
     </PackageReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Simulator\Resources\BaseAuras\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

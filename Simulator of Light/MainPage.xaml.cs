@@ -67,7 +67,7 @@ namespace Simulator_of_Light
 
             var dict = BaseActionFactory.getBaseActionsByJobID(Constants.JobID.WHM);
 
-            System.Diagnostics.Debug.WriteLine(dict["Stone IV"]);
+            System.Diagnostics.Debug.WriteLine(dict["Aero II"]);
 
 
             Application.Current.Exit();

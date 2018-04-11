@@ -120,4 +120,7 @@
   <data name="BASEACTIONS_JSON_WHM" xml:space="preserve">
     <value>Simulator\Resources\BaseActions\WHM.json</value>
   </data>
+  <data name="BASEAURAS_JSON_WHM" xml:space="preserve">
+    <value>Simulator\Resources\BaseAuras\WHM.json</value>
+  </data>
 </root>

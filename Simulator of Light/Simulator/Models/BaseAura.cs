@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Simulator_of_Light.Simulator.Resources;
 using static Simulator_of_Light.Simulator.Resources.Constants;
+using Newtonsoft.Json;
 
 namespace Simulator_of_Light.Simulator.Models {
 
@@ -11,6 +13,7 @@ namespace Simulator_of_Light.Simulator.Models {
 
         // Aura properties
         private string _name;
+        private JobID _jobID;
         private double _duration;
 
         private double _damageOverTimePotency;
@@ -45,7 +48,45 @@ namespace Simulator_of_Light.Simulator.Models {
             throw new NotImplementedException();
         }
 
+        [JsonConstructor]
+        public BaseAura(string name, JobID jobID, double duration, double damageOverTimePotency, 
+            double healingOverTimePotency, ActionAspect damageAspect, double magicDamageModifier, 
+            double healingSpellModifier, double physicalDamageModifier, double globalDamageModifier, 
+            double castTimeModifier, double castTimeModifierFlat, double recastTimeModifier, 
+            double autoAttackDelayModifier, double criticalHitRateModifier, double directHitRateModifier, 
+            double mpCostModifier, double slashingResistanceModifier, double piercingResistanceModifier, 
+            double bluntResistanceModifier, double damageTakenModifier, double incomingCriticalHitRateModifier) {
+
+            Name = name;
+            JobID = jobID;
+            Duration = duration;
+            DamageOverTimePotency = damageOverTimePotency;
+            HealingOverTimePotency = healingOverTimePotency;
+            DamageAspect = damageAspect;
+            MagicDamageModifier = magicDamageModifier;
+            HealingSpellModifier = healingSpellModifier;
+            PhysicalDamageModifier = physicalDamageModifier;
+            GlobalDamageModifier = globalDamageModifier;
+            CastTimeModifier = castTimeModifier;
+            CastTimeModifierFlat = castTimeModifierFlat;
+            RecastTimeModifier = recastTimeModifier;
+            AutoAttackDelayModifier = autoAttackDelayModifier;
+            CriticalHitRateModifier = criticalHitRateModifier;
+            DirectHitRateModifier = directHitRateModifier;
+            MpCostModifier = mpCostModifier;
+            SlashingResistanceModifier = slashingResistanceModifier;
+            PiercingResistanceModifier = piercingResistanceModifier;
+            BluntResistanceModifier = bluntResistanceModifier;
+            DamageTakenModifier = damageTakenModifier;
+            IncomingCriticalHitRateModifier = incomingCriticalHitRateModifier;
+        }
+
+        override public string ToString() {
+            return JsonConvert.SerializeObject(this, Formatting.Indented, new Newtonsoft.Json.Converters.StringEnumConverter());
+        }
+
         public string Name { get => _name; private set => _name = value; }
+        public JobID JobID { get => _jobID; private set => _jobID = value; }
         public double Duration { get => _duration; private set => _duration = value; }
 
         public double DamageOverTimePotency { get => _damageOverTimePotency; private set => _damageOverTimePotency = value; }

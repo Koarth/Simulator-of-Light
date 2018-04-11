@@ -52,7 +52,15 @@
     "MpCost": 480.0,
     "RecastTime": 2.5,
     "Range": 25.0,
-    "Auras": [ "Aero" ]
+    "AurasApplied": [
+      {
+        "Name": "Aero",
+        "JobID": "WHM",
+        "Duration": 18.0,
+        "DamageOverTimePotency": 30.0,
+        "DamageAspect": "MAGIC"
+      }
+    ]
   },
   {
     "Name": "Aero II",
@@ -63,7 +71,15 @@
     "MpCost": 600.0,
     "RecastTime": 2.5,
     "Range": 25.0,
-    "Auras": [ "Aero II" ]
+    "AurasApplied": [
+      {
+        "Name": "Aero II",
+        "JobID": "WHM",
+        "Duration": 18.0,
+        "DamageOverTimePotency": 50.0,
+        "DamageAspect": "MAGIC"
+      }
+    ]
   },
   {
     "Name": "Aero III",
@@ -76,6 +92,14 @@
     "RecastTime": 2.5,
     "Range": 25.0,
     "Radius": 5.0,
-    "Auras": [ "Aero III" ]
+    "AurasApplied": [
+      {
+        "Name": "Aero III",
+        "JobID": "WHM",
+        "Duration": 24.0,
+        "DamageOverTimePotency": 40.0,
+        "DamageAspect": "MAGIC"
+      }
+    ]
   }
 ]
