@@ -69,14 +69,5 @@ namespace Simulator_of_Light {
                 return ResourceManager.GetString("BASEACTIONS_JSON_WHM", resourceCulture);
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Simulator\Resources\BaseAuras\WHM.json.
-        /// </summary>
-        internal static string BASEAURAS_JSON_WHM {
-            get {
-                return ResourceManager.GetString("BASEAURAS_JSON_WHM", resourceCulture);
-            }
-        }
     }
 }
