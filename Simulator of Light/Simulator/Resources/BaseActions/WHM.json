@@ -101,5 +101,39 @@
         "DamageAspect": "MAGIC"
       }
     ]
+  },
+  {
+    "Name": "Presence of Mind",
+    "JobID": "WHM",
+    "Type": "MAGIC",
+    "Aspect": "UNASPECTED",
+    "IsOGCD": true,
+    "RecastTime": 150.0,
+    "AurasApplied": [
+      {
+        "Name": "Presence of Mind",
+        "JobID": "WHM",
+        "Duration": 15.0,
+        "CastTimeModifier": 0.2,
+        "RecastTimeModifier": 0.2,
+        "AutoAttackDelayModifier": 0.2
+      }
+    ]
+  },
+  {
+    "Name": "Cleric Stance",
+    "JobID": "WHM",
+    "Type": "MAGIC",
+    "Aspect": "UNASPECTED",
+    "IsOGCD": true,
+    "RecastTime": 90.0,
+    "AurasApplied": [
+      {
+        "Name": "Cleric Stance",
+        "JobID": "WHM",
+        "Duration": 15.0,
+        "MagicDamageModifier":  0.05
+      }
+    ]
   }
 ]

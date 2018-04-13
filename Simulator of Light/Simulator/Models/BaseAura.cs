@@ -43,11 +43,6 @@ namespace Simulator_of_Light.Simulator.Models {
         private double _damageTakenModifier;
         private double _incomingCriticalHitRateModifier;
 
-        public BaseAura(string name) {
-            // TODO: retrieve base aura information from configuration
-            throw new NotImplementedException();
-        }
-
         [JsonConstructor]
         public BaseAura(string name, JobID jobID, double duration, double damageOverTimePotency, 
             double healingOverTimePotency, ActionAspect damageAspect, double magicDamageModifier, 

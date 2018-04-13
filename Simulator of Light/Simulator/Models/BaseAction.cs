@@ -27,11 +27,6 @@ namespace Simulator_of_Light.Simulator.Models {
 
         private List<BaseAura> _aurasApplied;
 
-        public BaseAction(string name) {
-            // TODO: retrieve base aura information from configuration
-            throw new NotImplementedException();
-        }
-
         [JsonConstructor]
         public BaseAction(string name, JobID jobID, ActionType type, ActionAspect aspect, bool isOGCD,
             double potency, double mpCost, double tpCost, double castTime, double recastTime, double range,
