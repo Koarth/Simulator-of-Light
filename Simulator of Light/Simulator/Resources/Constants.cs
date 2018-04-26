@@ -37,6 +37,8 @@ namespace Simulator_of_Light.Simulator.Resources {
         public static readonly double BaseCriticalHitMultiplier = 1.4;
         public static readonly double DirectHitMultiplier = 1.25;
 
+
+
         /* Job IDs to help store constants and for easy reference. */
         public enum JobID {
             AST,
@@ -71,136 +73,246 @@ namespace Simulator_of_Light.Simulator.Resources {
             UNASPECTED
         }
 
-        public static ActionType DefaultActionType(JobID id) {
-            switch (id) {
-                case JobID.AST: return ActionType.HEAL;
-                case JobID.BLM: return ActionType.MAGIC;
-                case JobID.BRD: return ActionType.ATTACK;
-                case JobID.DRG: return ActionType.ATTACK;
-                case JobID.DRK: return ActionType.ATTACK;
-                case JobID.MCH: return ActionType.ATTACK;
-                case JobID.MNK: return ActionType.ATTACK;
-                case JobID.NIN: return ActionType.ATTACK;
-                case JobID.PLD: return ActionType.ATTACK;
-                case JobID.RDM: return ActionType.MAGIC;
-                case JobID.SAM: return ActionType.ATTACK;
-                case JobID.SCH: return ActionType.HEAL;
-                case JobID.SMN: return ActionType.MAGIC;
-                case JobID.WAR: return ActionType.ATTACK;
-                case JobID.WHM: return ActionType.HEAL;
-            }
-            throw new System.ArgumentException("Invalid JobID");
+        public enum PrimaryStat {
+            STR,
+            DEX,
+            INT,
+            MND,
+            VIT,
+            HP,
+            MP,
+            UNKNOWN
         }
 
+        private static Dictionary<JobID, PrimaryStat> weaponskillPrimaryStat = new Dictionary<JobID, PrimaryStat>() {
+            {JobID.AST, PrimaryStat.STR},
+            {JobID.BLM, PrimaryStat.STR},
+            {JobID.BRD, PrimaryStat.DEX},
+            {JobID.DRG, PrimaryStat.STR},
+            {JobID.DRK, PrimaryStat.STR},
+            {JobID.MCH, PrimaryStat.DEX},
+            {JobID.MNK, PrimaryStat.STR},
+            {JobID.NIN, PrimaryStat.DEX},
+            {JobID.PLD, PrimaryStat.STR},
+            {JobID.RDM, PrimaryStat.STR},
+            {JobID.SAM, PrimaryStat.STR},
+            {JobID.SCH, PrimaryStat.STR},
+            {JobID.SMN, PrimaryStat.STR},
+            {JobID.WAR, PrimaryStat.STR},
+            {JobID.WHM, PrimaryStat.STR}
+        };
 
-        // TODO: verify JobMods are still accurate; this is data from level 60.
-        public static double JobMod(JobID id, ActionType type = ActionType.UNKNOWN) {
-            if (type == ActionType.UNKNOWN) {
-                return JobMod(id, DefaultActionType(id));
+        private static Dictionary<JobID, PrimaryStat> defaultActionPrimaryStat = new Dictionary<JobID, PrimaryStat>() {
+            {JobID.AST, PrimaryStat.MND},
+            {JobID.BLM, PrimaryStat.INT},
+            {JobID.BRD, PrimaryStat.DEX},
+            {JobID.DRG, PrimaryStat.STR},
+            {JobID.DRK, PrimaryStat.STR},
+            {JobID.MCH, PrimaryStat.DEX},
+            {JobID.MNK, PrimaryStat.STR},
+            {JobID.NIN, PrimaryStat.DEX},
+            {JobID.PLD, PrimaryStat.STR},
+            {JobID.RDM, PrimaryStat.INT},
+            {JobID.SAM, PrimaryStat.STR},
+            {JobID.SCH, PrimaryStat.MND},
+            {JobID.SMN, PrimaryStat.INT},
+            {JobID.WAR, PrimaryStat.STR},
+            {JobID.WHM, PrimaryStat.MND}
+        };
+
+        private static Dictionary<JobID, ActionType> DefaultActionTypes = new Dictionary<JobID, ActionType>() {
+            {JobID.AST, ActionType.HEAL},
+            {JobID.BLM, ActionType.MAGIC},
+            {JobID.BRD, ActionType.ATTACK},
+            {JobID.DRG, ActionType.ATTACK},
+            {JobID.DRK, ActionType.ATTACK},
+            {JobID.MCH, ActionType.ATTACK},
+            {JobID.MNK, ActionType.ATTACK},
+            {JobID.NIN, ActionType.ATTACK},
+            {JobID.PLD, ActionType.ATTACK},
+            {JobID.RDM, ActionType.MAGIC},
+            {JobID.SAM, ActionType.ATTACK},
+            {JobID.SCH, ActionType.HEAL},
+            {JobID.SMN, ActionType.MAGIC},
+            {JobID.WAR, ActionType.ATTACK},
+            {JobID.WHM, ActionType.HEAL}
+        };
+
+        private static Dictionary<JobID, double> strengthJobMods = new Dictionary<JobID, double>() {
+            {JobID.AST, 50},
+            {JobID.BLM, 45},
+            {JobID.BRD, 90},
+            {JobID.DRG, 115},
+            {JobID.DRK, 105},
+            {JobID.MCH, 85},
+            {JobID.MNK, 110},
+            {JobID.NIN, 85},
+            {JobID.PLD, 100},
+            {JobID.RDM, 55},
+            {JobID.SAM, 112},
+            {JobID.SCH, 90},
+            {JobID.SMN, 90},
+            {JobID.WAR, 105},
+            {JobID.WHM, 55}
+        };
+
+        private static Dictionary<JobID, double> dexterityJobMods = new Dictionary<JobID, double>() {
+            {JobID.AST, 100},
+            {JobID.BLM, 100},
+            {JobID.BRD, 115},
+            {JobID.DRG, 100},
+            {JobID.DRK, 95},
+            {JobID.MCH, 115},
+            {JobID.MNK, 105},
+            {JobID.NIN, 110},
+            {JobID.PLD, 95},
+            {JobID.RDM, 105},
+            {JobID.SAM, 108},
+            {JobID.SCH, 100},
+            {JobID.SMN, 100},
+            {JobID.WAR, 95},
+            {JobID.WHM, 105}
+        };
+
+        private static Dictionary<JobID, double> intelligenceJobMods = new Dictionary<JobID, double>() {
+            {JobID.AST, 105},
+            {JobID.BLM, 115},
+            {JobID.BRD, 85},
+            {JobID.DRG, 45},
+            {JobID.DRK, 60},
+            {JobID.MCH, 80},
+            {JobID.MNK, 50},
+            {JobID.NIN, 65},
+            {JobID.PLD, 60},
+            {JobID.RDM, 115},
+            {JobID.SAM, 60},
+            {JobID.SCH, 105},
+            {JobID.SMN, 115},
+            {JobID.WAR, 40},
+            {JobID.WHM, 105}
+        };
+
+        private static Dictionary<JobID, double> mindJobMods = new Dictionary<JobID, double>() {
+            {JobID.AST, 115},
+            {JobID.BLM, 75},
+            {JobID.BRD, 80},
+            {JobID.DRG, 65},
+            {JobID.DRK, 40},
+            {JobID.MCH, 85},
+            {JobID.MNK, 90},
+            {JobID.NIN, 75},
+            {JobID.PLD, 100},
+            {JobID.RDM, 110},
+            {JobID.SAM, 50},
+            {JobID.SCH, 115},
+            {JobID.SMN, 80},
+            {JobID.WAR, 55},
+            {JobID.WHM, 115}
+        };
+
+        private static Dictionary<JobID, double> vitalityJobMods = new Dictionary<JobID, double>() {
+            {JobID.AST, 100},
+            {JobID.BLM, 100},
+            {JobID.BRD, 100},
+            {JobID.DRG, 105},
+            {JobID.DRK, 110},
+            {JobID.MCH, 100},
+            {JobID.MNK, 100},
+            {JobID.NIN, 100},
+            {JobID.PLD, 110},
+            {JobID.RDM, 100},
+            {JobID.SAM, 100},
+            {JobID.SCH, 100},
+            {JobID.SMN, 100},
+            {JobID.WAR, 110},
+            {JobID.WHM, 100}
+        };
+
+        private static Dictionary<JobID, double> hpJobMods = new Dictionary<JobID, double>() {
+            {JobID.AST, 105},
+            {JobID.BLM, 105},
+            {JobID.BRD, 105},
+            {JobID.DRG, 115},
+            {JobID.DRK, 120},
+            {JobID.MCH, 105},
+            {JobID.MNK, 110},
+            {JobID.NIN, 108},
+            {JobID.PLD, 120},
+            {JobID.RDM, 105},
+            {JobID.SAM, 109},
+            {JobID.SCH, 105},
+            {JobID.SMN, 105},
+            {JobID.WAR, 125},
+            {JobID.WHM, 105}
+        };
+
+        private static Dictionary<JobID, double> mpJobMods = new Dictionary<JobID, double>() {
+            {JobID.AST, 124},
+            {JobID.BLM, 129},
+            {JobID.BRD, 79},
+            {JobID.DRG, 49},
+            {JobID.DRK, 79},
+            {JobID.MCH, 79},
+            {JobID.MNK, 43},
+            {JobID.NIN, 48},
+            {JobID.PLD, 59},
+            {JobID.RDM, 120},
+            {JobID.SAM, 40},
+            {JobID.SCH, 119},
+            {JobID.SMN, 111},
+            {JobID.WAR, 38},
+            {JobID.WHM, 124}
+        };
+
+        private static Dictionary<PrimaryStat, Dictionary<JobID, double>> jobMods = new Dictionary<PrimaryStat, Dictionary<JobID, double>>() {
+            {PrimaryStat.STR, strengthJobMods},
+            {PrimaryStat.DEX, dexterityJobMods},
+            {PrimaryStat.INT, intelligenceJobMods},
+            {PrimaryStat.MND, mindJobMods},
+            {PrimaryStat.VIT, vitalityJobMods},
+            {PrimaryStat.HP, hpJobMods},
+            {PrimaryStat.MP, mpJobMods},
+        };
+
+        public static double getJobMod(JobID id, PrimaryStat stat) {
+
+            Dictionary<JobID, double> dict;
+
+            if (jobMods.ContainsKey(stat)) {
+                dict = jobMods[stat];
+            } else {
+                throw new ArgumentException("Invalid primary stat");
             }
 
-            if (type == ActionType.ATTACK) {
-                switch (id) {
-                    case JobID.AST: return 50;
-                    case JobID.BLM: return 45;
-                    case JobID.BRD: return 115;
-                    case JobID.DRG: return 115;
-                    case JobID.DRK: return 105;
-                    case JobID.MCH: return 115;
-                    case JobID.MNK: return 110;
-                    case JobID.NIN: return 105;
-                    case JobID.PLD: return 100;
-                    case JobID.RDM: return 55;
-                    case JobID.SAM: return 112;
-                    case JobID.SCH: return 90;
-                    case JobID.SMN: return 90;
-                    case JobID.WAR: return 105;
-                    case JobID.WHM: return 40;
-                }
-                throw new System.ArgumentException("Invalid JobID");
-            } else if (type == ActionType.MAGIC) {
-                switch (id) {
-                    case JobID.AST: return 115;
-                    case JobID.BLM: return 115;
-                    case JobID.BRD: return 85;
-                    case JobID.DRG: return 45;
-                    case JobID.DRK: return 60;
-                    case JobID.MCH: return 80;
-                    case JobID.MNK: return 50;
-                    case JobID.NIN: return 65;
-                    case JobID.PLD: return 60;
-                    case JobID.RDM: return 115;
-                    case JobID.SAM: return 60;
-                    case JobID.SCH: return 115;
-                    case JobID.SMN: return 115;
-                    case JobID.WAR: return 40;
-                    case JobID.WHM: return 115;
-                }
-                throw new System.ArgumentException("Invalid JobID");
-            } else if (type == ActionType.HEAL) {
-                switch (id) {
-                    case JobID.AST: return 115;
-                    case JobID.BLM: return 75;
-                    case JobID.BRD: return 80;
-                    case JobID.DRG: return 65;
-                    case JobID.DRK: return 40;
-                    case JobID.MCH: return 85;
-                    case JobID.MNK: return 90;
-                    case JobID.NIN: return 75;
-                    case JobID.PLD: return 100;
-                    case JobID.RDM: return 110;
-                    case JobID.SAM: return 50;
-                    case JobID.SCH: return 115;
-                    case JobID.SMN: return 80;
-                    case JobID.WAR: return 55;
-                    case JobID.WHM: return 115;
-                }
-                throw new System.ArgumentException("Invalid JobID");
+            if (dict.ContainsKey(id)) {
+                return dict[id];
             }
-            throw new System.ArgumentException("Invalid Action Type");
 
+            throw new ArgumentException("Invalid JobID");
         }
 
-        public static double MPMod(JobID id) {
-            switch (id) {
-                case JobID.AST: return 124;
-                case JobID.BLM: return 129;
-                case JobID.BRD: return 79;
-                case JobID.DRG: return 49;
-                case JobID.DRK: return 79;
-                case JobID.MCH: return 79;
-                case JobID.MNK: return 43;
-                case JobID.NIN: return 48;
-                case JobID.PLD: return 59;
-                case JobID.RDM: return 120;
-                case JobID.SAM: return 40;
-                case JobID.SCH: return 119;
-                case JobID.SMN: return 111;
-                case JobID.WAR: return 38;
-                case JobID.WHM: return 124;
+        public static double getAutoAttackPotency(JobID id) {
+            if (id == JobID.BRD || id == JobID.MCH) {
+                return 100;
             }
-            throw new System.ArgumentException("Invalid JobID");
+
+            return 110;
         }
 
-        public static double AutoAttackPotency(JobID id) {
-            switch (id) {
-                case JobID.AST: return 110;
-                case JobID.BLM: return 110;
-                case JobID.BRD: return 100;
-                case JobID.DRG: return 110;
-                case JobID.DRK: return 110;
-                case JobID.MCH: return 100;
-                case JobID.MNK: return 110;
-                case JobID.NIN: return 110;
-                case JobID.PLD: return 110;
-                case JobID.RDM: return 110;
-                case JobID.SAM: return 110;
-                case JobID.SCH: return 110;
-                case JobID.SMN: return 110;
-                case JobID.WAR: return 110;
-                case JobID.WHM: return 110;
+        public static PrimaryStat getWeaponskillStat(JobID id) {
+            if (weaponskillPrimaryStat.ContainsKey(id)) {
+                return weaponskillPrimaryStat[id];
             }
-            throw new System.ArgumentException("Invalid JobID");
+
+            throw new ArgumentException("Invalid JobID");
+        }
+
+        public static PrimaryStat getDefaultPrimaryStat(JobID id) {
+            if (defaultActionPrimaryStat.ContainsKey(id)) {
+                return defaultActionPrimaryStat[id];
+            }
+
+            throw new ArgumentException("Invalid JobID");
         }
     }
 }
