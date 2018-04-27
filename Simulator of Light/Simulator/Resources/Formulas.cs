@@ -71,6 +71,9 @@ namespace Simulator_of_Light.Simulator.Resources {
         /// <param name="criticalHit">The critical hit statistic to convert.</param>
         /// <returns></returns>
         public static double calculateCriticalHitRate(double criticalHit) {
+            if (criticalHit < BaseCriticalHit70) {
+                throw new ArgumentException("Critical Hit value lower than base!");
+            }
             return Math.Floor(CriticalHitGrowthModifier * (criticalHit - BaseCriticalHit70) / LevelGrowthPenalty70 + 50) / 1000;
         }
 
@@ -80,6 +83,9 @@ namespace Simulator_of_Light.Simulator.Resources {
         /// <param name="criticalHit">The critical hit statistic to convert.</param>
         /// <returns></returns>
         public static double calculateCriticalHitMultiplier(double criticalHit) {
+            if (criticalHit < BaseCriticalHit70) {
+                throw new ArgumentException("Critical Hit value lower than base!");
+            }
             return Math.Floor(CriticalHitGrowthModifier * (criticalHit - BaseCriticalHit70) / LevelGrowthPenalty70 + 1400) / 1000;
         }
 
@@ -89,6 +95,9 @@ namespace Simulator_of_Light.Simulator.Resources {
         /// <param name="determination">The determination statistic to be converted.</param>
         /// <returns></returns>
         public static double calculateDeterminationMultiplier(double determination) {
+            if (determination < BaseDetermination70) {
+                throw new ArgumentException("Determination value lower than base!");
+            }
             return Math.Floor(DeterminationGrowthModifier * (determination - BaseDetermination70) / LevelGrowthPenalty70 + 1000) / 1000;
         }
 
@@ -98,18 +107,30 @@ namespace Simulator_of_Light.Simulator.Resources {
         /// <param name="directHit">The direct hit statistic to convert.</param>
         /// <returns></returns>
         public static double calculateDirectHitRate(double directHit) {
+            if (directHit < BaseDirectHit70) {
+                throw new ArgumentException("Direct Hit value lower than base!");
+            }
             return Math.Floor(DirectHitGrowthModifier * (directHit - BaseDirectHit70) / LevelGrowthPenalty70) / 1000;
         }
 
         public static double calculateTotalMana(double piety, JobID jobID) {
+            if (piety < BasePiety70) {
+                throw new ArgumentException("Piety value lower than base!");
+            }
             return Math.Floor(getJobMod(jobID, PrimaryStat.MP) / 100) * (PietyGrowthModifier * (piety - BasePiety70) / LevelGrowthPenalty70 + BaseMana70);
         }
 
         public static double calculateSpeedMultiplier(double speed) {
+            if (speed < BaseSpeed70) {
+                throw new ArgumentException("Speed value lower than base!");
+            }
             return Math.Floor(SpeedGrowthModifier * (speed - BaseSpeed70) / LevelGrowthPenalty70 + 1000) / 1000;
         }
 
         public static double calculateTenacityMultiplier(double tenacity) {
+            if (tenacity < BaseTenacity70) {
+                throw new ArgumentException("Tenacity value lower than base!");
+            }
             return Math.Floor(TenacityGrowthModifier * (tenacity - BaseTenacity70) / LevelGrowthPenalty70 + 1000) / 1000;
         }
 
