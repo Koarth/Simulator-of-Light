@@ -2,7 +2,7 @@
   {
     "Name": "Stone IV",
     "JobID": "WHM",
-    "Type": "MAGIC",
+    "Stat": "MND",
     "Aspect": "MAGIC",
     "Potency": 250.0,
     "MpCost": 600.0,
@@ -13,7 +13,7 @@
   {
     "Name": "Stone III",
     "JobID": "WHM",
-    "Type": "MAGIC",
+    "Stat": "MND",
     "Aspect": "MAGIC",
     "Potency": 210.0,
     "MpCost": 600.0,
@@ -24,7 +24,7 @@
   {
     "Name": "Stone II",
     "JobID": "WHM",
-    "Type": "MAGIC",
+    "Stat": "MND",
     "Aspect": "MAGIC",
     "Potency": 200.0,
     "MpCost": 600.0,
@@ -35,7 +35,7 @@
   {
     "Name": "Stone",
     "JobID": "WHM",
-    "Type": "MAGIC",
+    "Stat": "MND",
     "Aspect": "MAGIC",
     "Potency": 140.0,
     "MpCost": 600.0,
@@ -46,7 +46,7 @@
   {
     "Name": "Aero",
     "JobID": "WHM",
-    "Type": "MAGIC",
+    "Stat": "MND",
     "Aspect": "MAGIC",
     "Potency": 30.0,
     "MpCost": 480.0,
@@ -65,7 +65,7 @@
   {
     "Name": "Aero II",
     "JobID": "WHM",
-    "Type": "MAGIC",
+    "Stat": "MND",
     "Aspect": "MAGIC",
     "Potency": 50.0,
     "MpCost": 600.0,
@@ -84,7 +84,7 @@
   {
     "Name": "Aero III",
     "JobID": "WHM",
-    "Type": "MAGIC",
+    "Stat": "MND",
     "Aspect": "MAGIC",
     "Potency": 50.0,
     "MpCost": 700.0,
@@ -105,7 +105,6 @@
   {
     "Name": "Presence of Mind",
     "JobID": "WHM",
-    "Type": "MAGIC",
     "Aspect": "UNASPECTED",
     "IsOGCD": true,
     "RecastTime": 150.0,
@@ -123,7 +122,6 @@
   {
     "Name": "Cleric Stance",
     "JobID": "WHM",
-    "Type": "MAGIC",
     "Aspect": "UNASPECTED",
     "IsOGCD": true,
     "RecastTime": 90.0,

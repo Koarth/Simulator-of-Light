@@ -13,7 +13,7 @@ namespace Simulator_of_Light.Simulator.Models {
     public sealed class BaseAction {
         private string _name;
         private JobID _jobID;
-        private ActionType _type;
+        private PrimaryStat _stat;
         private ActionAspect _aspect;
 
         private bool _isOGCD;
@@ -28,13 +28,13 @@ namespace Simulator_of_Light.Simulator.Models {
         private List<BaseAura> _aurasApplied;
 
         [JsonConstructor]
-        public BaseAction(string name, JobID jobID, ActionType type, ActionAspect aspect, bool isOGCD,
+        public BaseAction(string name, JobID jobID, PrimaryStat stat, ActionAspect aspect, bool isOGCD,
             double potency, double mpCost, double tpCost, double castTime, double recastTime, double range,
             double radius, List<BaseAura> aurasApplied) {
 
             Name = name;
             JobID = jobID;
-            Type = type;
+            Stat = stat;
             Aspect = aspect;
             IsOGCD = isOGCD;
             Potency = potency;
@@ -54,9 +54,10 @@ namespace Simulator_of_Light.Simulator.Models {
 
         public string Name { get => _name; private set => _name = value; }
         public JobID JobID { get => _jobID; private set => _jobID = value; }
-        public ActionType Type { get => _type; private set => _type = value; }
         public ActionAspect Aspect { get => _aspect; private set => _aspect = value; }
 
+        [DefaultValue(PrimaryStat.UNKNOWN)]
+        public PrimaryStat Stat { get => _stat; private set => _stat = value; }
         [DefaultValue(false)]
         public bool IsOGCD { get => _isOGCD; private set => _isOGCD = value; }
         [DefaultValue(0)]
