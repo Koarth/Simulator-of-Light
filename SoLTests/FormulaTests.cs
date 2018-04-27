@@ -9,7 +9,7 @@ namespace SoLTests
     public class FormulaTests
     {
         [TestMethod]
-        public void TestActionDamageAccuracy() {
+        public void TestActionDamageAccuracyOne() {
 
             // Example: i368 WHM using Stone IV
             double potency = 250;
@@ -23,12 +23,89 @@ namespace SoLTests
             double empiricalMin = 6814; // via in-game testing
             double empiricalMid = (empiricalMax + empiricalMin) / 2;
 
-            double traitMultiplier = 0.3;
+            double traitMultiplier = 1.3;
+            double determinationMultiplier = Formulas.calculateDeterminationMultiplier(determination);
 
-            double result = Formulas.calculateActionDamage(potency, weaponDamage, attackPower, determination, jobID, stat);
-            result = result * (1 + traitMultiplier);
+            double result = Formulas.calculateActionDamage(potency, weaponDamage, attackPower, jobID, stat);
+            result = Math.Truncate(result * traitMultiplier * determinationMultiplier);
 
-            Assert.IsTrue((result > (empiricalMid * 0.995)) && (result < (empiricalMid * 1.005)));
+            Assert.IsTrue((result > (empiricalMid * 0.99)) && (result < (empiricalMid * 1.01)));
+        }
+
+        [TestMethod]
+        public void TestActionDamageAccuracyTwo() {
+
+            // Example: i340 WAR using Heavy Swing
+            double potency = 160;
+            double weaponDamage = 99;
+            double attackPower = 2149;
+            double determination = 1236;
+            Constants.JobID jobID = Constants.JobID.WAR;
+            Constants.PrimaryStat stat = Constants.PrimaryStat.STR;
+            double tenacity = 1007;
+
+            double empiricalMax = 2095; // via in-game testing
+            double empiricalMin = 1903; // via in-game testing
+            double empiricalMid = (empiricalMax + empiricalMin) / 2;
+
+            double traitMultiplier = 1;
+            double tenacityMultiplier = Formulas.calculateTenacityMultiplier(tenacity);
+            double determinationMultiplier = Formulas.calculateDeterminationMultiplier(determination);
+
+            double result = Formulas.calculateActionDamage(potency, weaponDamage, attackPower, jobID, stat);
+            result = Math.Truncate(result * tenacityMultiplier * determinationMultiplier * traitMultiplier);
+
+            Assert.IsTrue((result > (empiricalMid * 0.99)) && (result < (empiricalMid * 1.01)));
+        }
+
+        [TestMethod]
+        public void TestAutoAttackDamageAccuracyOne() {
+
+            // Example: i368 WHM autoattacks
+            Constants.JobID jobID = Constants.JobID.WHM;
+            double weaponDamage = 104;
+            double attackPower = 162;
+            double autoAttackDelay = 3.44;
+            double determination = 1489;
+            double skillSpeed = 364;
+
+            double empiricalMax = 74; // via in-game testing
+            double empiricalMin = 67; // via in-game testing
+            double empiricalMid = Math.Floor((empiricalMax + empiricalMin) / 2);
+
+            double determinationMultipler = Formulas.calculateDeterminationMultiplier(determination);
+            double speedMultiplier = Formulas.calculateSpeedMultiplier(skillSpeed);
+
+            double result = Formulas.calculateAutoAttackDamage(weaponDamage, autoAttackDelay, attackPower, jobID);
+            result = Math.Truncate(Math.Truncate(result * determinationMultipler) * speedMultiplier);
+
+            Assert.IsTrue((result > (empiricalMid * 0.99)) && (result < (empiricalMid * 1.01)));
+        }
+
+        [TestMethod]
+        public void TestAutoAttackDamageAccuracyTwo() {
+
+            // Example: i340 WAR autoattacks
+            Constants.JobID jobID = Constants.JobID.WAR;
+            double weaponDamage = 99;
+            double attackPower = 2149;
+            double autoAttackDelay = 3.36;
+            double determination = 1236;
+            double skillSpeed = 1313;
+            double tenacity = 1007;
+
+            double empiricalMax = 1699; // via in-game testing
+            double empiricalMin = 1541; // via in-game testing
+            double empiricalMid = Math.Floor((empiricalMax + empiricalMin) / 2);
+
+            double determinationMultiplier = Formulas.calculateDeterminationMultiplier(determination);
+            double speedMultiplier = Formulas.calculateSpeedMultiplier(skillSpeed);
+            double tenacityMultiplier = Formulas.calculateTenacityMultiplier(tenacity);
+
+            double result = Formulas.calculateAutoAttackDamage(weaponDamage, autoAttackDelay, attackPower, jobID);
+            result = Math.Truncate(Math.Truncate(result * tenacityMultiplier * determinationMultiplier) * speedMultiplier);
+
+            Assert.IsTrue((result > (empiricalMid * 0.99)) && (result < (empiricalMid * 1.01)));
         }
 
         [TestMethod]
@@ -125,6 +202,25 @@ namespace SoLTests
             Assert.AreEqual(1.01, Formulas.calculateSpeedMultiplier(531));
             Assert.AreEqual(1.05, Formulas.calculateSpeedMultiplier(1199));
             Assert.AreEqual(1.1, Formulas.calculateSpeedMultiplier(2034));
+        }
+
+        [TestMethod]
+        public void TestTenacityIntervals() {
+            try {
+                Formulas.calculateTenacityMultiplier(200);
+                Assert.Fail();
+            } catch (ArgumentException) {
+            } catch (Exception) {
+                Assert.Fail();
+            }
+            Assert.AreEqual(1, Formulas.calculateTenacityMultiplier(364));
+            Assert.AreEqual(1.001, Formulas.calculateTenacityMultiplier(386));
+            Assert.AreEqual(1.002, Formulas.calculateTenacityMultiplier(408));
+            Assert.AreEqual(1.003, Formulas.calculateTenacityMultiplier(430));
+            Assert.AreEqual(1.003, Formulas.calculateTenacityMultiplier(450));
+            Assert.AreEqual(1.01, Formulas.calculateTenacityMultiplier(581));
+            Assert.AreEqual(1.05, Formulas.calculateTenacityMultiplier(1449));
+            Assert.AreEqual(1.1, Formulas.calculateTenacityMultiplier(2534));
         }
     }
 }

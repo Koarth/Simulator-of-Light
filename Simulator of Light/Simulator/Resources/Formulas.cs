@@ -25,8 +25,7 @@ namespace Simulator_of_Light.Simulator.Resources {
         /// <returns>The base damage of an action, before being modified by auras,
         /// traits, or critical/direct hits.</returns>
         public static double calculateActionDamage(double potency, double weaponDamage,
-            double attackPower, double determination,
-            JobID jobID,
+            double attackPower, JobID jobID,
             PrimaryStat stat = PrimaryStat.UNKNOWN) {
 
             if (stat == PrimaryStat.UNKNOWN) {
@@ -43,15 +42,13 @@ namespace Simulator_of_Light.Simulator.Resources {
             // Total damage after Attack Power and Potency multipliers.
             double totalDamage = Math.Truncate(potency * baseDamage * apMultiplier / 100);
 
-            // Multiplier from Determination.
-            double determinationMultiplier = calculateDeterminationMultiplier(determination);
-
             // Total damage after all multipliers.
-            return Math.Truncate(Math.Round(totalDamage * determinationMultiplier, 1));
+            return totalDamage;
         }
 
         public static double calculateAutoAttackDamage(double weaponDamage, double autoAttackDelay, double attackPower,
-            double determination, JobID jobID) {
+            JobID jobID) {
+
             double jobBaseDamage = Math.Truncate(BaseDetermination70 * getJobMod(jobID, getWeaponskillStat(jobID)) / 1000);
             double baseDamage = (weaponDamage + jobBaseDamage) * (autoAttackDelay / 3);
 
@@ -59,9 +56,7 @@ namespace Simulator_of_Light.Simulator.Resources {
 
             double totalDamage = Math.Truncate(getAutoAttackPotency(jobID) * baseDamage * apMultiplier / 100);
 
-            double determinationMultiplier = calculateDeterminationMultiplier(determination);
-
-            return Math.Truncate(Math.Round(totalDamage * determinationMultiplier, 1));
+            return totalDamage;
         }
 
         /// <summary>
