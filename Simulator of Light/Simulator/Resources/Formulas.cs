@@ -112,7 +112,7 @@ namespace Simulator_of_Light.Simulator.Resources {
             if (piety < BasePiety70) {
                 throw new ArgumentException("Piety value lower than base!");
             }
-            return Math.Floor(getJobMod(jobID, PrimaryStat.MP) / 100) * (PietyGrowthModifier * (piety - BasePiety70) / LevelGrowthPenalty70 + BaseMana70);
+            return Math.Floor((getJobMod(jobID, PrimaryStat.MP) / 100) * (PietyGrowthModifier * (piety - BasePiety70) / LevelGrowthPenalty70 + BaseMana70));
         }
 
         public static double calculateSpeedMultiplier(double speed) {

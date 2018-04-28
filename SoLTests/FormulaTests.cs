@@ -8,8 +8,8 @@ namespace SoLTests
     [TestClass]
     public class FormulaTests
     {
-        [TestMethod]
-        public void TestActionDamageAccuracyOne() {
+        [TestMethod,Description("Ensure accuracy of basic damage formula for action compared to in-game testing.")]
+        public void TestActionDamageAccuracyWHM() {
 
             // Example: i368 WHM using Stone IV
             double potency = 250;
@@ -32,8 +32,8 @@ namespace SoLTests
             Assert.IsTrue((result > (empiricalMid * 0.99)) && (result < (empiricalMid * 1.01)));
         }
 
-        [TestMethod]
-        public void TestActionDamageAccuracyTwo() {
+        [TestMethod,Description("Ensure accuracy of basic damage formula for action compared to in-game testing.")]
+        public void TestActionDamageAccuracyWAR() {
 
             // Example: i340 WAR using Heavy Swing
             double potency = 160;
@@ -58,8 +58,8 @@ namespace SoLTests
             Assert.IsTrue((result > (empiricalMid * 0.99)) && (result < (empiricalMid * 1.01)));
         }
 
-        [TestMethod]
-        public void TestAutoAttackDamageAccuracyOne() {
+        [TestMethod,Description("Ensure accuracy of basic damage formula for autoattacks compared to in-game testing.")]
+        public void TestAutoAttackDamageAccuracyWHM() {
 
             // Example: i368 WHM autoattacks
             Constants.JobID jobID = Constants.JobID.WHM;
@@ -82,8 +82,8 @@ namespace SoLTests
             Assert.IsTrue((result > (empiricalMid * 0.99)) && (result < (empiricalMid * 1.01)));
         }
 
-        [TestMethod]
-        public void TestAutoAttackDamageAccuracyTwo() {
+        [TestMethod,Description("Ensure accuracy of basic damage formula for autoattacks compared to in-game testing.")]
+        public void TestAutoAttackDamageAccuracyWAR() {
 
             // Example: i340 WAR autoattacks
             Constants.JobID jobID = Constants.JobID.WAR;
@@ -108,7 +108,7 @@ namespace SoLTests
             Assert.IsTrue((result > (empiricalMid * 0.99)) && (result < (empiricalMid * 1.01)));
         }
 
-        [TestMethod]
+        [TestMethod,Description("Ensure determination formula matches publically posted stat intervals.")]
         public void TestDeterminationIntervals() {
             try {
                 Formulas.calculateDeterminationMultiplier(200);
@@ -129,7 +129,7 @@ namespace SoLTests
 
         }
 
-        [TestMethod]
+        [TestMethod,Description("Ensure critical rate formula matches publically posted stat intervals.")]
         public void TestCriticalRateIntervals() {
             try {
                 Formulas.calculateCriticalHitRate(200);
@@ -148,7 +148,7 @@ namespace SoLTests
             Assert.AreEqual(0.2, Formulas.calculateCriticalHitRate(1992));
         }
 
-        [TestMethod]
+        [TestMethod,Description("Ensure critical multiplier formula matches publically posted stat intervals.")]
         public void TestCriticalMultiplierIntervals() {
             try {
                 Formulas.calculateCriticalHitMultiplier(200);
@@ -167,7 +167,7 @@ namespace SoLTests
             Assert.AreEqual(1.55, Formulas.calculateCriticalHitMultiplier(1992));
         }
 
-        [TestMethod]
+        [TestMethod,Description("Ensure direct hit rate formula matches publically posted stat intervals.")]
         public void TestDirectHitRateIntervals() {
             try {
                 Formulas.calculateDirectHitRate(200);
@@ -185,7 +185,7 @@ namespace SoLTests
             Assert.AreEqual(0.55, Formulas.calculateDirectHitRate(2534));
         }
 
-        [TestMethod]
+        [TestMethod,Description("Ensure speed formula matches publically posted stat intervals.")]
         public void TestSpeedIntervals() {
             try {
                 Formulas.calculateSpeedMultiplier(200);
@@ -204,7 +204,7 @@ namespace SoLTests
             Assert.AreEqual(1.1, Formulas.calculateSpeedMultiplier(2034));
         }
 
-        [TestMethod]
+        [TestMethod,Description("Ensure tenacity formula matches publically posted stat intervals.")]
         public void TestTenacityIntervals() {
             try {
                 Formulas.calculateTenacityMultiplier(200);
@@ -221,6 +221,22 @@ namespace SoLTests
             Assert.AreEqual(1.01, Formulas.calculateTenacityMultiplier(581));
             Assert.AreEqual(1.05, Formulas.calculateTenacityMultiplier(1449));
             Assert.AreEqual(1.1, Formulas.calculateTenacityMultiplier(2534));
+        }
+
+        [TestMethod]
+        public void TestMPFormulaWHM() {
+            Constants.JobID jobID = Constants.JobID.WHM;
+            double piety = 1039;
+
+            Assert.AreEqual(17441, Formulas.calculateTotalMana(piety, jobID));
+        }
+
+        [TestMethod]
+        public void TestMPFormulaAST() {
+            Constants.JobID jobID = Constants.JobID.AST;
+            double piety = 1350;
+
+            Assert.AreEqual(18507, Formulas.calculateTotalMana(piety, jobID));
         }
     }
 }
