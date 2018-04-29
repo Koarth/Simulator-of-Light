@@ -18,8 +18,10 @@ namespace Simulator_of_Light.Simulator.Resources {
         public static readonly double BaseSpeed70 = 364;
         public static readonly double BaseTenacity70 = 364;
         public static readonly double BasePiety70 = 292;
+        public static readonly double BaseMain70 = 292;
         public static readonly double BaseAttackPower70 = 292; // TODO: verify that there is no variance between jobs.
         public static readonly double BaseMana70 = 12000;
+        public static readonly double BaseHP70 = 3600;
 
         /* "Magic Numbers" for secondary stat formulas. */
         // Characters earn less benefit per stat point at higher levels.  This is the penalty divisor at 70.

@@ -110,13 +110,6 @@ namespace SoLTests
 
         [TestMethod,Description("Ensure determination formula matches publically posted stat intervals.")]
         public void TestDeterminationIntervals() {
-            try {
-                Formulas.calculateDeterminationMultiplier(200);
-                Assert.Fail();
-            } catch (ArgumentException) {
-            } catch (Exception) {
-                Assert.Fail();
-            }
             Assert.AreEqual(1, Formulas.calculateDeterminationMultiplier(292));
             Assert.AreEqual(1.001, Formulas.calculateDeterminationMultiplier(309));
             Assert.AreEqual(1.002, Formulas.calculateDeterminationMultiplier(326));
@@ -129,15 +122,19 @@ namespace SoLTests
 
         }
 
-        [TestMethod,Description("Ensure critical rate formula matches publically posted stat intervals.")]
-        public void TestCriticalRateIntervals() {
+        [TestMethod]
+        public void TestDeterminationInvalidValue() {
             try {
-                Formulas.calculateCriticalHitRate(200);
+                Formulas.calculateDeterminationMultiplier(200);
                 Assert.Fail();
             } catch (ArgumentException) {
             } catch (Exception) {
                 Assert.Fail();
             }
+        }
+
+        [TestMethod,Description("Ensure critical rate formula matches publically posted stat intervals.")]
+        public void TestCriticalRateIntervals() {
             Assert.AreEqual(0.05, Formulas.calculateCriticalHitRate(364));
             Assert.AreEqual(0.051, Formulas.calculateCriticalHitRate(375));
             Assert.AreEqual(0.052, Formulas.calculateCriticalHitRate(386));
@@ -148,15 +145,19 @@ namespace SoLTests
             Assert.AreEqual(0.2, Formulas.calculateCriticalHitRate(1992));
         }
 
-        [TestMethod,Description("Ensure critical multiplier formula matches publically posted stat intervals.")]
-        public void TestCriticalMultiplierIntervals() {
+        [TestMethod]
+        public void TestCriticalRateInvalidValue() {
             try {
-                Formulas.calculateCriticalHitMultiplier(200);
+                Formulas.calculateCriticalHitRate(200);
                 Assert.Fail();
             } catch (ArgumentException) {
             } catch (Exception) {
                 Assert.Fail();
             }
+        }
+
+        [TestMethod,Description("Ensure critical multiplier formula matches publically posted stat intervals.")]
+        public void TestCriticalMultiplierIntervals() {
             Assert.AreEqual(1.4, Formulas.calculateCriticalHitMultiplier(364));
             Assert.AreEqual(1.401, Formulas.calculateCriticalHitMultiplier(375));
             Assert.AreEqual(1.402, Formulas.calculateCriticalHitMultiplier(386));
@@ -167,15 +168,19 @@ namespace SoLTests
             Assert.AreEqual(1.55, Formulas.calculateCriticalHitMultiplier(1992));
         }
 
-        [TestMethod,Description("Ensure direct hit rate formula matches publically posted stat intervals.")]
-        public void TestDirectHitRateIntervals() {
+        [TestMethod]
+        public void TestCriticalMultiplierInvalidValue() {
             try {
-                Formulas.calculateDirectHitRate(200);
+                Formulas.calculateCriticalHitMultiplier(200);
                 Assert.Fail();
             } catch (ArgumentException) {
             } catch (Exception) {
                 Assert.Fail();
             }
+        }
+
+        [TestMethod,Description("Ensure direct hit rate formula matches publically posted stat intervals.")]
+        public void TestDirectHitRateIntervals() {
             Assert.AreEqual(0, Formulas.calculateDirectHitRate(364));
             Assert.AreEqual(0.001, Formulas.calculateDirectHitRate(368));
             Assert.AreEqual(0.002, Formulas.calculateDirectHitRate(372));
@@ -185,15 +190,19 @@ namespace SoLTests
             Assert.AreEqual(0.55, Formulas.calculateDirectHitRate(2534));
         }
 
-        [TestMethod,Description("Ensure speed formula matches publically posted stat intervals.")]
-        public void TestSpeedIntervals() {
+        [TestMethod]
+        public void TestDirectHitRateInvalidValue() {
             try {
-                Formulas.calculateSpeedMultiplier(200);
+                Formulas.calculateDirectHitRate(200);
                 Assert.Fail();
             } catch (ArgumentException) {
             } catch (Exception) {
                 Assert.Fail();
             }
+        }
+
+        [TestMethod,Description("Ensure speed formula matches publically posted stat intervals.")]
+        public void TestSpeedIntervals() {
             Assert.AreEqual(1, Formulas.calculateSpeedMultiplier(364));
             Assert.AreEqual(1.001, Formulas.calculateSpeedMultiplier(381));
             Assert.AreEqual(1.002, Formulas.calculateSpeedMultiplier(398));
@@ -204,15 +213,19 @@ namespace SoLTests
             Assert.AreEqual(1.1, Formulas.calculateSpeedMultiplier(2034));
         }
 
-        [TestMethod,Description("Ensure tenacity formula matches publically posted stat intervals.")]
-        public void TestTenacityIntervals() {
+        [TestMethod]
+        public void TestSpeedInvalidValue() {
             try {
-                Formulas.calculateTenacityMultiplier(200);
+                Formulas.calculateSpeedMultiplier(200);
                 Assert.Fail();
             } catch (ArgumentException) {
             } catch (Exception) {
                 Assert.Fail();
             }
+        }
+
+        [TestMethod,Description("Ensure tenacity formula matches publically posted stat intervals.")]
+        public void TestTenacityIntervals() {
             Assert.AreEqual(1, Formulas.calculateTenacityMultiplier(364));
             Assert.AreEqual(1.001, Formulas.calculateTenacityMultiplier(386));
             Assert.AreEqual(1.002, Formulas.calculateTenacityMultiplier(408));
@@ -221,6 +234,17 @@ namespace SoLTests
             Assert.AreEqual(1.01, Formulas.calculateTenacityMultiplier(581));
             Assert.AreEqual(1.05, Formulas.calculateTenacityMultiplier(1449));
             Assert.AreEqual(1.1, Formulas.calculateTenacityMultiplier(2534));
+        }
+
+        [TestMethod]
+        public void TestTenacityInvalidValue() {
+            try {
+                Formulas.calculateTenacityMultiplier(200);
+                Assert.Fail();
+            } catch (ArgumentException) {
+            } catch (Exception) {
+                Assert.Fail();
+            }
         }
 
         [TestMethod]
@@ -237,6 +261,36 @@ namespace SoLTests
             double piety = 1350;
 
             Assert.AreEqual(18507, Formulas.calculateTotalMana(piety, jobID));
+        }
+
+        [TestMethod]
+        public void TestMPInvalidValue() {
+            Constants.JobID jobID = Constants.JobID.AST;
+            double piety = 200;
+
+            try {
+                Formulas.calculateTotalMana(piety, jobID);
+                Assert.Fail();
+            } catch (ArgumentException) {
+            } catch (Exception) {
+                Assert.Fail();
+            }
+        }
+
+        [TestMethod]
+        public void TestHPFormulaWHM() {
+            Constants.JobID jobID = Constants.JobID.WHM;
+            double vitality = 2046;
+
+            Assert.AreEqual(41491, Formulas.calculateTotalHP(vitality, jobID));
+        }
+
+        [TestMethod]
+        public void TestHPFormulaWAR() {
+            Constants.JobID jobID = Constants.JobID.WAR;
+            double vitality = 2648;
+
+            Assert.AreEqual(55154, Formulas.calculateTotalHP(vitality, jobID));
         }
     }
 }

@@ -129,5 +129,9 @@ namespace Simulator_of_Light.Simulator.Resources {
             return Math.Floor(TenacityGrowthModifier * (tenacity - BaseTenacity70) / LevelGrowthPenalty70 + 1000) / 1000;
         }
 
+        public static double calculateTotalHP(double vitality, JobID jobID) {
+            return Math.Floor(BaseHP70 * (getJobMod(jobID, PrimaryStat.HP) / 100)) + Math.Floor((vitality - BaseMain70) * 21.5);
+        }
+
     }
 }
