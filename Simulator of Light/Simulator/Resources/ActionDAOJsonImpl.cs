@@ -19,13 +19,22 @@ namespace Simulator_of_Light.Simulator.Resources {
             // Build the path to the configuration file.
             string jobString = jobID.ToString();
             string partialpath = Simulator_of_Light.Resources.ResourceManager.GetString("BASEACTIONS_JSON_" + jobString);
+            if (partialpath == null) {
+                throw new ArgumentException("No resource configuration for " 
+                    + jobID.ToString() + " BaseActions.");
+            }
             string filePath = Path.Combine(Directory.GetCurrentDirectory(), partialpath);
 
             // Deserialize the file.
             var retrievedActions = new List<BaseAction>();
-            retrievedActions = JsonConvert.DeserializeObject<List<BaseAction>>(File.ReadAllText(filePath), new JsonSerializerSettings {
-                DefaultValueHandling = DefaultValueHandling.Populate
-            });
+            try {
+                retrievedActions = JsonConvert.DeserializeObject<List<BaseAction>>(File.ReadAllText(filePath), new JsonSerializerSettings {
+                    DefaultValueHandling = DefaultValueHandling.Populate
+                });
+            } catch (FileNotFoundException e) {
+                throw new FileNotFoundException("Action configuration not found for " 
+                    + jobID.ToString() + " at " + filePath);
+            }
 
             // Convert to dictionary.
             var dict = new Dictionary<string, BaseAction>();
@@ -35,10 +44,6 @@ namespace Simulator_of_Light.Simulator.Resources {
 
             return dict;
 
-        }
-
-        public BaseAction getActionByName(string name) {
-            throw new NotImplementedException();
         }
 
     }

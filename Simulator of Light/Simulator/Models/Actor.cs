@@ -17,5 +17,17 @@ namespace Simulator_of_Light.Simulator.Models {
         private double _hp;
         private double _mp;
         private double _tp;
+        private Dictionary<string, Action> _actions;
+
+        public Actor(string name, JobID jobID) {
+            _name = name;
+            _jobID = jobID;
+
+            _actions = new Dictionary<string, Action>();
+            var actionDict = BaseActionFactory.getBaseActionsByJobID(jobID);
+            foreach (string key in actionDict.Keys) {
+                _actions.Add(key, new Action(actionDict[key]));
+            }
+        }
     }
 }

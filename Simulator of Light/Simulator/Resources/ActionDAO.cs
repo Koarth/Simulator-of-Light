@@ -11,7 +11,6 @@ namespace Simulator_of_Light.Simulator.Resources {
     public interface ActionDAO {
 
         Dictionary<string, BaseAction> getActionsByJobID(JobID jobID);
-        BaseAction getActionByName(string name);
 
     }
 }
