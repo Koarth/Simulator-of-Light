@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using static Simulator_of_Light.Simulator.Resources.Constants;
 using Simulator_of_Light.Simulator.Resources;
 
 namespace Simulator_of_Light.Simulator.Models {

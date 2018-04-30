@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Simulator_of_Light.Simulator.Resources;
-using static Simulator_of_Light.Simulator.Resources.Constants;
 using Newtonsoft.Json;
 
 namespace Simulator_of_Light.Simulator.Models {

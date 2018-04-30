@@ -13,8 +13,8 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using Simulator_of_Light.Simulator;
 using Simulator_of_Light.Simulator.Resources;
-using static Simulator_of_Light.Simulator.Resources.Constants;
 using Simulator_of_Light.Simulator.Models;
 using Simulator_of_Light.Simulator.Utilities;
 using System.Text;
@@ -65,7 +65,7 @@ namespace Simulator_of_Light
             System.Diagnostics.Debug.WriteLine(retrievedActions[0].Range);
             **/
 
-            var dict = BaseActionFactory.getBaseActionsByJobID(Constants.JobID.WHM);
+            var dict = BaseActionFactory.getBaseActionsByJobID(JobID.WHM);
 
             System.Diagnostics.Debug.WriteLine(dict["Aero II"]);
 

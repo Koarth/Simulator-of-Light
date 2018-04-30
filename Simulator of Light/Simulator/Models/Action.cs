@@ -1,5 +1,4 @@
 ﻿using System;
-using static Simulator_of_Light.Simulator.Resources.Constants;
 
 namespace Simulator_of_Light.Simulator.Models {
 

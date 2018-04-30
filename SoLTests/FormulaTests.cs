@@ -2,6 +2,7 @@
 using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Simulator_of_Light.Simulator.Resources;
+using Simulator_of_Light.Simulator;
 
 namespace SoLTests
 {
@@ -16,8 +17,8 @@ namespace SoLTests
             double weaponDamage = 140;
             double attackPower = 2837;
             double determination = 1489;
-            Constants.JobID jobID = Constants.JobID.WHM;
-            Constants.PrimaryStat stat = Constants.PrimaryStat.MND;
+            JobID jobID = JobID.WHM;
+            PrimaryStat stat = PrimaryStat.MND;
 
             double empiricalMax = 7497; // via in-game testing
             double empiricalMin = 6814; // via in-game testing
@@ -40,8 +41,8 @@ namespace SoLTests
             double weaponDamage = 99;
             double attackPower = 2149;
             double determination = 1236;
-            Constants.JobID jobID = Constants.JobID.WAR;
-            Constants.PrimaryStat stat = Constants.PrimaryStat.STR;
+            JobID jobID = JobID.WAR;
+            PrimaryStat stat = PrimaryStat.STR;
             double tenacity = 1007;
 
             double empiricalMax = 2095; // via in-game testing
@@ -62,7 +63,7 @@ namespace SoLTests
         public void TestAutoAttackDamageAccuracyWHM() {
 
             // Example: i368 WHM autoattacks
-            Constants.JobID jobID = Constants.JobID.WHM;
+            JobID jobID = JobID.WHM;
             double weaponDamage = 104;
             double attackPower = 162;
             double autoAttackDelay = 3.44;
@@ -86,7 +87,7 @@ namespace SoLTests
         public void TestAutoAttackDamageAccuracyWAR() {
 
             // Example: i340 WAR autoattacks
-            Constants.JobID jobID = Constants.JobID.WAR;
+            JobID jobID = JobID.WAR;
             double weaponDamage = 99;
             double attackPower = 2149;
             double autoAttackDelay = 3.36;
@@ -249,7 +250,7 @@ namespace SoLTests
 
         [TestMethod]
         public void TestMPFormulaWHM() {
-            Constants.JobID jobID = Constants.JobID.WHM;
+            JobID jobID = JobID.WHM;
             double piety = 1039;
 
             Assert.AreEqual(17441, Formulas.calculateTotalMana(piety, jobID));
@@ -257,7 +258,7 @@ namespace SoLTests
 
         [TestMethod]
         public void TestMPFormulaAST() {
-            Constants.JobID jobID = Constants.JobID.AST;
+            JobID jobID = JobID.AST;
             double piety = 1350;
 
             Assert.AreEqual(18507, Formulas.calculateTotalMana(piety, jobID));
@@ -265,7 +266,7 @@ namespace SoLTests
 
         [TestMethod]
         public void TestMPInvalidValue() {
-            Constants.JobID jobID = Constants.JobID.AST;
+            JobID jobID = JobID.AST;
             double piety = 200;
 
             try {
@@ -279,7 +280,7 @@ namespace SoLTests
 
         [TestMethod]
         public void TestHPFormulaWHM() {
-            Constants.JobID jobID = Constants.JobID.WHM;
+            JobID jobID = JobID.WHM;
             double vitality = 2046;
 
             Assert.AreEqual(41491, Formulas.calculateTotalHP(vitality, jobID));
@@ -287,7 +288,7 @@ namespace SoLTests
 
         [TestMethod]
         public void TestHPFormulaWAR() {
-            Constants.JobID jobID = Constants.JobID.WAR;
+            JobID jobID = JobID.WAR;
             double vitality = 2648;
 
             Assert.AreEqual(55154, Formulas.calculateTotalHP(vitality, jobID));

@@ -42,6 +42,7 @@ namespace Simulator_of_Light.Simulator.Resources {
 
 
         /* Job IDs to help store constants and for easy reference. */
+        /**
         public enum JobID {
             AST,
             BLM,
@@ -85,6 +86,8 @@ namespace Simulator_of_Light.Simulator.Resources {
             MP,
             UNKNOWN
         }
+
+        **/
 
         private static Dictionary<JobID, PrimaryStat> weaponskillPrimaryStat = new Dictionary<JobID, PrimaryStat>() {
             {JobID.AST, PrimaryStat.STR},
