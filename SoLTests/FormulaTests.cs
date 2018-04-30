@@ -6,9 +6,9 @@ using Simulator_of_Light.Simulator.Resources;
 namespace SoLTests
 {
     [TestClass]
-    public class FormulaTests
-    {
-        [TestMethod,Description("Ensure accuracy of basic damage formula for action compared to in-game testing.")]
+    public class FormulaTests {
+
+        [TestMethod,Description("Ensure accuracy of basic damage formula for actions compared to in-game testing.")]
         public void TestActionDamageAccuracyWHM() {
 
             // Example: i368 WHM using Stone IV
@@ -32,7 +32,7 @@ namespace SoLTests
             Assert.IsTrue((result > (empiricalMid * 0.99)) && (result < (empiricalMid * 1.01)));
         }
 
-        [TestMethod,Description("Ensure accuracy of basic damage formula for action compared to in-game testing.")]
+        [TestMethod,Description("Ensure accuracy of basic damage formula for actions compared to in-game testing.")]
         public void TestActionDamageAccuracyWAR() {
 
             // Example: i340 WAR using Heavy Swing
