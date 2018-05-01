@@ -2,7 +2,7 @@
   {
     "Name": "Stone IV",
     "JobID": "WHM",
-    "Stat": "MND",
+    "Stat": "MIND",
     "Aspect": "MAGIC",
     "Potency": 250.0,
     "MpCost": 600.0,
@@ -13,7 +13,7 @@
   {
     "Name": "Stone III",
     "JobID": "WHM",
-    "Stat": "MND",
+    "Stat": "MIND",
     "Aspect": "MAGIC",
     "Potency": 210.0,
     "MpCost": 600.0,
@@ -24,7 +24,7 @@
   {
     "Name": "Stone II",
     "JobID": "WHM",
-    "Stat": "MND",
+    "Stat": "MIND",
     "Aspect": "MAGIC",
     "Potency": 200.0,
     "MpCost": 600.0,
@@ -35,7 +35,7 @@
   {
     "Name": "Stone",
     "JobID": "WHM",
-    "Stat": "MND",
+    "Stat": "MIND",
     "Aspect": "MAGIC",
     "Potency": 140.0,
     "MpCost": 600.0,
@@ -46,7 +46,7 @@
   {
     "Name": "Aero",
     "JobID": "WHM",
-    "Stat": "MND",
+    "Stat": "MIND",
     "Aspect": "MAGIC",
     "Potency": 30.0,
     "MpCost": 480.0,
@@ -65,7 +65,7 @@
   {
     "Name": "Aero II",
     "JobID": "WHM",
-    "Stat": "MND",
+    "Stat": "MIND",
     "Aspect": "MAGIC",
     "Potency": 50.0,
     "MpCost": 600.0,
@@ -84,7 +84,7 @@
   {
     "Name": "Aero III",
     "JobID": "WHM",
-    "Stat": "MND",
+    "Stat": "MIND",
     "Aspect": "MAGIC",
     "Potency": 50.0,
     "MpCost": 700.0,

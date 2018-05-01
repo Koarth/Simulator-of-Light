@@ -17,7 +17,6 @@ namespace Simulator_of_Light.Simulator.Models {
             StatSummary = new Dictionary<CharacterStat, double>();
         }
 
-        [JsonConstructor]
         public EquipmentSet(Equipment[] equipment) {
 
             // Put each item in its correct slot in the array.  So that we can't equip 10 weapons.
@@ -86,6 +85,10 @@ namespace Simulator_of_Light.Simulator.Models {
             Equipment[(int)slot - 1] = null;
 
             return;
+        }
+
+        public Equipment GetItemBySlot(EquipSlot slot) {
+            return Equipment[(int)slot - 1];
         }
 
         public Equipment[] Equipment { get => _equipment; private set => _equipment = value; }

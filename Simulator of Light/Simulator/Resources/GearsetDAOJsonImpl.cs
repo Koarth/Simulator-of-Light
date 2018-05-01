@@ -8,7 +8,7 @@ using Newtonsoft.Json;
 using System.IO;
 
 namespace Simulator_of_Light.Simulator.Resources {
-    class GearsetDAOJsonImpl : IGearsetDAO {
+    public class GearsetDAOJsonImpl : IGearsetDAO {
 
         public EquipmentSet GetEquipmentSetByName(string name) {
 
