@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 namespace Simulator_of_Light.Simulator {
 
     public enum JobID {
+        UNKNOWN,
         AST,
         BLM,
         BRD,
@@ -25,10 +26,10 @@ namespace Simulator_of_Light.Simulator {
     }
 
     public enum ActionType {
+        UNKNOWN,
         ATTACK,
         MAGIC,
-        HEAL,
-        UNKNOWN
+        HEAL
     }
 
     public enum ActionAspect {
@@ -39,23 +40,39 @@ namespace Simulator_of_Light.Simulator {
         UNASPECTED
     }
 
-    public enum PrimaryStat {
-        STR,
-        DEX,
-        INT,
-        MND,
-        VIT,
+    public enum CharacterStat {
+        UNKNOWN,
+        STRENGTH,
+        DEXTERITY,
+        INTELLIGENCE,
+        MIND,
+        VITALITY,
+        DETERMINATION,
+        DIRECTHIT,
+        CRITICALHIT,
+        SKILLSPEED,
+        SPELLSPEED,
+        TENACITY,
+        PIETY,
+        PHYSICALDAMAGE,
+        MAGICDAMAGE,
+        AUTOATTACK,
+        AUTOATTACKDELAY,
+        DEFENSE,
+        MAGICDEFENSE,
         HP,
         MP,
-        UNKNOWN
+        TP,
     }
 
     public enum EquipSlot {
+        UNKNOWN,
         WEAPON,
         SHIELD,
         HEAD,
         BODY,
         HANDS,
+        WAIST,
         LEGS,
         FEET,
         EARRINGS,

@@ -7,7 +7,7 @@ using Simulator_of_Light.Simulator.Models;
 
 namespace Simulator_of_Light.Simulator.Resources {
 
-    public interface ActionDAO {
+    public interface IActionDAO {
 
         Dictionary<string, BaseAction> getActionsByJobID(JobID jobID);
 

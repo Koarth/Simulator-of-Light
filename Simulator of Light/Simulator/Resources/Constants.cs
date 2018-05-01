@@ -89,40 +89,40 @@ namespace Simulator_of_Light.Simulator.Resources {
 
         **/
 
-        private static Dictionary<JobID, PrimaryStat> weaponskillPrimaryStat = new Dictionary<JobID, PrimaryStat>() {
-            {JobID.AST, PrimaryStat.STR},
-            {JobID.BLM, PrimaryStat.STR},
-            {JobID.BRD, PrimaryStat.DEX},
-            {JobID.DRG, PrimaryStat.STR},
-            {JobID.DRK, PrimaryStat.STR},
-            {JobID.MCH, PrimaryStat.DEX},
-            {JobID.MNK, PrimaryStat.STR},
-            {JobID.NIN, PrimaryStat.DEX},
-            {JobID.PLD, PrimaryStat.STR},
-            {JobID.RDM, PrimaryStat.STR},
-            {JobID.SAM, PrimaryStat.STR},
-            {JobID.SCH, PrimaryStat.STR},
-            {JobID.SMN, PrimaryStat.STR},
-            {JobID.WAR, PrimaryStat.STR},
-            {JobID.WHM, PrimaryStat.STR}
+        private static Dictionary<JobID, CharacterStat> weaponskillPrimaryStat = new Dictionary<JobID, CharacterStat>() {
+            {JobID.AST, CharacterStat.STRENGTH},
+            {JobID.BLM, CharacterStat.STRENGTH},
+            {JobID.BRD, CharacterStat.DEXTERITY},
+            {JobID.DRG, CharacterStat.STRENGTH},
+            {JobID.DRK, CharacterStat.STRENGTH},
+            {JobID.MCH, CharacterStat.DEXTERITY},
+            {JobID.MNK, CharacterStat.STRENGTH},
+            {JobID.NIN, CharacterStat.DEXTERITY},
+            {JobID.PLD, CharacterStat.STRENGTH},
+            {JobID.RDM, CharacterStat.STRENGTH},
+            {JobID.SAM, CharacterStat.STRENGTH},
+            {JobID.SCH, CharacterStat.STRENGTH},
+            {JobID.SMN, CharacterStat.STRENGTH},
+            {JobID.WAR, CharacterStat.STRENGTH},
+            {JobID.WHM, CharacterStat.STRENGTH}
         };
 
-        private static Dictionary<JobID, PrimaryStat> defaultActionPrimaryStat = new Dictionary<JobID, PrimaryStat>() {
-            {JobID.AST, PrimaryStat.MND},
-            {JobID.BLM, PrimaryStat.INT},
-            {JobID.BRD, PrimaryStat.DEX},
-            {JobID.DRG, PrimaryStat.STR},
-            {JobID.DRK, PrimaryStat.STR},
-            {JobID.MCH, PrimaryStat.DEX},
-            {JobID.MNK, PrimaryStat.STR},
-            {JobID.NIN, PrimaryStat.DEX},
-            {JobID.PLD, PrimaryStat.STR},
-            {JobID.RDM, PrimaryStat.INT},
-            {JobID.SAM, PrimaryStat.STR},
-            {JobID.SCH, PrimaryStat.MND},
-            {JobID.SMN, PrimaryStat.INT},
-            {JobID.WAR, PrimaryStat.STR},
-            {JobID.WHM, PrimaryStat.MND}
+        private static Dictionary<JobID, CharacterStat> defaultActionPrimaryStat = new Dictionary<JobID, CharacterStat>() {
+            {JobID.AST, CharacterStat.MIND},
+            {JobID.BLM, CharacterStat.INTELLIGENCE},
+            {JobID.BRD, CharacterStat.DEXTERITY},
+            {JobID.DRG, CharacterStat.STRENGTH},
+            {JobID.DRK, CharacterStat.STRENGTH},
+            {JobID.MCH, CharacterStat.DEXTERITY},
+            {JobID.MNK, CharacterStat.STRENGTH},
+            {JobID.NIN, CharacterStat.DEXTERITY},
+            {JobID.PLD, CharacterStat.STRENGTH},
+            {JobID.RDM, CharacterStat.INTELLIGENCE},
+            {JobID.SAM, CharacterStat.STRENGTH},
+            {JobID.SCH, CharacterStat.MIND},
+            {JobID.SMN, CharacterStat.INTELLIGENCE},
+            {JobID.WAR, CharacterStat.STRENGTH},
+            {JobID.WHM, CharacterStat.MIND}
         };
 
         private static Dictionary<JobID, ActionType> DefaultActionTypes = new Dictionary<JobID, ActionType>() {
@@ -269,17 +269,17 @@ namespace Simulator_of_Light.Simulator.Resources {
             {JobID.WHM, 124}
         };
 
-        private static Dictionary<PrimaryStat, Dictionary<JobID, double>> jobMods = new Dictionary<PrimaryStat, Dictionary<JobID, double>>() {
-            {PrimaryStat.STR, strengthJobMods},
-            {PrimaryStat.DEX, dexterityJobMods},
-            {PrimaryStat.INT, intelligenceJobMods},
-            {PrimaryStat.MND, mindJobMods},
-            {PrimaryStat.VIT, vitalityJobMods},
-            {PrimaryStat.HP, hpJobMods},
-            {PrimaryStat.MP, mpJobMods},
+        private static Dictionary<CharacterStat, Dictionary<JobID, double>> jobMods = new Dictionary<CharacterStat, Dictionary<JobID, double>>() {
+            {CharacterStat.STRENGTH, strengthJobMods},
+            {CharacterStat.DEXTERITY, dexterityJobMods},
+            {CharacterStat.INTELLIGENCE, intelligenceJobMods},
+            {CharacterStat.MIND, mindJobMods},
+            {CharacterStat.VITALITY, vitalityJobMods},
+            {CharacterStat.HP, hpJobMods},
+            {CharacterStat.MP, mpJobMods},
         };
 
-        public static double getJobMod(JobID id, PrimaryStat stat) {
+        public static double getJobMod(JobID id, CharacterStat stat) {
 
             Dictionary<JobID, double> dict;
 
@@ -304,7 +304,7 @@ namespace Simulator_of_Light.Simulator.Resources {
             return 110;
         }
 
-        public static PrimaryStat getWeaponskillStat(JobID id) {
+        public static CharacterStat getWeaponskillStat(JobID id) {
             if (weaponskillPrimaryStat.ContainsKey(id)) {
                 return weaponskillPrimaryStat[id];
             }
@@ -312,7 +312,7 @@ namespace Simulator_of_Light.Simulator.Resources {
             throw new ArgumentException("Invalid JobID");
         }
 
-        public static PrimaryStat getDefaultPrimaryStat(JobID id) {
+        public static CharacterStat getDefaultPrimaryStat(JobID id) {
             if (defaultActionPrimaryStat.ContainsKey(id)) {
                 return defaultActionPrimaryStat[id];
             }

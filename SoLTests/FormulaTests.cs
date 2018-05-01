@@ -18,7 +18,7 @@ namespace SoLTests
             double attackPower = 2837;
             double determination = 1489;
             JobID jobID = JobID.WHM;
-            PrimaryStat stat = PrimaryStat.MND;
+            CharacterStat stat = CharacterStat.MIND;
 
             double empiricalMax = 7497; // via in-game testing
             double empiricalMin = 6814; // via in-game testing
@@ -42,7 +42,7 @@ namespace SoLTests
             double attackPower = 2149;
             double determination = 1236;
             JobID jobID = JobID.WAR;
-            PrimaryStat stat = PrimaryStat.STR;
+            CharacterStat stat = CharacterStat.STRENGTH;
             double tenacity = 1007;
 
             double empiricalMax = 2095; // via in-game testing

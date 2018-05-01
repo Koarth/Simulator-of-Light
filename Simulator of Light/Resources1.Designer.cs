@@ -69,5 +69,14 @@ namespace Simulator_of_Light {
                 return ResourceManager.GetString("BASEACTIONS_JSON_WHM", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Simulator\Resources\Gearsets\.
+        /// </summary>
+        internal static string GEARSET_DIRECTORY {
+            get {
+                return ResourceManager.GetString("GEARSET_DIRECTORY", resourceCulture);
+            }
+        }
     }
 }

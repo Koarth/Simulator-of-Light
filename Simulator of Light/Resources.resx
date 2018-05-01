@@ -120,4 +120,7 @@
   <data name="BASEACTIONS_JSON_WHM" xml:space="preserve">
     <value>Simulator\Resources\BaseActions\WHM.json</value>
   </data>
+  <data name="GEARSET_DIRECTORY" xml:space="preserve">
+    <value>Simulator\Resources\Gearsets\</value>
+  </data>
 </root>

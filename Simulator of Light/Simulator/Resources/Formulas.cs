@@ -26,9 +26,9 @@ namespace Simulator_of_Light.Simulator.Resources {
         /// traits, or critical/direct hits.</returns>
         public static double calculateActionDamage(double potency, double weaponDamage,
             double attackPower, JobID jobID,
-            PrimaryStat stat = PrimaryStat.UNKNOWN) {
+            CharacterStat stat = CharacterStat.UNKNOWN) {
 
-            if (stat == PrimaryStat.UNKNOWN) {
+            if (stat == CharacterStat.UNKNOWN) {
                 stat = getDefaultPrimaryStat(jobID);
             }
 
@@ -112,7 +112,7 @@ namespace Simulator_of_Light.Simulator.Resources {
             if (piety < BasePiety70) {
                 throw new ArgumentException("Piety value lower than base!");
             }
-            return Math.Floor((getJobMod(jobID, PrimaryStat.MP) / 100) * (PietyGrowthModifier * (piety - BasePiety70) / LevelGrowthPenalty70 + BaseMana70));
+            return Math.Floor((getJobMod(jobID, CharacterStat.MP) / 100) * (PietyGrowthModifier * (piety - BasePiety70) / LevelGrowthPenalty70 + BaseMana70));
         }
 
         public static double calculateSpeedMultiplier(double speed) {
@@ -130,7 +130,7 @@ namespace Simulator_of_Light.Simulator.Resources {
         }
 
         public static double calculateTotalHP(double vitality, JobID jobID) {
-            return Math.Floor(BaseHP70 * (getJobMod(jobID, PrimaryStat.HP) / 100)) + Math.Floor((vitality - BaseMain70) * 21.5);
+            return Math.Floor(BaseHP70 * (getJobMod(jobID, CharacterStat.HP) / 100)) + Math.Floor((vitality - BaseMain70) * 21.5);
         }
 
     }

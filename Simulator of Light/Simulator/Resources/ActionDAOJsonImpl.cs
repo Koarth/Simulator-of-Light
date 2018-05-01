@@ -9,7 +9,7 @@ using System.IO;
 
 namespace Simulator_of_Light.Simulator.Resources {
 
-    public class ActionDAOJsonImpl : ActionDAO {
+    public class ActionDAOJsonImpl : IActionDAO {
 
         public ActionDAOJsonImpl() { }
 

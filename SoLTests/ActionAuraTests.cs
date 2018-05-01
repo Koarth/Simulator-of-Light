@@ -61,7 +61,7 @@ namespace SoLTests {
             var action = actions["Aero"];
             Assert.AreEqual("Aero", action.Name);
             Assert.AreEqual(JobID.WHM, action.JobID);
-            Assert.AreEqual(PrimaryStat.MND, action.Stat);
+            Assert.AreEqual(CharacterStat.MIND, action.Stat);
             Assert.AreEqual(ActionAspect.MAGIC, action.Aspect);
             Assert.AreEqual(30.0, action.Potency);
             Assert.AreEqual(480.0, action.MpCost);

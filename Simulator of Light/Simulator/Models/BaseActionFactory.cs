@@ -36,7 +36,7 @@ namespace Simulator_of_Light.Simulator.Models {
             }
 
             // initialize from JSON configuration if needed.
-            ActionDAO DAO = new ActionDAOJsonImpl();
+            IActionDAO DAO = new ActionDAOJsonImpl();
             var dict = DAO.getActionsByJobID(jobID);
             _baseActions.Add(jobID, dict);
 

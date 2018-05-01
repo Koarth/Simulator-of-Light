@@ -1,0 +1,327 @@
+﻿[
+  {
+    "Name": "Byakurenge Kai",
+    "Ilvl": 370,
+    "Jobs": [
+      "WHM"
+    ],
+    "Slot": "WEAPON",
+    "Stats": {
+      "PHYSICALDAMAGE": 104.0,
+      "MAGICDAMAGE": 140.0,
+      "AUTOATTACK": 119.25,
+      "AUTOATTACKDELAY": 3.44,
+      "VITALITY": 342,
+      "MIND": 347,
+      "CRITICALHIT": 218,
+      "DETERMINATION": 311
+    },
+    "Materia": [
+      {
+        "Name": "Savage Aim Materia VI",
+        "Stat": "CRITICALHIT",
+        "Value": 40.0
+      },
+      {
+        "Name": "Savage Aim Materia VI",
+        "Stat": "CRITICALHIT",
+        "Value": 40.0
+      }
+    ]
+  },
+  {
+    "Name": "Dai-ryumyakyu Hitai-ate of Healing",
+    "Ilvl": 370,
+    "Jobs": [
+      "WHM",
+      "SCH",
+      "AST"
+    ],
+    "Slot": "HEAD",
+    "Stats": {
+      "VITALITY": 195.0,
+      "MIND": 198.0,
+      "CRITICALHIT": 178.0,
+      "DETERMINATION": 125.0,
+      "DEFENSE": 326.0,
+      "MAGICDEFENSE": 570.0
+    },
+    "Materia": [
+      {
+        "Name": "Savage Might Materia VI",
+        "Stat": "DETERMINATION",
+        "Value": 40.0
+      },
+      {
+        "Name": "Heavens' Eye Materia VI",
+        "Stat": "DIRECTHIT",
+        "Value": 40.0
+      }
+    ]
+  },
+  {
+    "Name": "Ryumyaku Dogi of Healing",
+    "Ilvl": 360,
+    "Jobs": [
+      "WHM",
+      "SCH",
+      "AST"
+    ],
+    "Slot": "BODY",
+    "Stats": {
+      "VITALITY": 299.0,
+      "MIND": 307.0,
+      "PIETY": 194.0,
+      "DETERMINATION": 277.0,
+      "DEFENSE": 446.0,
+      "MAGICDEFENSE": 780.0
+    },
+    "Materia": [
+      {
+        "Name": "Savage Aim Materia VI",
+        "Stat": "CRITICALHIT",
+        "Value": 40.0
+      },
+      {
+        "Name": "Savage Aim Materia VI",
+        "Stat": "CRITICALHIT",
+        "Value": 40.0
+      }
+    ]
+  },
+  {
+    "Name": "Ryumyaku Kote of Healing",
+    "Ilvl": 360,
+    "Jobs": [
+      "WHM",
+      "SCH",
+      "AST"
+    ],
+    "Slot": "HANDS",
+    "Stats": {
+      "VITALITY": 184.0,
+      "MIND": 189.0,
+      "PIETY": 171.0,
+      "CRITICALHIT": 119.0,
+      "DEFENSE": 318.0,
+      "MAGICDEFENSE": 557.0
+    },
+    "Materia": [
+      {
+        "Name": "Savage Aim Materia VI",
+        "Stat": "CRITICALHIT",
+        "Value": 40.0
+      },
+      {
+        "Name": "Savage Might Materia VI",
+        "Stat": "DETERMINATION",
+        "Value": 40.0
+      }
+    ]
+  },
+  {
+    "Name": "Dai-ryumyaku Obi of Healing",
+    "Ilvl": 370,
+    "Jobs": [
+      "WHM",
+      "SCH",
+      "AST"
+    ],
+    "Slot": "WAIST",
+    "Stats": {
+      "VITALITY": 147.0,
+      "MIND": 149.0,
+      "SPELLSPEED": 93.0,
+      "CRITICALHIT": 133.0,
+      "DEFENSE": 282.0,
+      "MAGICDEFENSE": 494.0
+    },
+    "Materia": [
+      {
+        "Name": "Savage Might Materia VI",
+        "Stat": "DETERMINATION",
+        "Value": 40.0
+      }
+    ]
+  },
+  {
+    "Name": "Diamond Trousers of Healing",
+    "Ilvl": 370,
+    "Jobs": [
+      "WHM",
+      "SCH",
+      "AST"
+    ],
+    "Slot": "LEGS",
+    "Stats": {
+      "VITALITY": 317.0,
+      "MIND": 322.0,
+      "PIETY": 289.0,
+      "CRITICALHIT": 202.0,
+      "DEFENSE": 456.0,
+      "MAGICDEFENSE": 798.0
+    },
+    "Materia": [
+      {
+        "Name": "Savage Aim Materia VI",
+        "Stat": "CRITICALHIT",
+        "Value": 40.0
+      },
+      {
+        "Name": "Savage Aim Materia VI",
+        "Stat": "CRITICALHIT",
+        "Value": 40.0
+      }
+    ]
+  },
+  {
+    "Name": "Dai-ryumyaku Choka of Healing",
+    "Ilvl": 370,
+    "Jobs": [
+      "WHM",
+      "SCH",
+      "AST"
+    ],
+    "Slot": "FEET",
+    "Stats": {
+      "VITALITY": 195.0,
+      "MIND": 198.0,
+      "PIETY": 125.0,
+      "CRITICALHIT": 178.0,
+      "DEFENSE": 326.0,
+      "MAGICDEFENSE": 570.0
+    },
+    "Materia": [
+      {
+        "Name": "Savage Might Materia VI",
+        "Stat": "DETERMINATION",
+        "Value": 40.0
+      },
+      {
+        "Name": "Savage Might Materia VI",
+        "Stat": "DETERMINATION",
+        "Value": 40.0
+      }
+    ]
+  },
+  {
+    "Name": "Dai-ryumyaku Earring of Healing",
+    "Ilvl": 370,
+    "Jobs": [
+      "WHM",
+      "SCH",
+      "AST"
+    ],
+    "Slot": "EARRINGS",
+    "Stats": {
+      "MIND": 149.0,
+      "SPELLSPEED": 133.0,
+      "CRITICALHIT": 93.0,
+      "DEFENSE": 1.0,
+      "MAGICDEFENSE": 1.0
+    },
+    "Materia": [
+      {
+        "Name": "Savage Aim Materia VI",
+        "Stat": "CRITICALHIT",
+        "Value": 40.0
+      }
+    ]
+  },
+  {
+    "Name": "Dai-ryumyaku Necklace of Healing",
+    "Ilvl": 370,
+    "Jobs": [
+      "WHM",
+      "SCH",
+      "AST"
+    ],
+    "Slot": "NECKLACE",
+    "Stats": {
+      "MIND": 149.0,
+      "CRITICALHIT": 133.0,
+      "DETERMINATION": 93.0,
+      "DEFENSE": 1.0,
+      "MAGICDEFENSE": 1.0
+    },
+    "Materia": [
+      {
+        "Name": "Vitality Materia VI",
+        "Stat": "VITALITY",
+        "Value": 25.0
+      }
+    ]
+  },
+  {
+    "Name": "Diamond Bracelet of Healing",
+    "Ilvl": 370,
+    "Jobs": [
+      "WHM",
+      "SCH",
+      "AST"
+    ],
+    "Slot": "BRACELET",
+    "Stats": {
+      "MIND": 149.0,
+      "DETERMINATION": 133.0,
+      "CRITICALHIT": 93.0,
+      "DEFENSE": 1.0,
+      "MAGICDEFENSE": 1.0
+    },
+    "Materia": [
+      {
+        "Name": "Vitality Materia VI",
+        "Stat": "VITALITY",
+        "Value": 25.0
+      }
+    ]
+  },
+  {
+    "Name": "Dai-ryumyaku Ring of Healing",
+    "Ilvl": 370,
+    "Jobs": [
+      "WHM",
+      "SCH",
+      "AST"
+    ],
+    "Slot": "RINGLEFT",
+    "Stats": {
+      "MIND": 149.0,
+      "DETERMINATION": 133.0,
+      "PIETY": 93.0,
+      "DEFENSE": 1.0,
+      "MAGICDEFENSE": 1.0
+    },
+    "Materia": [
+      {
+        "Name": "Savage Aim Materia VI",
+        "Stat": "CRITICALHIT",
+        "Value": 40.0
+      }
+    ]
+  },
+  {
+    "Name": "Diamond Ring of Healing",
+    "Ilvl": 370,
+    "Jobs": [
+      "WHM",
+      "SCH",
+      "AST"
+    ],
+    "Slot": "RINGRIGHT",
+    "Stats": {
+      "MIND": 149.0,
+      "CRITICALHIT": 133.0,
+      "SPELLSPEED": 93.0,
+      "DEFENSE": 1.0,
+      "MAGICDEFENSE": 1.0
+    },
+    "Materia": [
+      {
+        "Name": "Vitality Materia VI",
+        "Stat": "VITALITY",
+        "Value": 25.0
+      }
+    ]
+  }
+]
