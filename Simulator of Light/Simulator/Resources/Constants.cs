@@ -283,17 +283,17 @@ namespace Simulator_of_Light.Simulator.Resources {
 
             Dictionary<JobID, double> dict;
 
-            if (jobMods.ContainsKey(stat)) {
+            try {
                 dict = jobMods[stat];
-            } else {
+            } catch (KeyNotFoundException) {
                 throw new ArgumentException("Invalid primary stat");
             }
 
-            if (dict.ContainsKey(id)) {
+            try { 
                 return dict[id];
+            } catch (KeyNotFoundException) {
+                throw new ArgumentException("Invalid JobID");
             }
-
-            throw new ArgumentException("Invalid JobID");
         }
 
         public static double getAutoAttackPotency(JobID id) {
@@ -305,19 +305,19 @@ namespace Simulator_of_Light.Simulator.Resources {
         }
 
         public static CharacterStat getWeaponskillStat(JobID id) {
-            if (weaponskillPrimaryStat.ContainsKey(id)) {
+            try { 
                 return weaponskillPrimaryStat[id];
+            } catch (KeyNotFoundException) {
+                throw new ArgumentException("Invalid JobID");
             }
-
-            throw new ArgumentException("Invalid JobID");
         }
 
         public static CharacterStat getDefaultPrimaryStat(JobID id) {
-            if (defaultActionPrimaryStat.ContainsKey(id)) {
+            try {
                 return defaultActionPrimaryStat[id];
+            } catch (KeyNotFoundException) {
+                throw new ArgumentException("Invalid JobID");
             }
-
-            throw new ArgumentException("Invalid JobID");
         }
     }
 }
