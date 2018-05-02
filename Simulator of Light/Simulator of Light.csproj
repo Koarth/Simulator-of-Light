@@ -113,8 +113,8 @@
     <Compile Include="Simulator\Models\BaseAura.cs" />
     <Compile Include="Simulator\Models\BaseAction.cs" />
     <Compile Include="Simulator\Models\Materia.cs" />
-    <Compile Include="Simulator\Models\Equipment.cs" />
-    <Compile Include="Simulator\Models\EquipmentSet.cs" />
+    <Compile Include="Simulator\Models\GearItem.cs" />
+    <Compile Include="Simulator\Models\GearSet.cs" />
     <Compile Include="Simulator\Resources\ActionDAOJsonImpl.cs" />
     <Compile Include="Simulator\Resources\GearsetDAOJsonImpl.cs" />
     <Compile Include="Simulator\Resources\IGearsetDAO.cs" />

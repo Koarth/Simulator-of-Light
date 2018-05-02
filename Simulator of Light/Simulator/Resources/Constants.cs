@@ -12,15 +12,16 @@ namespace Simulator_of_Light.Simulator.Resources {
          to the TheoryJerks and their contributors. */
 
         /* Base Statistics at Level 70 */
+        /**
         public static readonly double BaseDetermination70 = 292;
         public static readonly double BaseCriticalHit70 = 364;
         public static readonly double BaseDirectHit70 = 364;
         public static readonly double BaseSpeed70 = 364;
         public static readonly double BaseTenacity70 = 364;
         public static readonly double BasePiety70 = 292;
+        **/
         public static readonly double BaseMain70 = 292;
-        public static readonly double BaseAttackPower70 = 292; // TODO: verify that there is no variance between jobs.
-        public static readonly double BaseMana70 = 12000;
+        public static readonly double BaseMP70 = 12000;
         public static readonly double BaseHP70 = 3600;
 
         /* "Magic Numbers" for secondary stat formulas. */
@@ -39,55 +40,21 @@ namespace Simulator_of_Light.Simulator.Resources {
         public static readonly double BaseCriticalHitMultiplier = 1.4;
         public static readonly double DirectHitMultiplier = 1.25;
 
-
-
-        /* Job IDs to help store constants and for easy reference. */
-        /**
-        public enum JobID {
-            AST,
-            BLM,
-            BRD,
-            DRG,
-            DRK,
-            MCH,
-            MNK,
-            NIN,
-            PLD,
-            RDM,
-            SAM,
-            SCH,
-            SMN,
-            WAR,
-            WHM
-        }
-
-        public enum ActionType {
-            ATTACK,
-            MAGIC,
-            HEAL,
-            UNKNOWN
-        }
-
-        public enum ActionAspect {
-            BLUNT,
-            SLASHING,
-            PIERCING,
-            MAGIC,
-            UNASPECTED
-        }
-
-        public enum PrimaryStat {
-            STR,
-            DEX,
-            INT,
-            MND,
-            VIT,
-            HP,
-            MP,
-            UNKNOWN
-        }
-
-        **/
+        private static Dictionary<CharacterStat, double> baseStats = new Dictionary<CharacterStat, double>() {
+            {CharacterStat.STRENGTH, BaseMain70},
+            {CharacterStat.DEXTERITY, BaseMain70},
+            {CharacterStat.INTELLIGENCE, BaseMain70},
+            {CharacterStat.MIND, BaseMain70},
+            {CharacterStat.VITALITY, BaseMain70},
+            {CharacterStat.DETERMINATION, 292},
+            {CharacterStat.DIRECTHIT, 364},
+            {CharacterStat.CRITICALHIT, 364},
+            {CharacterStat.SKILLSPEED, 364},
+            {CharacterStat.SPELLSPEED, 364},
+            {CharacterStat.TENACITY, 364},
+            {CharacterStat.PIETY, 292},
+            {CharacterStat.TP, 1000}
+        };
 
         private static Dictionary<JobID, CharacterStat> weaponskillPrimaryStat = new Dictionary<JobID, CharacterStat>() {
             {JobID.AST, CharacterStat.STRENGTH},
@@ -278,6 +245,14 @@ namespace Simulator_of_Light.Simulator.Resources {
             {CharacterStat.HP, hpJobMods},
             {CharacterStat.MP, mpJobMods},
         };
+        
+        public static double getBaseStat(CharacterStat stat) {
+            try {
+                return baseStats[stat];
+            } catch (KeyNotFoundException) {
+                throw new ArgumentException("Invalid stat.");
+            }
+        }
 
         public static double getJobMod(JobID id, CharacterStat stat) {
 

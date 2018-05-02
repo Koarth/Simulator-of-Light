@@ -11,16 +11,16 @@ namespace SoLTests {
     [TestClass]
     public class EquipmentTests {
 
-        private Equipment[] testSet;
-        private Equipment[] replacementSet;
+        private GearItem[] testSet;
+        private GearItem[] replacementSet;
 
         [TestInitialize]
         public void Initialize() {
 
             string partialpath = "TestConfigs\\WHMGear.json";
             string filePath = Path.Combine(Directory.GetCurrentDirectory(), partialpath);
-            Equipment[] retrievedSet;
-            retrievedSet = JsonConvert.DeserializeObject<Equipment[]>(File.ReadAllText(filePath),
+            GearItem[] retrievedSet;
+            retrievedSet = JsonConvert.DeserializeObject<GearItem[]>(File.ReadAllText(filePath),
                 new JsonSerializerSettings {
                    DefaultValueHandling = DefaultValueHandling.Populate
                 }
@@ -30,7 +30,7 @@ namespace SoLTests {
 
             partialpath = "TestConfigs\\ReplacementGear.json";
             filePath = Path.Combine(Directory.GetCurrentDirectory(), partialpath);
-            retrievedSet = JsonConvert.DeserializeObject<Equipment[]>(File.ReadAllText(filePath),
+            retrievedSet = JsonConvert.DeserializeObject<GearItem[]>(File.ReadAllText(filePath),
                 new JsonSerializerSettings {
                     DefaultValueHandling = DefaultValueHandling.Populate
                 }
@@ -42,47 +42,47 @@ namespace SoLTests {
 
         [TestMethod]
         public void TestEquipmentSetInstantiationSuccess() {
-            EquipmentSet set = new EquipmentSet(testSet);
+            GearSet set = new GearSet(testSet);
             Assert.IsNotNull(set);
         }
 
         [TestMethod]
         public void TestEquipmentSetInstantiationArrayPopulated() {
-            EquipmentSet set = new EquipmentSet(testSet);
+            GearSet set = new GearSet(testSet);
 
             // Test set has every item defined except a shield.
-            for (int i = 0; i < set.Equipment.Length; i++) {
+            for (int i = 0; i < set.Items.Length; i++) {
                 if (i != ((int)EquipSlot.SHIELD - 1)) {
-                    Assert.IsNotNull(set.Equipment[i]);
+                    Assert.IsNotNull(set.Items[i]);
                 } else {
-                    Assert.IsNull(set.Equipment[i]);
+                    Assert.IsNull(set.Items[i]);
                 }
             }
         }
 
         [TestMethod]
         public void TestEquipmentSetInstantiationSlotsCorrect() {
-            EquipmentSet set = new EquipmentSet(testSet);
+            GearSet set = new GearSet(testSet);
 
-            for (int i = 0; i < set.Equipment.Length; i++) {
-                if (set.Equipment[i] != null) {
-                    Assert.AreEqual((EquipSlot)(i + 1), set.Equipment[i].Slot);
+            for (int i = 0; i < set.Items.Length; i++) {
+                if (set.Items[i] != null) {
+                    Assert.AreEqual((EquipSlot)(i + 1), set.Items[i].Slot);
                 }
             }
         }
 
         [TestMethod]
         public void TestEquipmentSetInstantiationStatsCorrect() {
-            EquipmentSet set = new EquipmentSet(testSet);
+            GearSet set = new GearSet(testSet);
 
             var summ = set.StatSummary;
 
             // Comparing resulting stat summary to in-game character summary.
-            Assert.AreEqual(2204, summ[CharacterStat.CRITICALHIT] + BaseCriticalHit70);
-            Assert.AreEqual(1564, summ[CharacterStat.DETERMINATION] + BaseDetermination70);
-            Assert.AreEqual(404, summ[CharacterStat.DIRECTHIT] + BaseDirectHit70);
-            Assert.AreEqual(683, summ[CharacterStat.SPELLSPEED] + BaseSpeed70);
-            Assert.AreEqual(1164, summ[CharacterStat.PIETY] + BasePiety70);
+            Assert.AreEqual(2204, summ[CharacterStat.CRITICALHIT] + getBaseStat(CharacterStat.CRITICALHIT));
+            Assert.AreEqual(1564, summ[CharacterStat.DETERMINATION] + getBaseStat(CharacterStat.DETERMINATION));
+            Assert.AreEqual(404, summ[CharacterStat.DIRECTHIT] + getBaseStat(CharacterStat.DIRECTHIT));
+            Assert.AreEqual(683, summ[CharacterStat.SPELLSPEED] + getBaseStat(CharacterStat.SPELLSPEED));
+            Assert.AreEqual(1164, summ[CharacterStat.PIETY] + getBaseStat(CharacterStat.PIETY));
 
             Assert.AreEqual(2159, summ[CharacterStat.DEFENSE]);
             Assert.AreEqual(3774, summ[CharacterStat.MAGICDEFENSE]);
@@ -94,15 +94,15 @@ namespace SoLTests {
 
         [TestMethod]
         public void TestEquipmentSetGetBySlot() {
-            EquipmentSet set = new EquipmentSet(testSet);
+            GearSet set = new GearSet(testSet);
 
-            Equipment item = set.GetItemBySlot(EquipSlot.NECKLACE);
+            GearItem item = set.GetItemBySlot(EquipSlot.NECKLACE);
             Assert.AreEqual(EquipSlot.NECKLACE, item.Slot);
         }
 
         [TestMethod]
         public void TestEquipmentSetAddItem() {
-            EquipmentSet set = new EquipmentSet();
+            GearSet set = new GearSet();
 
             set.AddItem(replacementSet[1]);
 
@@ -112,7 +112,7 @@ namespace SoLTests {
 
         [TestMethod]
         public void TestEquipmentSetAddItemSummary() {
-            EquipmentSet set = new EquipmentSet();
+            GearSet set = new GearSet();
 
             set.AddItem(replacementSet[1]);
 
@@ -121,7 +121,7 @@ namespace SoLTests {
 
         [TestMethod]
         public void TestEquipmentSetRemoveItem() {
-            EquipmentSet set = new EquipmentSet(testSet);
+            GearSet set = new GearSet(testSet);
 
             set.RemoveItem(EquipSlot.HEAD);
             Assert.IsNull(set.GetItemBySlot(EquipSlot.HEAD));
@@ -129,7 +129,7 @@ namespace SoLTests {
 
         [TestMethod]
         public void TestEquipmentSetRemoveItemSummary() {
-            EquipmentSet set = new EquipmentSet(testSet);
+            GearSet set = new GearSet(testSet);
 
             double mind = set.StatSummary[CharacterStat.MIND];
             double vitality = set.StatSummary[CharacterStat.VITALITY];
@@ -142,7 +142,7 @@ namespace SoLTests {
 
         [TestMethod]
         public void TestEquipmentSetReplaceItemInSet() {
-            EquipmentSet set = new EquipmentSet(testSet);
+            GearSet set = new GearSet(testSet);
             set.AddItem(replacementSet[1]);
 
             Assert.AreEqual("Ryumyakyu Hitai-ate of Healing", set.GetItemBySlot(EquipSlot.HEAD).Name);
@@ -152,7 +152,7 @@ namespace SoLTests {
 
         [TestMethod]
         public void TestEquipmentSetReplaceItemSummary() {
-            EquipmentSet set = new EquipmentSet(testSet);
+            GearSet set = new GearSet(testSet);
 
             double mind = set.StatSummary[CharacterStat.MIND];
             double vitality = set.StatSummary[CharacterStat.VITALITY];
@@ -174,7 +174,7 @@ namespace SoLTests {
 
         [TestMethod]
         public void TestEquipmentSetReplaceItemMateriaSummary() {
-            EquipmentSet set = new EquipmentSet(testSet);
+            GearSet set = new GearSet(testSet);
             
             double crit = set.StatSummary[CharacterStat.CRITICALHIT];
             double directhit = set.StatSummary[CharacterStat.DIRECTHIT];

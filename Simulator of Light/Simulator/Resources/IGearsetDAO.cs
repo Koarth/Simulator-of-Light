@@ -9,7 +9,7 @@ namespace Simulator_of_Light.Simulator.Resources {
 
     public interface IGearsetDAO {
 
-        EquipmentSet GetEquipmentSetByName(string name);
+        GearSet GetEquipmentSetByName(string name);
 
     }
 }

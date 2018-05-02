@@ -18,6 +18,5 @@ namespace Simulator_of_Light.Simulator.Models {
         public CharacterStat Stat { get => _stat; private set => _stat = value; }
         public double Value { get => _value; private set => _value = value; }
 
-        // TODO
     }
 }

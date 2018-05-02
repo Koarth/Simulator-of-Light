@@ -30,7 +30,7 @@ namespace Simulator_of_Light.Simulator.Resources {
                 retrievedActions = JsonConvert.DeserializeObject<List<BaseAction>>(File.ReadAllText(filePath), new JsonSerializerSettings {
                     DefaultValueHandling = DefaultValueHandling.Populate
                 });
-            } catch (FileNotFoundException e) {
+            } catch (FileNotFoundException) {
                 throw new FileNotFoundException("Action configuration not found for " 
                     + jobID.ToString() + " at " + filePath);
             }

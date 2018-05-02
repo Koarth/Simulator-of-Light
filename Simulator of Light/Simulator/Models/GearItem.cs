@@ -7,7 +7,7 @@ using Newtonsoft.Json;
 
 namespace Simulator_of_Light.Simulator.Models {
 
-    public class Equipment {
+    public class GearItem {
 
         // Metadata
         private string _name;
@@ -20,7 +20,7 @@ namespace Simulator_of_Light.Simulator.Models {
         private Materia[] _materia;
 
         [JsonConstructor]
-        public Equipment(string name, int ilvl, JobID[] jobs, EquipSlot slot,
+        public GearItem(string name, int ilvl, JobID[] jobs, EquipSlot slot,
             Dictionary<CharacterStat, double> stats, Materia[] materia) {
 
             Name = name;

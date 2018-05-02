@@ -33,11 +33,11 @@ namespace Simulator_of_Light.Simulator.Resources {
             }
 
             // Base damage from job and weapon.
-            double jobBaseDamage = Math.Truncate(BaseDetermination70 * getJobMod(jobID, stat) / 1000);
+            double jobBaseDamage = Math.Truncate(BaseMain70 * getJobMod(jobID, stat) / 1000);
             double baseDamage = weaponDamage + jobBaseDamage;
 
             // Multiplier from Attack Power
-            double apMultiplier = Math.Truncate(125 * (attackPower - BaseAttackPower70) / BaseAttackPower70 + 100) / 100;
+            double apMultiplier = Math.Truncate(125 * (attackPower - BaseMain70) / BaseMain70 + 100) / 100;
 
             // Total damage after Attack Power and Potency multipliers.
             double totalDamage = Math.Truncate(potency * baseDamage * apMultiplier / 100);
@@ -49,10 +49,12 @@ namespace Simulator_of_Light.Simulator.Resources {
         public static double calculateAutoAttackDamage(double weaponDamage, double autoAttackDelay, double attackPower,
             JobID jobID) {
 
-            double jobBaseDamage = Math.Truncate(BaseDetermination70 * getJobMod(jobID, getWeaponskillStat(jobID)) / 1000);
+            CharacterStat weaponskillStat = getWeaponskillStat(jobID);
+
+            double jobBaseDamage = Math.Truncate(getBaseStat(weaponskillStat) * getJobMod(jobID, weaponskillStat) / 1000);
             double baseDamage = (weaponDamage + jobBaseDamage) * (autoAttackDelay / 3);
 
-            double apMultiplier = Math.Truncate(125 * (attackPower - BaseAttackPower70) / 292 + 100) / 100;
+            double apMultiplier = Math.Truncate(125 * (attackPower - BaseMain70) / 292 + 100) / 100;
 
             double totalDamage = Math.Truncate(getAutoAttackPotency(jobID) * baseDamage * apMultiplier / 100);
 
@@ -66,10 +68,10 @@ namespace Simulator_of_Light.Simulator.Resources {
         /// <param name="criticalHit">The critical hit statistic to convert.</param>
         /// <returns></returns>
         public static double calculateCriticalHitRate(double criticalHit) {
-            if (criticalHit < BaseCriticalHit70) {
+            if (criticalHit < getBaseStat(CharacterStat.CRITICALHIT)) {
                 throw new ArgumentException("Critical Hit value lower than base!");
             }
-            return Math.Floor(CriticalHitGrowthModifier * (criticalHit - BaseCriticalHit70) / LevelGrowthPenalty70 + 50) / 1000;
+            return Math.Floor(CriticalHitGrowthModifier * (criticalHit - getBaseStat(CharacterStat.CRITICALHIT)) / LevelGrowthPenalty70 + 50) / 1000;
         }
 
         /// <summary>
@@ -78,10 +80,10 @@ namespace Simulator_of_Light.Simulator.Resources {
         /// <param name="criticalHit">The critical hit statistic to convert.</param>
         /// <returns></returns>
         public static double calculateCriticalHitMultiplier(double criticalHit) {
-            if (criticalHit < BaseCriticalHit70) {
+            if (criticalHit < getBaseStat(CharacterStat.CRITICALHIT)) {
                 throw new ArgumentException("Critical Hit value lower than base!");
             }
-            return Math.Floor(CriticalHitGrowthModifier * (criticalHit - BaseCriticalHit70) / LevelGrowthPenalty70 + 1400) / 1000;
+            return Math.Floor(CriticalHitGrowthModifier * (criticalHit - getBaseStat(CharacterStat.CRITICALHIT)) / LevelGrowthPenalty70 + 1400) / 1000;
         }
 
         /// <summary>
@@ -90,10 +92,10 @@ namespace Simulator_of_Light.Simulator.Resources {
         /// <param name="determination">The determination statistic to be converted.</param>
         /// <returns></returns>
         public static double calculateDeterminationMultiplier(double determination) {
-            if (determination < BaseDetermination70) {
+            if (determination < getBaseStat(CharacterStat.DETERMINATION)) {
                 throw new ArgumentException("Determination value lower than base!");
             }
-            return Math.Floor(DeterminationGrowthModifier * (determination - BaseDetermination70) / LevelGrowthPenalty70 + 1000) / 1000;
+            return Math.Floor(DeterminationGrowthModifier * (determination - getBaseStat(CharacterStat.DETERMINATION)) / LevelGrowthPenalty70 + 1000) / 1000;
         }
 
         /// <summary>
@@ -102,35 +104,45 @@ namespace Simulator_of_Light.Simulator.Resources {
         /// <param name="directHit">The direct hit statistic to convert.</param>
         /// <returns></returns>
         public static double calculateDirectHitRate(double directHit) {
-            if (directHit < BaseDirectHit70) {
+            if (directHit < getBaseStat(CharacterStat.DIRECTHIT)) {
                 throw new ArgumentException("Direct Hit value lower than base!");
             }
-            return Math.Floor(DirectHitGrowthModifier * (directHit - BaseDirectHit70) / LevelGrowthPenalty70) / 1000;
+            return Math.Floor(DirectHitGrowthModifier * (directHit - getBaseStat(CharacterStat.DIRECTHIT)) / LevelGrowthPenalty70) / 1000;
         }
 
         public static double calculateTotalMana(double piety, JobID jobID) {
-            if (piety < BasePiety70) {
+            if (piety < getBaseStat(CharacterStat.PIETY)) {
                 throw new ArgumentException("Piety value lower than base!");
             }
-            return Math.Floor((getJobMod(jobID, CharacterStat.MP) / 100) * (PietyGrowthModifier * (piety - BasePiety70) / LevelGrowthPenalty70 + BaseMana70));
+            return Math.Floor((getJobMod(jobID, CharacterStat.MP) / 100) * (PietyGrowthModifier * (piety - getBaseStat(CharacterStat.PIETY)) / LevelGrowthPenalty70 + BaseMP70));
         }
 
         public static double calculateSpeedMultiplier(double speed) {
-            if (speed < BaseSpeed70) {
+            if (speed < getBaseStat(CharacterStat.SKILLSPEED)) {
                 throw new ArgumentException("Speed value lower than base!");
             }
-            return Math.Floor(SpeedGrowthModifier * (speed - BaseSpeed70) / LevelGrowthPenalty70 + 1000) / 1000;
+            return Math.Floor(SpeedGrowthModifier * (speed - getBaseStat(CharacterStat.SKILLSPEED)) / LevelGrowthPenalty70 + 1000) / 1000;
         }
 
         public static double calculateTenacityMultiplier(double tenacity) {
-            if (tenacity < BaseTenacity70) {
+            if (tenacity < getBaseStat(CharacterStat.TENACITY)) {
                 throw new ArgumentException("Tenacity value lower than base!");
             }
-            return Math.Floor(TenacityGrowthModifier * (tenacity - BaseTenacity70) / LevelGrowthPenalty70 + 1000) / 1000;
+            return Math.Floor(TenacityGrowthModifier * (tenacity - getBaseStat(CharacterStat.TENACITY)) / LevelGrowthPenalty70 + 1000) / 1000;
         }
 
         public static double calculateTotalHP(double vitality, JobID jobID) {
             return Math.Floor(BaseHP70 * (getJobMod(jobID, CharacterStat.HP) / 100)) + Math.Floor((vitality - BaseMain70) * 21.5);
+        }
+
+        public static double getBaseStatMultiplier(JobID jobID, CharacterStat stat) {
+            double multiplier = 1;
+
+            try {
+                multiplier = getJobMod(jobID, stat) / 100;
+            } catch (ArgumentException) { }
+
+            return multiplier;
         }
 
     }

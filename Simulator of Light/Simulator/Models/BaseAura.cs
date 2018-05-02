@@ -17,6 +17,7 @@ namespace Simulator_of_Light.Simulator.Models {
         private double _damageOverTimePotency;
         private double _healingOverTimePotency;
         private ActionAspect _damageAspect;
+        private double _refreshPotency;
 
         // Properties affecting outgoing actions
         private double _magicDamageModifier;
@@ -43,30 +44,38 @@ namespace Simulator_of_Light.Simulator.Models {
 
         [JsonConstructor]
         public BaseAura(string name, JobID jobID, double duration, double damageOverTimePotency, 
-            double healingOverTimePotency, ActionAspect damageAspect, double magicDamageModifier, 
-            double healingSpellModifier, double physicalDamageModifier, double globalDamageModifier, 
-            double castTimeModifier, double castTimeModifierFlat, double recastTimeModifier, 
-            double autoAttackDelayModifier, double criticalHitRateModifier, double directHitRateModifier, 
-            double mpCostModifier, double slashingResistanceModifier, double piercingResistanceModifier, 
-            double bluntResistanceModifier, double damageTakenModifier, double incomingCriticalHitRateModifier) {
+            double healingOverTimePotency, ActionAspect damageAspect, double refreshPotency,
+            double magicDamageModifier, double healingSpellModifier, double physicalDamageModifier, 
+            double globalDamageModifier, double castTimeModifier, double castTimeModifierFlat, 
+            double recastTimeModifier, double autoAttackDelayModifier, double criticalHitRateModifier, 
+            double directHitRateModifier, double mpCostModifier, double slashingResistanceModifier, 
+            double piercingResistanceModifier, double bluntResistanceModifier, double damageTakenModifier, 
+            double incomingCriticalHitRateModifier) {
 
             Name = name;
             JobID = jobID;
             Duration = duration;
+
             DamageOverTimePotency = damageOverTimePotency;
             HealingOverTimePotency = healingOverTimePotency;
             DamageAspect = damageAspect;
+            RefreshPotency = refreshPotency;
+
             MagicDamageModifier = magicDamageModifier;
             HealingSpellModifier = healingSpellModifier;
             PhysicalDamageModifier = physicalDamageModifier;
             GlobalDamageModifier = globalDamageModifier;
+
             CastTimeModifier = castTimeModifier;
             CastTimeModifierFlat = castTimeModifierFlat;
             RecastTimeModifier = recastTimeModifier;
             AutoAttackDelayModifier = autoAttackDelayModifier;
+
             CriticalHitRateModifier = criticalHitRateModifier;
             DirectHitRateModifier = directHitRateModifier;
+
             MpCostModifier = mpCostModifier;
+
             SlashingResistanceModifier = slashingResistanceModifier;
             PiercingResistanceModifier = piercingResistanceModifier;
             BluntResistanceModifier = bluntResistanceModifier;
@@ -85,6 +94,7 @@ namespace Simulator_of_Light.Simulator.Models {
         public double DamageOverTimePotency { get => _damageOverTimePotency; private set => _damageOverTimePotency = value; }
         public double HealingOverTimePotency { get => _healingOverTimePotency; private set => _healingOverTimePotency = value; }
         public ActionAspect DamageAspect { get => _damageAspect; private set => _damageAspect = value; }
+        public double RefreshPotency { get => _refreshPotency; private set => _refreshPotency = value; }
 
         public double MagicDamageModifier { get => _magicDamageModifier; private set => _magicDamageModifier = value; }
         public double HealingSpellModifier { get => _healingSpellModifier; private set => _healingSpellModifier = value; }

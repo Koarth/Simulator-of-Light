@@ -3,46 +3,45 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
 
 namespace Simulator_of_Light.Simulator.Models {
 
-    public class EquipmentSet {
+    public class GearSet {
 
-        private Equipment[] _equipment;
+        private GearItem[] _items;
         private Dictionary<CharacterStat, double> _statSummary;
 
-        public EquipmentSet() {
-            Equipment = new Equipment[Enum.GetNames(typeof(EquipSlot)).Length - 1];
+        public GearSet() {
+            Items = new GearItem[Enum.GetNames(typeof(EquipSlot)).Length - 1];
             StatSummary = new Dictionary<CharacterStat, double>();
         }
 
-        public EquipmentSet(Equipment[] equipment) {
+        public GearSet(GearItem[] equipment) {
 
             // Put each item in its correct slot in the array.  So that we can't equip 10 weapons.
             // TODO: A configuration with overwriting slots should generate a warning.
 
-            Equipment = new Equipment[Enum.GetNames(typeof(EquipSlot)).Length - 1];
+            Items = new GearItem[Enum.GetNames(typeof(EquipSlot)).Length - 1];
             StatSummary = new Dictionary<CharacterStat, double>();
 
             // Add each initial piece to the set.
-            foreach (Equipment e in equipment) {
+            foreach (GearItem e in equipment) {
                 if (!(e == null)) {
                     AddItem(e);
                 }
             }
         }
 
-        public void AddItem(Equipment item) {
+        public void AddItem(GearItem item) {
             EquipSlot slot = item.Slot;
 
             // Properly remove any item already in that slot.
-            if (Equipment[(int)slot - 1] != null) {
+            if (Items[(int)slot - 1] != null) {
                 RemoveItem(slot);
             }
 
             // Add the item.
-            Equipment[(int)slot - 1] = item;
+            Items[(int)slot - 1] = item;
 
             // Sum the stats on the item into the set's stat summary.
             foreach (CharacterStat stat in item.Stats.Keys) {
@@ -67,13 +66,13 @@ namespace Simulator_of_Light.Simulator.Models {
 
         public void RemoveItem(EquipSlot slot) {
             // Already nothing in that slot.
-            if (Equipment[(int)slot - 1] == null) {
+            if (Items[(int)slot - 1] == null) {
                 // TODO: generate warning?
                 return;
             }
 
             // Subtract the item's stats from the summary.
-            Equipment item = Equipment[(int)slot - 1];
+            GearItem item = Items[(int)slot - 1];
             foreach (Materia materia in item.Materia) {
                 StatSummary[materia.Stat] -= materia.Value;
             }
@@ -82,16 +81,16 @@ namespace Simulator_of_Light.Simulator.Models {
             }
 
             // Remove the item.
-            Equipment[(int)slot - 1] = null;
+            Items[(int)slot - 1] = null;
 
             return;
         }
 
-        public Equipment GetItemBySlot(EquipSlot slot) {
-            return Equipment[(int)slot - 1];
+        public GearItem GetItemBySlot(EquipSlot slot) {
+            return Items[(int)slot - 1];
         }
 
-        public Equipment[] Equipment { get => _equipment; private set => _equipment = value; }
+        public GearItem[] Items { get => _items; private set => _items = value; }
         public Dictionary<CharacterStat, double> StatSummary { get => _statSummary; private set => _statSummary = value; }
     }
 }

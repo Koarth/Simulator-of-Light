@@ -10,7 +10,7 @@ using System.IO;
 namespace Simulator_of_Light.Simulator.Resources {
     public class GearsetDAOJsonImpl : IGearsetDAO {
 
-        public EquipmentSet GetEquipmentSetByName(string name) {
+        public GearSet GetEquipmentSetByName(string name) {
 
             string partialpath = Simulator_of_Light.Resources.ResourceManager.GetString("GEARSET_DIRECTORY");
             if (partialpath == null) {
@@ -18,19 +18,19 @@ namespace Simulator_of_Light.Simulator.Resources {
             }
             string filePath = Path.Combine(Directory.GetCurrentDirectory(), partialpath, name + ".json");
 
-            Equipment[] retrievedSet;
+            GearItem[] retrievedSet;
             try {
-                retrievedSet = JsonConvert.DeserializeObject<Equipment[]>(File.ReadAllText(filePath), 
+                retrievedSet = JsonConvert.DeserializeObject<GearItem[]>(File.ReadAllText(filePath), 
                     new JsonSerializerSettings {
                         DefaultValueHandling = DefaultValueHandling.Populate
                     }
                 );
-            } catch (FileNotFoundException e) {
+            } catch (FileNotFoundException) {
                 throw new FileNotFoundException("Gearset configuration not found for "
                     + name + " at " + filePath);
             }
 
-            return new EquipmentSet(retrievedSet);
+            return new GearSet(retrievedSet);
 
 
         }
