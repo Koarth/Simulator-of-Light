@@ -40,7 +40,8 @@ namespace Simulator_of_Light.Simulator.Resources {
         public static readonly double BaseCriticalHitMultiplier = 1.4;
         public static readonly double DirectHitMultiplier = 1.25;
 
-        private static Dictionary<CharacterStat, double> baseStats = new Dictionary<CharacterStat, double>() {
+        private static Dictionary<CharacterStat, double> baseStats
+            = new Dictionary<CharacterStat, double>() {
             {CharacterStat.STRENGTH, BaseMain70},
             {CharacterStat.DEXTERITY, BaseMain70},
             {CharacterStat.INTELLIGENCE, BaseMain70},
@@ -56,7 +57,8 @@ namespace Simulator_of_Light.Simulator.Resources {
             {CharacterStat.TP, 1000}
         };
 
-        private static Dictionary<JobID, CharacterStat> weaponskillPrimaryStat = new Dictionary<JobID, CharacterStat>() {
+        private static Dictionary<JobID, CharacterStat> weaponskillPrimaryStat
+            = new Dictionary<JobID, CharacterStat>() {
             {JobID.AST, CharacterStat.STRENGTH},
             {JobID.BLM, CharacterStat.STRENGTH},
             {JobID.BRD, CharacterStat.DEXTERITY},
@@ -74,7 +76,8 @@ namespace Simulator_of_Light.Simulator.Resources {
             {JobID.WHM, CharacterStat.STRENGTH}
         };
 
-        private static Dictionary<JobID, CharacterStat> defaultActionPrimaryStat = new Dictionary<JobID, CharacterStat>() {
+        private static Dictionary<JobID, CharacterStat> defaultActionPrimaryStat
+            = new Dictionary<JobID, CharacterStat>() {
             {JobID.AST, CharacterStat.MIND},
             {JobID.BLM, CharacterStat.INTELLIGENCE},
             {JobID.BRD, CharacterStat.DEXTERITY},
@@ -92,7 +95,8 @@ namespace Simulator_of_Light.Simulator.Resources {
             {JobID.WHM, CharacterStat.MIND}
         };
 
-        private static Dictionary<JobID, ActionType> DefaultActionTypes = new Dictionary<JobID, ActionType>() {
+        private static Dictionary<JobID, ActionType> DefaultActionTypes
+            = new Dictionary<JobID, ActionType>() {
             {JobID.AST, ActionType.HEAL},
             {JobID.BLM, ActionType.MAGIC},
             {JobID.BRD, ActionType.ATTACK},
@@ -110,7 +114,8 @@ namespace Simulator_of_Light.Simulator.Resources {
             {JobID.WHM, ActionType.HEAL}
         };
 
-        private static Dictionary<JobID, double> strengthJobMods = new Dictionary<JobID, double>() {
+        private static Dictionary<JobID, double> strengthJobMods
+            = new Dictionary<JobID, double>() {
             {JobID.AST, 50},
             {JobID.BLM, 45},
             {JobID.BRD, 90},
@@ -128,7 +133,8 @@ namespace Simulator_of_Light.Simulator.Resources {
             {JobID.WHM, 55}
         };
 
-        private static Dictionary<JobID, double> dexterityJobMods = new Dictionary<JobID, double>() {
+        private static Dictionary<JobID, double> dexterityJobMods
+            = new Dictionary<JobID, double>() {
             {JobID.AST, 100},
             {JobID.BLM, 100},
             {JobID.BRD, 115},
@@ -146,7 +152,8 @@ namespace Simulator_of_Light.Simulator.Resources {
             {JobID.WHM, 105}
         };
 
-        private static Dictionary<JobID, double> intelligenceJobMods = new Dictionary<JobID, double>() {
+        private static Dictionary<JobID, double> intelligenceJobMods
+            = new Dictionary<JobID, double>() {
             {JobID.AST, 105},
             {JobID.BLM, 115},
             {JobID.BRD, 85},
@@ -164,7 +171,8 @@ namespace Simulator_of_Light.Simulator.Resources {
             {JobID.WHM, 105}
         };
 
-        private static Dictionary<JobID, double> mindJobMods = new Dictionary<JobID, double>() {
+        private static Dictionary<JobID, double> mindJobMods
+            = new Dictionary<JobID, double>() {
             {JobID.AST, 115},
             {JobID.BLM, 75},
             {JobID.BRD, 80},
@@ -182,7 +190,8 @@ namespace Simulator_of_Light.Simulator.Resources {
             {JobID.WHM, 115}
         };
 
-        private static Dictionary<JobID, double> vitalityJobMods = new Dictionary<JobID, double>() {
+        private static Dictionary<JobID, double> vitalityJobMods
+            = new Dictionary<JobID, double>() {
             {JobID.AST, 100},
             {JobID.BLM, 100},
             {JobID.BRD, 100},
@@ -200,7 +209,8 @@ namespace Simulator_of_Light.Simulator.Resources {
             {JobID.WHM, 100}
         };
 
-        private static Dictionary<JobID, double> hpJobMods = new Dictionary<JobID, double>() {
+        private static Dictionary<JobID, double> hpJobMods
+            = new Dictionary<JobID, double>() {
             {JobID.AST, 105},
             {JobID.BLM, 105},
             {JobID.BRD, 105},
@@ -218,7 +228,8 @@ namespace Simulator_of_Light.Simulator.Resources {
             {JobID.WHM, 105}
         };
 
-        private static Dictionary<JobID, double> mpJobMods = new Dictionary<JobID, double>() {
+        private static Dictionary<JobID, double> mpJobMods
+            = new Dictionary<JobID, double>() {
             {JobID.AST, 124},
             {JobID.BLM, 129},
             {JobID.BRD, 79},
@@ -236,7 +247,8 @@ namespace Simulator_of_Light.Simulator.Resources {
             {JobID.WHM, 124}
         };
 
-        private static Dictionary<CharacterStat, Dictionary<JobID, double>> jobMods = new Dictionary<CharacterStat, Dictionary<JobID, double>>() {
+        private static Dictionary<CharacterStat, Dictionary<JobID, double>> jobMods
+            = new Dictionary<CharacterStat, Dictionary<JobID, double>>() {
             {CharacterStat.STRENGTH, strengthJobMods},
             {CharacterStat.DEXTERITY, dexterityJobMods},
             {CharacterStat.INTELLIGENCE, intelligenceJobMods},
@@ -245,12 +257,136 @@ namespace Simulator_of_Light.Simulator.Resources {
             {CharacterStat.HP, hpJobMods},
             {CharacterStat.MP, mpJobMods},
         };
+
+
+        // I hate everything about this.
+        private static Dictionary<CharacterClan, Dictionary<CharacterStat, double>> clanMods
+            = new Dictionary<CharacterClan, Dictionary<CharacterStat, double>>() {
+
+                {CharacterClan.ELEZEN_WILDWOOD,
+                    new Dictionary<CharacterStat, double>(){
+                        { CharacterStat.STRENGTH, 0 },
+                        { CharacterStat.DEXTERITY, 3 },
+                        { CharacterStat.VITALITY, -1 },
+                        { CharacterStat.INTELLIGENCE, 2 },
+                        { CharacterStat.MIND, -1 }
+                    }
+                },
+                {CharacterClan.ELEZEN_DUSKWIGHT,
+                    new Dictionary<CharacterStat, double>(){
+                        { CharacterStat.STRENGTH, 0 },
+                        { CharacterStat.DEXTERITY, 0 },
+                        { CharacterStat.VITALITY, -1 },
+                        { CharacterStat.INTELLIGENCE, 3 },
+                        { CharacterStat.MIND, 1 }
+                    }
+                },
+                {CharacterClan.HYUR_MIDLANDER,
+                    new Dictionary<CharacterStat, double>(){
+                        { CharacterStat.STRENGTH, 2 },
+                        { CharacterStat.DEXTERITY, -1 },
+                        { CharacterStat.VITALITY, 0 },
+                        { CharacterStat.INTELLIGENCE, 3 },
+                        { CharacterStat.MIND, -1 }
+                    }
+                },
+                {CharacterClan.HYUR_HIGHLANDER,
+                    new Dictionary<CharacterStat, double>(){
+                        { CharacterStat.STRENGTH, 3 },
+                        { CharacterStat.DEXTERITY, 0 },
+                        { CharacterStat.VITALITY, 2 },
+                        { CharacterStat.INTELLIGENCE, -2 },
+                        { CharacterStat.MIND, 0 }
+                    }
+                },
+                {CharacterClan.LALAFELL_PLAINSFOLK,
+                    new Dictionary<CharacterStat, double>(){
+                        { CharacterStat.STRENGTH, -1 },
+                        { CharacterStat.DEXTERITY, 3 },
+                        { CharacterStat.VITALITY, -1 },
+                        { CharacterStat.INTELLIGENCE, 2 },
+                        { CharacterStat.MIND, 0 }
+                    }
+                },
+                {CharacterClan.LALAFELL_DUNESFOLK,
+                    new Dictionary<CharacterStat, double>(){
+                        { CharacterStat.STRENGTH, -1 },
+                        { CharacterStat.DEXTERITY, 1 },
+                        { CharacterStat.VITALITY, -2 },
+                        { CharacterStat.INTELLIGENCE, 2 },
+                        { CharacterStat.MIND, 3 }
+                    }
+                },
+                {CharacterClan.MIQOTE_SEEKER,
+                    new Dictionary<CharacterStat, double>(){
+                        { CharacterStat.STRENGTH, 2 },
+                        { CharacterStat.DEXTERITY, 3 },
+                        { CharacterStat.VITALITY, 0 },
+                        { CharacterStat.INTELLIGENCE, -1 },
+                        { CharacterStat.MIND, -1 }
+                    }
+                },
+                {CharacterClan.MIQOTE_KEEPER,
+                    new Dictionary<CharacterStat, double>(){
+                        { CharacterStat.STRENGTH, -1 },
+                        { CharacterStat.DEXTERITY, 2 },
+                        { CharacterStat.VITALITY, -2 },
+                        { CharacterStat.INTELLIGENCE, 1 },
+                        { CharacterStat.MIND, 3 }
+                    }
+                },
+                {CharacterClan.ROEGADYN_SEAWOLF,
+                    new Dictionary<CharacterStat, double>(){
+                        { CharacterStat.STRENGTH, 2 },
+                        { CharacterStat.DEXTERITY, -1 },
+                        { CharacterStat.VITALITY, 3 },
+                        { CharacterStat.INTELLIGENCE, -2 },
+                        { CharacterStat.MIND, 1 }
+                    }
+                },
+                {CharacterClan.ROEGADYN_HELLSGUARD,
+                    new Dictionary<CharacterStat, double>(){
+                        { CharacterStat.STRENGTH, 0 },
+                        { CharacterStat.DEXTERITY, -2 },
+                        { CharacterStat.VITALITY, 3 },
+                        { CharacterStat.INTELLIGENCE, 0 },
+                        { CharacterStat.MIND, 2 }
+                    }
+                },
+                {CharacterClan.AURA_RAEN,
+                    new Dictionary<CharacterStat, double>(){
+                        { CharacterStat.STRENGTH, -1 },
+                        { CharacterStat.DEXTERITY, 2 },
+                        { CharacterStat.VITALITY, -1 },
+                        { CharacterStat.INTELLIGENCE, 0 },
+                        { CharacterStat.MIND, 3 }
+                    }
+                },
+                {CharacterClan.AURA_XAELA,
+                    new Dictionary<CharacterStat, double>(){
+                        { CharacterStat.STRENGTH, 3 },
+                        { CharacterStat.DEXTERITY, 0 },
+                        { CharacterStat.VITALITY, 2 },
+                        { CharacterStat.INTELLIGENCE, 0 },
+                        { CharacterStat.MIND, -2 }
+                    }
+                }
+
+            };
         
         public static double getBaseStat(CharacterStat stat) {
             try {
                 return baseStats[stat];
             } catch (KeyNotFoundException) {
                 throw new ArgumentException("Invalid stat.");
+            }
+        }
+
+        public static Dictionary<CharacterStat, double> getClanBaseStats(CharacterClan race) {
+            try {
+                return clanMods[race];
+            } catch (KeyNotFoundException) {
+                throw new ArgumentException("Invalid race/clan");
             }
         }
 

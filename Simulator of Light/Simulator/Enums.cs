@@ -81,4 +81,19 @@ namespace Simulator_of_Light.Simulator {
         RINGLEFT,
         RINGRIGHT
     }
+
+    public enum CharacterClan {
+        ELEZEN_WILDWOOD,
+        ELEZEN_DUSKWIGHT,
+        HYUR_MIDLANDER,
+        HYUR_HIGHLANDER,
+        LALAFELL_PLAINSFOLK,
+        LALAFELL_DUNESFOLK,
+        MIQOTE_SEEKER,
+        MIQOTE_KEEPER,
+        ROEGADYN_SEAWOLF,
+        ROEGADYN_HELLSGUARD,
+        AURA_RAEN,
+        AURA_XAELA
+    }
 }

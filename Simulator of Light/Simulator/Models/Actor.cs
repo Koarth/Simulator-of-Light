@@ -11,6 +11,7 @@ namespace Simulator_of_Light.Simulator.Models {
 
         // Static properties
         private string _name;
+        private CharacterClan _clan;
         private JobID _jobID;
 
         // Dynamic properties
@@ -21,7 +22,7 @@ namespace Simulator_of_Light.Simulator.Models {
         private Dictionary<CharacterStat, double> _stats;
         private GearSet _gearSet;
 
-        public Actor(string name, JobID jobID) {
+        public Actor(string name, CharacterClan clan, JobID jobID) {
             Name = name;
             JobID = jobID;
 
@@ -32,13 +33,14 @@ namespace Simulator_of_Light.Simulator.Models {
             }
         }
 
-        public Actor(string name, JobID jobID, GearSet gearset)
-            : this(name, jobID) {
+        public Actor(string name, CharacterClan clan, JobID jobID, GearSet gearset)
+            : this(name, clan, jobID) {
 
             this.EquipGearset(gearset);
         }
 
         public string Name { get => _name; private set => _name = value; }
+        public CharacterClan Clan { get => _clan; private set => _clan = value; }
         public JobID JobID { get => _jobID; private set => _jobID = value; }
         public double CurrentHP { get => _currentHP; set => _currentHP = value; }
         public double CurrentMP { get => _currentMP; set => _currentMP = value; }
@@ -46,6 +48,7 @@ namespace Simulator_of_Light.Simulator.Models {
         public Dictionary<string, Action> Actions { get => _actions; private set => _actions = value; }
         public Dictionary<CharacterStat, double> Stats { get => _stats; private set => _stats = value; }
         public GearSet GearSet { get => _gearSet; private set => _gearSet = value; }
+
 
         public void EquipGearset(GearSet gearset) {
             
@@ -85,14 +88,20 @@ namespace Simulator_of_Light.Simulator.Models {
 
             }
 
-            // TODO: ADD STATS FROM TRAITS
-
-            // Base stats after traits are multiplied by the Actor's jobmod for that stat.
-            // For some reason. Seems negligible for its complexity.
-            // This must be done before gear is added.
+            // Base stats are multiplied by the Actor's jobmod for that stat.
+            // This must be done before gear, race stats and traits are added.
             foreach (CharacterStat stat in this.Stats.Keys.ToList()) {
                 this.Stats[stat] = Math.Round(this.Stats[stat] * Formulas.getBaseStatMultiplier(this.JobID, stat));
             }
+
+            // Add race bonuses/penalties.
+            var clanStats = Constants.getClanBaseStats(this.Clan);
+            foreach (CharacterStat stat in clanStats.Keys) {
+                this.Stats[stat] += clanStats[stat];
+            }
+
+
+            // TODO ADD STATS FROM TRAITS
 
             // Add stats from gear.
             var statsFromGear = GearSet.StatSummary;
