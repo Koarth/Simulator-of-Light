@@ -88,8 +88,10 @@ namespace SoLTests {
             Assert.AreEqual(3774, summ[CharacterStat.MAGICDEFENSE]);
 
             Assert.AreEqual(2046, summ[CharacterStat.VITALITY] + BaseMain70);
-            Assert.AreEqual(2837, summ[CharacterStat.MIND] 
-                + Math.Round((BaseMain70 + 40) * getJobMod(JobID.WHM, CharacterStat.MIND) / 100));
+            Assert.AreEqual(2837, summ[CharacterStat.MIND]
+                + Math.Floor(BaseMain70 * getJobMod(JobID.WHM, CharacterStat.MIND) / 100)
+                + 48
+                + getClanBaseStats(CharacterClan.HYUR_MIDLANDER)[CharacterStat.MIND]);
         }
 
         [TestMethod]
