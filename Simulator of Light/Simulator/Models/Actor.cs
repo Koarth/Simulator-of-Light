@@ -92,7 +92,8 @@ namespace Simulator_of_Light.Simulator.Models {
             // Base stats are multiplied by the Actor's jobmod for that stat.
             // This must be done before gear, race stats and traits are added.
             foreach (CharacterStat stat in this.Stats.Keys.ToList()) {
-                this.Stats[stat] = Math.Floor(this.Stats[stat] * Formulas.getBaseStatMultiplier(this.JobID, stat));
+                this.Stats[stat] = Math.Floor(this.Stats[stat] 
+                    * Formulas.getBaseStatMultiplier(this.JobID, stat));
             }
 
             // Add race bonuses/penalties.
