@@ -168,6 +168,32 @@ namespace Simulator_of_Light.Simulator.Resources {
         }
 
         /// <summary>
+        /// Calculates a character's global cooldown incursion given their speed and the recast
+        /// time of the action.  GCD calculated is BEFORE any buffs (Fey Wind, Arrow, etc.)
+        /// </summary>
+        /// <param name="speed">The character's speed statisitc.</param>
+        /// <param name="recastDelay">The recast delay of the action used.</param>
+        /// <returns></returns>
+        public static double calculateGlobalCooldown(double speed, double recastDelay) {
+            if (speed < getBaseStat(CharacterStat.SKILLSPEED)) {
+                throw new ArgumentException("Speed value lower than base!");
+            }
+
+            // Recast delay of an action with >2.5s recast is 2.5s.
+            // Skills with lower recast delays (i.e. mudras) have their own independent delays.
+            double adjustedRecastDelay = Math.Min(recastDelay, BaseRecastDelay);
+
+            double GCD = Math.Floor(1000 - 
+                - Math.Floor(SpeedGrowthModifier 
+                            * (speed - getBaseStat(CharacterStat.SKILLSPEED)) 
+                            / LevelGrowthPenalty70) 
+                            * (BaseRecastDelay * 1000) 
+                            / 1000);
+
+            return GCD / 1000;
+        }
+
+        /// <summary>
         /// Provides a multiplier for a character's base stats before clan, traits, and gear.
         /// This multiplier is derived from the character's jobmod for that stat.  If there is
         /// no jobmod for that stat, a multiplier of 1x is returned.

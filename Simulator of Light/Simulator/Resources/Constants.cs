@@ -39,6 +39,7 @@ namespace Simulator_of_Light.Simulator.Resources {
         public static readonly double BaseCriticalHitRate = 0.05;
         public static readonly double BaseCriticalHitMultiplier = 1.4;
         public static readonly double DirectHitMultiplier = 1.25;
+        public static readonly double BaseRecastDelay = 2.5;
 
         private static Dictionary<CharacterStat, double> baseStats
             = new Dictionary<CharacterStat, double>() {
