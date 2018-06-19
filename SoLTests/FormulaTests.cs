@@ -293,5 +293,15 @@ namespace SoLTests
 
             Assert.AreEqual(55154, Formulas.calculateTotalHP(vitality, jobID));
         }
+
+        [TestMethod]
+        public void TestGCDFormulaWHM() {
+            throw new NotImplementedException();
+        }
+
+        [TestMethod]
+        public void TestGCDFormulaWAR() {
+            throw new NotImplementedException();
+        }
     }
 }

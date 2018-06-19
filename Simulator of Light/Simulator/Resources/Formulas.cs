@@ -168,7 +168,7 @@ namespace Simulator_of_Light.Simulator.Resources {
         }
 
         /// <summary>
-        /// Calculates a character's global cooldown incursion given their speed and the recast
+        /// Calculates a character's global cooldown incurrence given their speed and the recast
         /// time of the action.  GCD calculated is BEFORE any buffs (Fey Wind, Arrow, etc.)
         /// </summary>
         /// <param name="speed">The character's speed statisitc.</param>
