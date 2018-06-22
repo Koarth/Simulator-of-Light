@@ -7,7 +7,7 @@ using Simulator_of_Light.Simulator.Resources;
 
 namespace Simulator_of_Light.Simulator.Models {
 
-    public class Actor {
+    public class PlayerCharacter : IActor, ITarget {
 
         // Static properties
         private string _name;
@@ -15,14 +15,17 @@ namespace Simulator_of_Light.Simulator.Models {
         private JobID _jobID;
 
         // Dynamic properties
-        private double _currentHP;
+        private long _currentHP;
+        private long _maxHP;
         private double _currentMP;
         private double _currentTP;
         private Dictionary<string, Action> _actions;
         private Dictionary<CharacterStat, double> _stats;
         private GearSet _gearSet;
 
-        public Actor(string name, CharacterClan clan, JobID jobID) {
+        private SortedList<long, Aura> _auras;
+
+        public PlayerCharacter(string name, CharacterClan clan, JobID jobID) {
             Name = name;
             JobID = jobID;
             Clan = clan;
@@ -34,7 +37,7 @@ namespace Simulator_of_Light.Simulator.Models {
             }
         }
 
-        public Actor(string name, CharacterClan clan, JobID jobID, GearSet gearset)
+        public PlayerCharacter(string name, CharacterClan clan, JobID jobID, GearSet gearset)
             : this(name, clan, jobID) {
 
             this.EquipGearset(gearset);
@@ -43,13 +46,19 @@ namespace Simulator_of_Light.Simulator.Models {
         public string Name { get => _name; private set => _name = value; }
         public CharacterClan Clan { get => _clan; private set => _clan = value; }
         public JobID JobID { get => _jobID; private set => _jobID = value; }
-        public double CurrentHP { get => _currentHP; set => _currentHP = value; }
+        public long CurrentHP { get => _currentHP; set => _currentHP = value; }
+        public long MaxHP { get => _maxHP; private set => _maxHP = value; }
         public double CurrentMP { get => _currentMP; set => _currentMP = value; }
         public double CurrentTP { get => _currentTP; set => _currentTP = value; }
         public Dictionary<string, Action> Actions { get => _actions; private set => _actions = value; }
         public Dictionary<CharacterStat, double> Stats { get => _stats; private set => _stats = value; }
         public GearSet GearSet { get => _gearSet; private set => _gearSet = value; }
+        public SortedList<long, Aura> Auras { get => _auras; private set => _auras = value; }
 
+
+        public void ApplyDamage() {
+            throw new NotImplementedException();
+        }
 
         public void EquipGearset(GearSet gearset) {
             
@@ -68,7 +77,7 @@ namespace Simulator_of_Light.Simulator.Models {
                 return false;
             }
 
-            // Each item must be usable by this Actor's job.
+            // Each item must be usable by this PlayerCharacter's job.
             foreach (GearItem item in gearset.Items) {
                 if (item != null && !item.Jobs.Contains(this.JobID)) {
                     return false;
@@ -89,7 +98,7 @@ namespace Simulator_of_Light.Simulator.Models {
 
             }
 
-            // Base stats are multiplied by the Actor's jobmod for that stat.
+            // Base stats are multiplied by the PlayerCharacter's jobmod for that stat.
             // This must be done before gear, race stats and traits are added.
             foreach (CharacterStat stat in this.Stats.Keys.ToList()) {
                 this.Stats[stat] = Math.Floor(this.Stats[stat] 

@@ -35,7 +35,7 @@ namespace Simulator_of_Light
 
             var set = dao.GetEquipmentSetByName("WHMGear");
 
-            Actor actor = new Actor("Kirima Yaeger", CharacterClan.HYUR_MIDLANDER, JobID.WHM, set);
+            PlayerCharacter actor = new PlayerCharacter("Kirima Yaeger", CharacterClan.HYUR_MIDLANDER, JobID.WHM, set);
 
             Application.Current.Exit();
 
