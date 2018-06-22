@@ -17,7 +17,8 @@ namespace Simulator_of_Light.Simulator.Models {
         // Dynamic properties
         private long _currentHP;
         private long _maxHP;
-        private double _currentMP;
+        private int _currentMP;
+        private int _maxMP;
         private double _currentTP;
         private Dictionary<string, Action> _actions;
         private Dictionary<CharacterStat, double> _stats;
@@ -48,7 +49,8 @@ namespace Simulator_of_Light.Simulator.Models {
         public JobID JobID { get => _jobID; private set => _jobID = value; }
         public long CurrentHP { get => _currentHP; set => _currentHP = value; }
         public long MaxHP { get => _maxHP; private set => _maxHP = value; }
-        public double CurrentMP { get => _currentMP; set => _currentMP = value; }
+        public int CurrentMP { get => _currentMP; set => _currentMP = value; }
+        public int MaxMP { get => _maxMP; private set => _maxMP = value; }
         public double CurrentTP { get => _currentTP; set => _currentTP = value; }
         public Dictionary<string, Action> Actions { get => _actions; private set => _actions = value; }
         public Dictionary<CharacterStat, double> Stats { get => _stats; private set => _stats = value; }
@@ -127,9 +129,11 @@ namespace Simulator_of_Light.Simulator.Models {
             // TODO: ADD STATS FROM FOOD
 
             // Calculate the dependent stats, HP and MP:
-            this.Stats[CharacterStat.HP] = Formulas.calculateTotalHP(this.Stats[CharacterStat.VITALITY], this.JobID);
-            this.Stats[CharacterStat.MP] = Formulas.calculateTotalMana(this.Stats[CharacterStat.PIETY], this.JobID);
-            
+            //this.Stats[CharacterStat.HP] = Formulas.calculateTotalHP(this.Stats[CharacterStat.VITALITY], this.JobID);
+            //this.Stats[CharacterStat.MP] = Formulas.calculateTotalMana(this.Stats[CharacterStat.PIETY], this.JobID);
+            this.MaxHP = (int)Formulas.calculateTotalHP(this.Stats[CharacterStat.VITALITY], this.JobID);
+            this.MaxMP = (int)Formulas.calculateTotalMana(this.Stats[CharacterStat.PIETY], this.JobID);
+
         }
     }
 }
