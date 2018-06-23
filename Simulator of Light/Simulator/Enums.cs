@@ -96,4 +96,49 @@ namespace Simulator_of_Light.Simulator {
         AURA_RAEN,
         AURA_XAELA
     }
+
+    /*
+     * Based on WarcraftLogs/FFLogs events.
+     * TODO: Determine which of these may not apply to FFXIV; these events are from WoW.
+     */
+    public enum BattleEventType {
+        BEGINCAST,
+        CAST,
+        DAMAGE,
+        HEAL,
+        ABSORBED,
+        HEALABSORBED,
+        APPLYBUFF,
+        APPLYDEBUFF,
+        APPLYBUFFSTACK,
+        APPLYDEBUFFSTACK,
+        REFRESHBUFF,
+        REFRESHDEBUFF,
+        REMOVEBUFF,
+        REMOVEDEBUFF,
+        REMOVEBUFFSTACK,
+        REMOVEDEBUFFSTACK,
+        SUMMON,
+        CREATE,
+        DEATH,
+        DESTROY,
+        AURABROKEN,
+        DISPEL,
+        INTERRUPT,
+        STEAL,
+        LEECH,
+        ENERGIZE,
+        DRAIN,
+        RESURRECT
+    }
+
+    public enum QueuedEventType {
+        ACTOR_READY,
+        AURA_TICK,
+        RESOLVE_ACTION,
+        APPLY_AURA,
+        EXPIRE_AURA,
+        APPLY_AURA_STACK,
+        REMOVE_AURA_STACK,
+    }
 }
