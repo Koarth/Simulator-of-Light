@@ -20,16 +20,13 @@ namespace Simulator_of_Light.Simulator {
         }
 
         public void Run() {
-
+            throw new NotImplementedException();
         }
 
         public IActor[] Actors { get; private set; }
         public long FightLength { get; private set; }
         public long Time { get; private set; }
         public int TickOffset { get; private set; }
-
-        
-
 
     }
 }

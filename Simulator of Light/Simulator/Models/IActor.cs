@@ -10,5 +10,9 @@ namespace Simulator_of_Light.Simulator.Models {
         string Name { get; }
         SortedList<long, Aura> Auras { get; }
 
+        QueuedEventType DecideAction(long time,
+            ITarget[] friendlyTargets,
+            ITarget[] enemyTargets);
+
     }
 }
