@@ -32,17 +32,80 @@ namespace Simulator_of_Light.Simulator.Models {
         public CharacterClan Clan { get; private set; }
         public JobID JobID { get; private set; }
 
-        // Dynamic properties
-        public long CurrentHP { get; set; }
+        // Configured properties
         public long MaxHP { get; private set; }
-        public int CurrentMP { get; set; }
         public int MaxMP { get; private set; }
-        public double CurrentTP { get; set; }
-        public Dictionary<string, Action> Actions { get; private set; }
         public Dictionary<CharacterStat, double> Stats { get; private set; }
         public GearSet GearSet { get; private set; }
 
+        // Dynamic properties
+        public long CurrentHP { get; set; }
+        public int CurrentMP { get; set; }
+        public double CurrentTP { get; set; }
+
+        public Dictionary<string, Action> Actions { get; private set; }
         public SortedList<long, Aura> Auras { get; private set; }
+
+        // Timing properties
+        public long GlobalRecastAvailable { get; set; }
+        public long AnimationLockExpires { get; set; }
+
+        public QueuedEvent DecideAction(long time, 
+            ITarget[] friendlyTargets, 
+            ITarget[] enemyTargets) {
+
+            // Arbitrarily choose target
+            ITarget target = enemyTargets[0];
+
+            if (time > this.GlobalRecastAvailable) {
+                // Aero III
+                var a = target.GetAuraByName("Aero III");
+                if (a == null || ((a.Expires - time) < 3000)) {
+                    return new QueuedEvent(QueuedEventType.RESOLVE_ACTION, this, 
+                        target, time, action: Actions["Aero III"]);
+                }
+                // Aero II
+                a = target.GetAuraByName("Aero II");
+                if (a == null || ((a.Expires - time) < 3000)) {
+                    return new QueuedEvent(QueuedEventType.RESOLVE_ACTION, this,
+                        target, time, action: this.Actions["Aero II"]);
+                }
+                // Stone IV (no conditions)
+                return new QueuedEvent(QueuedEventType.RESOLVE_ACTION, this, 
+                    target, time, action: this.Actions["Stone IV"]);
+
+            } else if (time > this.AnimationLockExpires) {
+
+                // Cleric Stance
+                var a = Actions["Cleric Stance"];
+                if (a.RecastAvailable < time) {
+                    return new QueuedEvent(QueuedEventType.RESOLVE_ACTION, this,
+                        time: time, action: a);
+                }
+
+                // Presence of Mind
+                a = Actions["Presence of Mind"];
+                if (a.RecastAvailable < time) {
+                    return new QueuedEvent(QueuedEventType.RESOLVE_ACTION, this,
+                        time: time, action: a);
+                }
+
+            }
+
+            throw new Exception("Control passed to actor early.");
+            //return new QueuedEvent(QueuedEventType.ACTOR_READY, this, 
+            //    time: Math.Min(GlobalRecastAvailable, AnimationLockExpires));
+        }
+
+        public Aura GetAuraByName(string auraName) {
+            foreach (Aura aura in this.Auras.Values) {
+                if (aura.BaseAura.Name == auraName) {
+                    return aura;
+                }
+            }
+
+            return null;
+        }
 
 
         public void ApplyDamage() {

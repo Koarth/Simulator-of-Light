@@ -10,10 +10,13 @@ namespace Simulator_of_Light.Simulator.Models {
 
         public BaseAura BaseAura { get; set; }
 
+        public IActor Source { get; set; }
+        public long Expires { get; set; }
+
         public double DamageModifier { get; set; }
         public double CriticalHitRate { get; set; }
         public double DirectHitRate { get; set; }
-        public IActor Source { get; set; }
+        
 
     }
 }

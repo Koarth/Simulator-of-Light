@@ -14,6 +14,7 @@ namespace Simulator_of_Light.Simulator.Models {
         SortedList<long, Aura> Auras { get; }
 
         void ApplyDamage();
+        Aura GetAuraByName(string auraName);
 
     }
 }
