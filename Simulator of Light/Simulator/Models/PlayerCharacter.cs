@@ -54,6 +54,10 @@ namespace Simulator_of_Light.Simulator.Models {
             ITarget[] friendlyTargets, 
             ITarget[] enemyTargets) {
 
+            if (this.JobID != JobID.WHM) {
+                throw new NotImplementedException("This is a mock function for a WHM actionlist.");
+            }
+
             // Arbitrarily choose target
             ITarget target = enemyTargets[0];
 
