@@ -135,6 +135,7 @@ namespace Simulator_of_Light.Simulator {
     public enum QueuedEventType {
         ACTOR_READY,
         AURA_TICK,
+        REGEN_TICK,
         RESOLVE_ACTION,
         APPLY_AURA,
         EXPIRE_AURA,

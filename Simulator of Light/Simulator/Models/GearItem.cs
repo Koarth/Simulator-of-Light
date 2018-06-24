@@ -9,16 +9,6 @@ namespace Simulator_of_Light.Simulator.Models {
 
     public class GearItem {
 
-        // Metadata
-        private string _name;
-        private int _ilvl;
-        private HashSet<JobID> _jobs;
-        private EquipSlot _slot;
-
-        // Stats
-        private Dictionary<CharacterStat, double> _stats;
-        private Materia[] _materia;
-
         [JsonConstructor]
         public GearItem(string name, int ilvl, JobID[] jobs, EquipSlot slot,
             Dictionary<CharacterStat, double> stats, Materia[] materia) {
@@ -31,12 +21,14 @@ namespace Simulator_of_Light.Simulator.Models {
             Materia = materia;
         }
 
-        public string Name { get => _name; private set => _name = value; }
-        public int Ilvl { get => _ilvl; private set => _ilvl = value; }
-        public HashSet<JobID> Jobs { get => _jobs; private set => _jobs = value; }
-        public EquipSlot Slot { get => _slot; private set => _slot = value; }
+        // Metadata
+        public string Name { get; private set; }
+        public int Ilvl { get; private set; }
+        public HashSet<JobID> Jobs { get; private set; }
+        public EquipSlot Slot { get; private set; }
 
-        public Dictionary<CharacterStat, double> Stats { get => _stats; private set => _stats = value; }
-        public Materia[] Materia { get => _materia; private set => _materia = value; }
+        // Stats
+        public Dictionary<CharacterStat, double> Stats { get; private set; }
+        public Materia[] Materia { get; private set; }
     }
 }

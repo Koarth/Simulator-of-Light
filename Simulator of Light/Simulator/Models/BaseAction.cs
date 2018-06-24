@@ -10,21 +10,6 @@ using Newtonsoft.Json;
 namespace Simulator_of_Light.Simulator.Models {
 
     public sealed class BaseAction {
-        private string _name;
-        private JobID _jobID;
-        private CharacterStat _stat;
-        private ActionAspect _aspect;
-
-        private bool _isOGCD;
-        private double _potency;
-        private double _mpCost;
-        private double _tpCost;
-        private double _castTime;
-        private double _recastTime;
-        private double _range;
-        private double _radius;
-
-        private List<BaseAura> _aurasApplied;
 
         [JsonConstructor]
         public BaseAction(string name, JobID jobID, CharacterStat stat, ActionAspect aspect, bool isOGCD,
@@ -51,29 +36,29 @@ namespace Simulator_of_Light.Simulator.Models {
             return JsonConvert.SerializeObject(this, Formatting.Indented, new Newtonsoft.Json.Converters.StringEnumConverter());
         }
 
-        public string Name { get => _name; private set => _name = value; }
-        public JobID JobID { get => _jobID; private set => _jobID = value; }
-        public ActionAspect Aspect { get => _aspect; private set => _aspect = value; }
+        public string Name { get; private set; }
+        public JobID JobID { get; private set; }
+        public ActionAspect Aspect { get; private set; }
 
         [DefaultValue(CharacterStat.UNKNOWN)]
-        public CharacterStat Stat { get => _stat; private set => _stat = value; }
+        public CharacterStat Stat { get; private set; }
         [DefaultValue(false)]
-        public bool IsOGCD { get => _isOGCD; private set => _isOGCD = value; }
+        public bool IsOGCD { get; private set; }
         [DefaultValue(0)]
-        public double Potency { get => _potency; private set => _potency = value; }
+        public double Potency { get; private set; }
         [DefaultValue(0)]
-        public double MpCost { get => _mpCost; private set => _mpCost = value; }
+        public double MpCost { get; private set; }
         [DefaultValue(0)]
-        public double TpCost { get => _tpCost; private set => _tpCost = value; }
+        public double TpCost { get; private set; }
         [DefaultValue(0)]
-        public double CastTime { get => _castTime; private set => _castTime = value; }
+        public double CastTime { get; private set; }
         [DefaultValue(0)]
-        public double RecastTime { get => _recastTime; private set => _recastTime = value; }
+        public double RecastTime { get; private set; }
         [DefaultValue(3)]
-        public double Range { get => _range; private set => _range = value; }
+        public double Range { get; private set; }
         [DefaultValue(0)]
-        public double Radius { get => _radius; private set => _radius = value; }
+        public double Radius { get; private set; }
         [DefaultValue(null)]
-        public List<BaseAura> AurasApplied { get => _aurasApplied; private set => _aurasApplied = value; }
+        public List<BaseAura> AurasApplied { get; private set; }
     }
 }

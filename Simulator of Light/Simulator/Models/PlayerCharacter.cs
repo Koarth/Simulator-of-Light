@@ -9,23 +9,6 @@ namespace Simulator_of_Light.Simulator.Models {
 
     public class PlayerCharacter : IActor, ITarget {
 
-        // Static properties
-        private string _name;
-        private CharacterClan _clan;
-        private JobID _jobID;
-
-        // Dynamic properties
-        private long _currentHP;
-        private long _maxHP;
-        private int _currentMP;
-        private int _maxMP;
-        private double _currentTP;
-        private Dictionary<string, Action> _actions;
-        private Dictionary<CharacterStat, double> _stats;
-        private GearSet _gearSet;
-
-        private SortedList<long, Aura> _auras;
-
         public PlayerCharacter(string name, CharacterClan clan, JobID jobID) {
             Name = name;
             JobID = jobID;
@@ -44,18 +27,22 @@ namespace Simulator_of_Light.Simulator.Models {
             this.EquipGearset(gearset);
         }
 
-        public string Name { get => _name; private set => _name = value; }
-        public CharacterClan Clan { get => _clan; private set => _clan = value; }
-        public JobID JobID { get => _jobID; private set => _jobID = value; }
-        public long CurrentHP { get => _currentHP; set => _currentHP = value; }
-        public long MaxHP { get => _maxHP; private set => _maxHP = value; }
-        public int CurrentMP { get => _currentMP; set => _currentMP = value; }
-        public int MaxMP { get => _maxMP; private set => _maxMP = value; }
-        public double CurrentTP { get => _currentTP; set => _currentTP = value; }
-        public Dictionary<string, Action> Actions { get => _actions; private set => _actions = value; }
-        public Dictionary<CharacterStat, double> Stats { get => _stats; private set => _stats = value; }
-        public GearSet GearSet { get => _gearSet; private set => _gearSet = value; }
-        public SortedList<long, Aura> Auras { get => _auras; private set => _auras = value; }
+        // Static properties
+        public string Name { get; private set; }
+        public CharacterClan Clan { get; private set; }
+        public JobID JobID { get; private set; }
+
+        // Dynamic properties
+        public long CurrentHP { get; set; }
+        public long MaxHP { get; private set; }
+        public int CurrentMP { get; set; }
+        public int MaxMP { get; private set; }
+        public double CurrentTP { get; set; }
+        public Dictionary<string, Action> Actions { get; private set; }
+        public Dictionary<CharacterStat, double> Stats { get; private set; }
+        public GearSet GearSet { get; private set; }
+
+        public SortedList<long, Aura> Auras { get; private set; }
 
 
         public void ApplyDamage() {

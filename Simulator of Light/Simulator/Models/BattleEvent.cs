@@ -7,38 +7,37 @@ using System.Threading.Tasks;
 namespace Simulator_of_Light.Simulator.Models {
     public class BattleEvent {
 
-        private BattleEventType _type;
-        private long _time;
+        public BattleEventType Type { get; set; }
+        public long Time { get; set; }
 
         // Involved entities.
-        private IActor _source;
-        private ITarget _target;
+        public IActor Source { get; set; }
+        public ITarget Target { get; set; }
 
-        private Aura _aura;
+        public Aura Aura { get; set; }
 
         // Action information.
-        private BaseAction _ability;
+        public BaseAction Ability { get; set; }
 
         // Damage values.
-        private int _rawDamage;
-        private int _effectiveDamage;
-        private int _absorbedDamage;
-        private int _blockedDamage;
-        private int _overkillDamage;
+        public int RawDamage { get; set; }
+        public int RffectiveDamage { get; set; }
+        public int AbsorbedDamage { get; set; }
+        public int BlockedDamage { get; set; }
+        public int OverkillDamage { get; set; }
 
         // Healing values.
-        private int _rawHealing;
-        private int _effectiveHealing;
-        private int _absorbedHealing;
+        public int RawHealing { get; set; }
+        public int EffectiveHealing { get; set; }
+        public int AbsorbedHealing { get; set; }
 
         // Modifiers.
-        private bool _isCritical;
-        private bool _isDirectHit;
-        private bool _isTick;
+        public bool IsCritical { get; set; }
+        public bool IsDirectHit { get; set; }
+        public bool IsTick { get; set; }
 
         // Aura information.
-        private BaseAura _auraApplied;
-        private int _auraStack;
-
+        public BaseAura AuraApplied { get; set; }
+        public int AuraStack { get; set; }
     }
 }

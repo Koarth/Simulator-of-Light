@@ -3,12 +3,14 @@
 namespace Simulator_of_Light.Simulator {
     public class QueuedEvent {
 
-        private QueuedEventType _type;
-        private IActor _source;
-        private ITarget _target;
-        private long _time;
+        public QueuedEventType Type { get; private set; }
+        public IActor Source { get; private set; }
+        public ITarget Target { get; private set; }
+        public long Time { get; private set; }
 
-        private Aura _aura;
-        private Action _action;
+        public Aura Aura { get; private set; }
+        public Action Action { get; private set; }
+
+
     }
 }

@@ -8,9 +8,6 @@ namespace Simulator_of_Light.Simulator.Models {
 
     public class GearSet {
 
-        private GearItem[] _items;
-        private Dictionary<CharacterStat, double> _statSummary;
-
         public GearSet() {
             Items = new GearItem[Enum.GetNames(typeof(EquipSlot)).Length - 1];
             StatSummary = new Dictionary<CharacterStat, double>();
@@ -90,7 +87,7 @@ namespace Simulator_of_Light.Simulator.Models {
             return Items[(int)slot - 1];
         }
 
-        public GearItem[] Items { get => _items; private set => _items = value; }
-        public Dictionary<CharacterStat, double> StatSummary { get => _statSummary; private set => _statSummary = value; }
+        public GearItem[] Items { get; private set; }
+        public Dictionary<CharacterStat, double> StatSummary { get; private set; }
     }
 }

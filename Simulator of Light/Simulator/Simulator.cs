@@ -5,6 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Simulator_of_Light.Simulator {
-    class Simulator {
+    public class Simulator {
     }
 }

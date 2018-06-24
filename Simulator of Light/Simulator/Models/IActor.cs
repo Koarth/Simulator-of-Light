@@ -8,7 +8,6 @@ namespace Simulator_of_Light.Simulator.Models {
     public interface IActor {
 
         string Name { get; }
-
         SortedList<long, Aura> Auras { get; }
 
     }
