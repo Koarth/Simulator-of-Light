@@ -106,6 +106,7 @@
     "Name": "Presence of Mind",
     "JobID": "WHM",
     "Aspect": "UNASPECTED",
+    "Targets": "SELF",
     "IsOGCD": true,
     "RecastTime": 150.0,
     "AurasApplied": [
@@ -123,6 +124,7 @@
     "Name": "Cleric Stance",
     "JobID": "WHM",
     "Aspect": "UNASPECTED",
+    "Targets": "SELF",
     "IsOGCD": true,
     "RecastTime": 90.0,
     "AurasApplied": [

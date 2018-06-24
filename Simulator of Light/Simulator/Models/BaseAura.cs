@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
 using Newtonsoft.Json;
 
 namespace Simulator_of_Light.Simulator.Models {
@@ -10,18 +6,20 @@ namespace Simulator_of_Light.Simulator.Models {
     public sealed class BaseAura {
 
         [JsonConstructor]
-        public BaseAura(string name, JobID jobID, double duration, double damageOverTimePotency, 
-            double healingOverTimePotency, ActionAspect damageAspect, double refreshPotency,
-            double magicDamageModifier, double healingSpellModifier, double physicalDamageModifier, 
-            double globalDamageModifier, double castTimeModifier, double castTimeModifierFlat, 
-            double recastTimeModifier, double autoAttackDelayModifier, double criticalHitRateModifier, 
-            double directHitRateModifier, double mpCostModifier, double slashingResistanceModifier, 
-            double piercingResistanceModifier, double bluntResistanceModifier, double damageTakenModifier, 
+        public BaseAura(string name, JobID jobID, double duration, AuraTarget targets,
+            double damageOverTimePotency, double healingOverTimePotency, ActionAspect damageAspect, 
+            double refreshPotency, double magicDamageModifier, double healingSpellModifier, 
+            double physicalDamageModifier, double globalDamageModifier, double castTimeModifier, 
+            double castTimeModifierFlat, double recastTimeModifier, double autoAttackDelayModifier, 
+            double criticalHitRateModifier, double directHitRateModifier, double mpCostModifier, 
+            double slashingResistanceModifier, double piercingResistanceModifier, 
+            double bluntResistanceModifier, double damageTakenModifier, 
             double incomingCriticalHitRateModifier) {
 
             Name = name;
             JobID = jobID;
             Duration = duration;
+            Targets = targets;
 
             DamageOverTimePotency = damageOverTimePotency;
             HealingOverTimePotency = healingOverTimePotency;
@@ -58,6 +56,8 @@ namespace Simulator_of_Light.Simulator.Models {
         public string Name { get; private set; }
         public JobID JobID { get; private set; }
         public double Duration { get; private set; }
+        [DefaultValue(AuraTarget.TARGET)]
+        public AuraTarget Targets { get; private set; }
 
         public double DamageOverTimePotency { get; private set; }
         public double HealingOverTimePotency { get; private set; }

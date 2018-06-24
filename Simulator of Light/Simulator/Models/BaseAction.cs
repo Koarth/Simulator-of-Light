@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Simulator_of_Light.Simulator.Resources;
 using Newtonsoft.Json;
 
 namespace Simulator_of_Light.Simulator.Models {
@@ -12,14 +7,16 @@ namespace Simulator_of_Light.Simulator.Models {
     public sealed class BaseAction {
 
         [JsonConstructor]
-        public BaseAction(string name, JobID jobID, CharacterStat stat, ActionAspect aspect, bool isOGCD,
-            double potency, double mpCost, double tpCost, double castTime, double recastTime, double range,
+        public BaseAction(string name, JobID jobID, CharacterStat stat, ActionAspect aspect, 
+            ActionTarget targets, bool isOGCD, double potency, double mpCost, 
+            double tpCost, double castTime, double recastTime, double range, 
             double radius, List<BaseAura> aurasApplied) {
 
             Name = name;
             JobID = jobID;
             Stat = stat;
             Aspect = aspect;
+            Targets = targets;
             IsOGCD = isOGCD;
             Potency = potency;
             MpCost = mpCost;
@@ -40,6 +37,8 @@ namespace Simulator_of_Light.Simulator.Models {
         public JobID JobID { get; private set; }
         public ActionAspect Aspect { get; private set; }
 
+        [DefaultValue(ActionTarget.TARGET)]
+        public ActionTarget Targets { get; private set; }
         [DefaultValue(CharacterStat.UNKNOWN)]
         public CharacterStat Stat { get; private set; }
         [DefaultValue(false)]
