@@ -5,7 +5,7 @@
     "Stat": "MIND",
     "Aspect": "MAGIC",
     "Potency": 250.0,
-    "MpCost": 600.0,
+    "MpCost": 600,
     "CastTime": 2.5,
     "RecastTime": 2.5,
     "Range": 25.0
@@ -16,7 +16,7 @@
     "Stat": "MIND",
     "Aspect": "MAGIC",
     "Potency": 210.0,
-    "MpCost": 600.0,
+    "MpCost": 600,
     "CastTime": 2.5,
     "RecastTime": 2.5,
     "Range": 25.0
@@ -27,7 +27,7 @@
     "Stat": "MIND",
     "Aspect": "MAGIC",
     "Potency": 200.0,
-    "MpCost": 600.0,
+    "MpCost": 600,
     "CastTime": 2.5,
     "RecastTime": 2.5,
     "Range": 25.0
@@ -38,7 +38,7 @@
     "Stat": "MIND",
     "Aspect": "MAGIC",
     "Potency": 140.0,
-    "MpCost": 600.0,
+    "MpCost": 600,
     "CastTime": 2.5,
     "RecastTime": 2.5,
     "Range": 25.0
@@ -49,7 +49,7 @@
     "Stat": "MIND",
     "Aspect": "MAGIC",
     "Potency": 30.0,
-    "MpCost": 480.0,
+    "MpCost": 480,
     "RecastTime": 2.5,
     "Range": 25.0,
     "AurasApplied": [
@@ -68,7 +68,7 @@
     "Stat": "MIND",
     "Aspect": "MAGIC",
     "Potency": 50.0,
-    "MpCost": 600.0,
+    "MpCost": 600,
     "RecastTime": 2.5,
     "Range": 25.0,
     "AurasApplied": [
@@ -87,7 +87,7 @@
     "Stat": "MIND",
     "Aspect": "MAGIC",
     "Potency": 50.0,
-    "MpCost": 700.0,
+    "MpCost": 700,
     "CastTime": 2.5,
     "RecastTime": 2.5,
     "Range": 25.0,

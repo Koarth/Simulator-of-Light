@@ -174,14 +174,10 @@ namespace Simulator_of_Light.Simulator.Resources {
         /// <param name="speed">The character's speed statisitc.</param>
         /// <param name="recastDelay">The recast delay of the action used.</param>
         /// <returns></returns>
-        public static double calculateGlobalCooldown(double speed, double recastDelay) {
+        public static long calculateGlobalCooldown(double speed) {
             if (speed < getBaseStat(CharacterStat.SKILLSPEED)) {
                 throw new ArgumentException("Speed value lower than base!");
             }
-
-            // Recast delay of an action with >2.5s recast is 2.5s.
-            // Skills with lower recast delays (i.e. mudras) have their own independent delays.
-            double adjustedRecastDelay = Math.Min(recastDelay, BaseRecastDelay);
 
             double GCD = Math.Floor(1000 - 
                 - Math.Floor(SpeedGrowthModifier 
@@ -190,7 +186,7 @@ namespace Simulator_of_Light.Simulator.Resources {
                             * (BaseRecastDelay * 1000) 
                             / 1000);
 
-            return GCD / 1000;
+            return (long)GCD;
         }
 
         /// <summary>

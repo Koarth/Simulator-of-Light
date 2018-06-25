@@ -41,6 +41,11 @@ namespace Simulator_of_Light.Simulator.Resources {
         public static readonly double DirectHitMultiplier = 1.25;
         public static readonly double BaseRecastDelay = 2.5;
 
+        /* Global animation delay (subject to adjustment) */
+        public static readonly long GlobalAnimationDelay = 650;
+        /* Base global recast time */
+        public static readonly long GlobalRecastTime = 2500;
+
         private static Dictionary<CharacterStat, double> baseStats
             = new Dictionary<CharacterStat, double>() {
             {CharacterStat.STRENGTH, BaseMain70},

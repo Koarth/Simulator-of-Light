@@ -50,6 +50,8 @@ namespace Simulator_of_Light.Simulator.Models {
         public long GlobalRecastAvailable { get; set; }
         public long AnimationLockExpires { get; set; }
 
+
+        // MOCK FUNCTION, REPLACE WITH ACTION LIST DECISIONS
         public QueuedEvent DecideAction(long time, 
             ITarget[] friendlyTargets, 
             ITarget[] enemyTargets) {
@@ -94,11 +96,93 @@ namespace Simulator_of_Light.Simulator.Models {
                         time: time, action: a);
                 }
 
+                // In-between GCDs and no OGCDs available - delay for a bit.
+                long tryNextAction = this.GlobalRecastAvailable - Constants.GlobalAnimationDelay;
+                if (time > tryNextAction) {
+                    tryNextAction = this.GlobalRecastAvailable;
+                }
+                return new QueuedEvent(QueuedEventType.ACTOR_READY, this, time: tryNextAction);
             }
 
             throw new Exception("Control passed to actor early.");
             //return new QueuedEvent(QueuedEventType.ACTOR_READY, this, 
             //    time: Math.Min(GlobalRecastAvailable, AnimationLockExpires));
+        }
+
+        /// <summary>
+        /// This will be the default function used in actionlist decisions, laying
+        /// out the minimum requirements for an ability to actually be used.  If these
+        /// requirements are not met, the ability should be passed over.
+        /// </summary>
+        /// <param name="action">The action to check.</param>
+        /// <param name="time">The current fight time in milliseconds.</param>
+        /// <returns></returns>
+        public bool IsActionUsable(Action action, long time) {
+
+            var a = Actions[action.BaseAction.Name];
+
+            // Animation locked.
+            if (time < this.AnimationLockExpires) {
+                return false;
+            }
+
+            // Non-GCD ability, and GCD isn't up yet.
+            if (!a.BaseAction.IsOGCD && time < this.GlobalRecastAvailable) {
+                return false;
+            }
+
+            // Action recast isn't up yet.
+            if (time < a.RecastAvailable) {
+                return false;
+            }
+
+            // Resource requirements.
+            if (CurrentMP < a.BaseAction.MpCost
+                || CurrentTP < a.BaseAction.TpCost) {
+                return false;
+            }
+
+            // TODO: Combo action requirements.
+            // TODO: Range requirements.
+            // Targetting requirements?
+
+            return true;
+
+        }
+
+        /// <summary>
+        /// This function will perform all necessary state changes to the actor
+        /// that take place when executing the given action.  It does not handle
+        /// the external effects of the action, nor does it apply auras to the
+        /// executing actor.
+        /// </summary>
+        /// <param name="action">The action to execute.</param>
+        /// <param name="time">Current fight time.</param>
+        /// <returns>The time at which the actor is next available to act.</returns>
+        public long ExecuteAction(Action action, long time) {
+
+            this.AnimationLockExpires = time + Constants.GlobalAnimationDelay;
+
+            // TODO: determine which stat the action benefits from.
+            double speed = Math.Max(this.Stats[CharacterStat.SKILLSPEED], this.Stats[CharacterStat.SPELLSPEED]);
+
+            if (!action.BaseAction.IsOGCD) {
+                this.GlobalRecastAvailable = time + Formulas.calculateGlobalCooldown(speed);
+            }
+            // TODO: ADD AURAS TO GCD CALCULATION
+
+            if (action.BaseAction.RecastTime * 1000 != Constants.GlobalRecastTime) { 
+                action.RecastAvailable = time + (long)(action.BaseAction.RecastTime * 1000);
+            }
+
+            this.CurrentMP -= action.BaseAction.MpCost;
+            this.CurrentTP -= action.BaseAction.TpCost;
+
+            // TODO: Combo actions
+
+
+            return this.AnimationLockExpires;
+
         }
 
         public Aura GetAuraByName(string auraName) {

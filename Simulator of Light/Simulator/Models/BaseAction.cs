@@ -8,8 +8,8 @@ namespace Simulator_of_Light.Simulator.Models {
 
         [JsonConstructor]
         public BaseAction(string name, JobID jobID, CharacterStat stat, ActionAspect aspect, 
-            ActionTarget targets, bool isOGCD, double potency, double mpCost, 
-            double tpCost, double castTime, double recastTime, double range, 
+            ActionTarget targets, bool isOGCD, double potency, int mpCost, 
+            int tpCost, double castTime, double recastTime, double range, 
             double radius, List<BaseAura> aurasApplied) {
 
             Name = name;
@@ -46,9 +46,9 @@ namespace Simulator_of_Light.Simulator.Models {
         [DefaultValue(0)]
         public double Potency { get; private set; }
         [DefaultValue(0)]
-        public double MpCost { get; private set; }
+        public int MpCost { get; private set; }
         [DefaultValue(0)]
-        public double TpCost { get; private set; }
+        public int TpCost { get; private set; }
         [DefaultValue(0)]
         public double CastTime { get; private set; }
         [DefaultValue(0)]
