@@ -114,8 +114,7 @@
         "Name": "Presence of Mind",
         "JobID": "WHM",
         "Duration": 15.0,
-        "CastTimeModifier": 0.2,
-        "RecastTimeModifier": 0.2,
+        "Type1Haste": 0.2,
         "AutoAttackDelayModifier": 0.2
       }
     ]

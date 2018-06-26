@@ -154,6 +154,9 @@ namespace Simulator_of_Light.Simulator.Models {
         /// Begins an animation lock for an action without resolving its other effects.
         /// This is primarily to model abilities with cast times, where the effects of
         /// the action take effect only after the cast completes.
+        /// 
+        /// This function will almost certainly be overridden by job-specific modules
+        /// that handle job-specific auras, such as Greased Lightning.
         /// </summary>
         /// <param name="action"></param>
         /// <param name="time"></param>
@@ -184,7 +187,7 @@ namespace Simulator_of_Light.Simulator.Models {
         }
 
         /// <summary>
-        /// This function will perform all necessary state changes to the actor
+        /// This function will perform necessary state changes to the actor
         /// that take place when executing the given action.  It does not handle
         /// the external effects of the action, nor does it apply auras to the
         /// executing actor.
@@ -192,11 +195,12 @@ namespace Simulator_of_Light.Simulator.Models {
         /// </summary>
         /// <param name="action">The action to execute.</param>
         /// <param name="time">Current fight time.</param>
-        /// <returns>The time at which the actor is next available to act.</returns>
         public void ExecuteAction(Action action, long time) {
 
             this.CurrentMP -= action.BaseAction.MpCost;
             this.CurrentTP -= action.BaseAction.TpCost;
+
+            // TODO: combo actions
 
         }
 

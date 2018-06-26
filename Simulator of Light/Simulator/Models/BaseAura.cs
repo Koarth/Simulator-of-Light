@@ -1,5 +1,5 @@
-﻿using System.ComponentModel;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
+using System.ComponentModel;
 
 namespace Simulator_of_Light.Simulator.Models {
 
@@ -9,8 +9,8 @@ namespace Simulator_of_Light.Simulator.Models {
         public BaseAura(string name, JobID jobID, double duration, AuraTarget targets,
             double damageOverTimePotency, double healingOverTimePotency, ActionAspect damageAspect, 
             double refreshPotency, double magicDamageModifier, double healingSpellModifier, 
-            double physicalDamageModifier, double globalDamageModifier, double castTimeModifier, 
-            double castTimeModifierFlat, double recastTimeModifier, double autoAttackDelayModifier, 
+            double physicalDamageModifier, double globalDamageModifier, double type1Haste, 
+            double type2Haste, double autoAttackDelayModifier, 
             double criticalHitRateModifier, double directHitRateModifier, double mpCostModifier, 
             double slashingResistanceModifier, double piercingResistanceModifier, 
             double bluntResistanceModifier, double damageTakenModifier, 
@@ -31,9 +31,8 @@ namespace Simulator_of_Light.Simulator.Models {
             PhysicalDamageModifier = physicalDamageModifier;
             GlobalDamageModifier = globalDamageModifier;
 
-            CastTimeModifier = castTimeModifier;
-            CastTimeModifierFlat = castTimeModifierFlat;
-            RecastTimeModifier = recastTimeModifier;
+            Type1Haste = type1Haste;
+            Type2Haste = type2Haste;
             AutoAttackDelayModifier = autoAttackDelayModifier;
 
             CriticalHitRateModifier = criticalHitRateModifier;
@@ -70,9 +69,8 @@ namespace Simulator_of_Light.Simulator.Models {
         public double PhysicalDamageModifier { get; private set; }
         public double GlobalDamageModifier { get; private set; }
 
-        public double CastTimeModifier { get; private set; }
-        public double CastTimeModifierFlat { get; private set; }
-        public double RecastTimeModifier { get; private set; }
+        public double Type1Haste { get; private set; }
+        public double Type2Haste { get; private set; }
         public double AutoAttackDelayModifier { get; private set; }
 
         public double CriticalHitRateModifier { get; private set; }
