@@ -151,37 +151,52 @@ namespace Simulator_of_Light.Simulator.Models {
         }
 
         /// <summary>
+        /// Begins an animation lock for an action without resolving its other effects.
+        /// This is primarily to model abilities with cast times, where the effects of
+        /// the action take effect only after the cast completes.
+        /// </summary>
+        /// <param name="action"></param>
+        /// <param name="time"></param>
+        /// <returns></returns>
+        public long BeginCast(Action action, long time) {
+
+            // TODO: ADD AURAS TO CALCULATION
+            // Class specific auras will probably be part of a class-specific module.
+
+            long castTime = (long)(action.BaseAction.CastTime * 1000);
+            double speed = Math.Max(this.Stats[CharacterStat.SKILLSPEED], this.Stats[CharacterStat.SPELLSPEED]);
+
+            // Cast time, else animation lock if instant-cast.
+            if (castTime > 0) {
+                long hastedCastTime = Formulas.calculateRecastDelay(speed, castTime);
+                this.AnimationLockExpires = time + hastedCastTime;
+            } else {
+                this.AnimationLockExpires = time + Constants.GlobalAnimationDelay;
+            }
+
+            // Global recast
+            if (!action.BaseAction.IsOGCD) {
+                this.GlobalRecastAvailable = time + Formulas.calculateRecastDelay(speed, Constants.GlobalRecastTime);
+            }
+
+            return this.AnimationLockExpires;
+
+        }
+
+        /// <summary>
         /// This function will perform all necessary state changes to the actor
         /// that take place when executing the given action.  It does not handle
         /// the external effects of the action, nor does it apply auras to the
         /// executing actor.
+        /// 
         /// </summary>
         /// <param name="action">The action to execute.</param>
         /// <param name="time">Current fight time.</param>
         /// <returns>The time at which the actor is next available to act.</returns>
-        public long ExecuteAction(Action action, long time) {
-
-            this.AnimationLockExpires = time + Constants.GlobalAnimationDelay;
-
-            // TODO: determine which stat the action benefits from.
-            double speed = Math.Max(this.Stats[CharacterStat.SKILLSPEED], this.Stats[CharacterStat.SPELLSPEED]);
-
-            if (!action.BaseAction.IsOGCD) {
-                this.GlobalRecastAvailable = time + Formulas.calculateGlobalCooldown(speed);
-            }
-            // TODO: ADD AURAS TO GCD CALCULATION
-
-            if (action.BaseAction.RecastTime * 1000 != Constants.GlobalRecastTime) { 
-                action.RecastAvailable = time + (long)(action.BaseAction.RecastTime * 1000);
-            }
+        public void ExecuteAction(Action action, long time) {
 
             this.CurrentMP -= action.BaseAction.MpCost;
             this.CurrentTP -= action.BaseAction.TpCost;
-
-            // TODO: Combo actions
-
-
-            return this.AnimationLockExpires;
 
         }
 
