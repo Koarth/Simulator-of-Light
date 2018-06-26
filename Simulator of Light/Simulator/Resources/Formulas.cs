@@ -174,19 +174,61 @@ namespace Simulator_of_Light.Simulator.Resources {
         /// <param name="speed">The character's speed statisitc.</param>
         /// <param name="recastDelay">The recast delay of the action used.</param>
         /// <returns></returns>
-        public static long calculateGlobalCooldown(double speed) {
+        public static long calculateRecastDelay(double speed, double baseRecastDelay,
+                                                bool hasArrow = false, bool hasFeyWind = false,
+                                                double type1 = 0, double type2 = 0, 
+                                                bool hasRiddle = false, bool hasUmbral = false) {
             if (speed < getBaseStat(CharacterStat.SKILLSPEED)) {
                 throw new ArgumentException("Speed value lower than base!");
             }
 
-            double GCD = Math.Floor(1000 - 
+            // Substitute buff effects.
+            double arrow = 0;
+            double feyWind = 0;
+            double riddle = 100;
+            double umbral = 100;
+
+            // Special haste effects; not modelled.
+            double haste = 0;
+
+            if (hasArrow) {
+                arrow = 5;
+            }
+
+            if (hasFeyWind) {
+                feyWind = 3;
+            }
+
+            if (hasRiddle) {
+                riddle = 115;
+            }
+
+            if (hasUmbral) {
+                umbral = 50;
+            }
+
+            double GCDm = Math.Floor(1000 - 
                 - Math.Floor(SpeedGrowthModifier 
                             * (speed - getBaseStat(CharacterStat.SKILLSPEED)) 
                             / LevelGrowthPenalty70) 
-                            * (BaseRecastDelay * 1000) 
+                            * (baseRecastDelay * 1000) 
                             / 1000);
 
-            return (long)GCD;
+            double A = Math.Floor(
+                           Math.Floor(
+                               Math.Floor((100 - arrow) * (100 - type1) / 100)
+                           * (100 - haste) / 100)
+                       - feyWind);
+
+            double B = (type2 - 100) / -100;
+
+            double GCDc = Math.Floor(
+                       Math.Floor(
+                           Math.Floor(Math.Ceiling(A * B) * GCDm / 100)
+                       * riddle / 1000)
+                    * umbral / 100);
+
+            return (long)GCDc * 10;
         }
 
         /// <summary>
