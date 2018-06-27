@@ -16,11 +16,11 @@ namespace Simulator_of_Light.Simulator {
         }
 
         public QueuedEvent (QueuedEventType type,
-            long time,
-            IActor source, 
-            ITarget target = null,
-            Aura aura = null,
-            Action action = null) {
+                            long time,
+                            IActor source, 
+                            ITarget target = null,
+                            Aura aura = null,
+                            Action action = null) {
 
             Type = type;
             Source = source;

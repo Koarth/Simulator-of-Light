@@ -60,14 +60,76 @@ namespace Simulator_of_Light.Simulator {
 
             // Event to signal the next Aura tick.
             EventQueue.Add(new QueuedEvent(QueuedEventType.AURA_TICK, Time + TickOffset));
-
         }
 
         public void Run() {
             throw new NotImplementedException();
         }
 
+        private void HandleEvent(QueuedEvent e) {
 
+            switch (e.Type) {
+                // Actor-driven events.
+                case QueuedEventType.ACTOR_READY:
+                    // Pass control to actor to decide on next action.
+                    // Generates: 
+                    //     RESOLVE_ACTION
+                    //     ACTOR_READY
+                    break;
+                case QueuedEventType.RESOLVE_ACTION:
+                    // Resolve the effects of an action.
+                    // Generates:
+                    //     Damage/healing battle events
+                    //     Cast battle events
+                    //     APPLY_AURA
+                    //     APPLY_AURA_STACK
+                    //     EXPIRE_AURA (?)
+                    //     EXPIRE_AURA_STACK
+                    break;
+                case QueuedEventType.APPLY_AURA:
+                    // Apply an aura to a target.
+                    // Generates:
+                    //     Aura applied battle events
+                    //     Aura refreshed battle events
+                    //     EXPIRE_AURA
+                    //     APPLY_AURA_STACK
+                    break;
+                case QueuedEventType.APPLY_AURA_STACK:
+                    // Add a stack to an existing aura.
+                    // Generates:
+                    //     Aura stack applied battle events.
+                    //     Aura refreshed battle events.
+                    //     EXPIRE_AURA
+                    break;
+                case QueuedEventType.EXPIRE_AURA:
+                    // Remove an aura from the target.
+                    // Generates:
+                    //     Aura expired battle event.
+                    break;
+                case QueuedEventType.REMOVE_AURA_STACK:
+                    // Remove a stack from an existing aura.
+                    // Generates:
+                    //     Aura stack removed battle event.
+                    break;
 
+                // Independent events.
+                case QueuedEventType.AURA_TICK:
+                    // Tick all auras on all targets.
+                    // Generates:
+                    //     Damage/Healing battle events.
+                    //     Refresh battle events.
+                    break;
+                case QueuedEventType.REGEN_TICK:
+                    // Tick passive regeneration on all _players_.
+                    // Generates:
+                    //     HP/MP/TP regeneration battle events.
+                    break;
+                case QueuedEventType.FIGHT_COMPLETE:
+                    // Cleanup; ignore all future events and report all
+                    // generated battle events.
+                    break;
+            }
+
+        }
     }
 }
