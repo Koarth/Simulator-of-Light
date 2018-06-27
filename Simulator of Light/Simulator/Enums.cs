@@ -140,7 +140,8 @@ namespace Simulator_of_Light.Simulator {
         APPLY_AURA,
         EXPIRE_AURA,
         APPLY_AURA_STACK,
-        REMOVE_AURA_STACK
+        REMOVE_AURA_STACK,
+        FIGHT_COMPLETE
     }
 
     public enum ActionTarget {

@@ -36,6 +36,13 @@ namespace Simulator_of_Light
             var set = dao.GetEquipmentSetByName("WHMGear");
 
             PlayerCharacter actor = new PlayerCharacter("Kirima Yaeger", CharacterClan.HYUR_MIDLANDER, JobID.WHM, set);
+            StrikingDummy dummy = new StrikingDummy();
+
+            ITarget[] targets = new ITarget[] { dummy };
+            ITarget[] friendlies = new ITarget[] { actor };
+
+            var decision = actor.DecideAction(1234, friendlies, targets);
+            
 
             Application.Current.Exit();
 

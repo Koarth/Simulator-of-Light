@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Simulator_of_Light.Simulator.Resources;
+using C5;
 
 namespace Simulator_of_Light.Simulator.Models {
 
@@ -49,7 +50,7 @@ namespace Simulator_of_Light.Simulator.Models {
         public int CurrentTP { get; set; }
 
         public Dictionary<string, Action> Actions { get; private set; }
-        public SortedList<long, Aura> Auras { get; private set; }
+        public IntervalHeap<Aura> Auras { get; private set; }
 
         // Timing properties
         public long GlobalRecastAvailable { get; set; }
@@ -72,33 +73,33 @@ namespace Simulator_of_Light.Simulator.Models {
                 // Aero III
                 var a = target.GetAuraByName("Aero III");
                 if (a == null || ((a.Expires - time) < 3000)) {
-                    return new QueuedEvent(QueuedEventType.RESOLVE_ACTION, this, 
-                        target, time, action: Actions["Aero III"]);
+                    return new QueuedEvent(QueuedEventType.RESOLVE_ACTION, time, this,
+                        target, action: Actions["Aero III"]);
                 }
                 // Aero II
                 a = target.GetAuraByName("Aero II");
                 if (a == null || ((a.Expires - time) < 3000)) {
-                    return new QueuedEvent(QueuedEventType.RESOLVE_ACTION, this,
-                        target, time, action: this.Actions["Aero II"]);
+                    return new QueuedEvent(QueuedEventType.RESOLVE_ACTION, time, this,
+                        target, action: this.Actions["Aero II"]);
                 }
                 // Stone IV (no conditions)
-                return new QueuedEvent(QueuedEventType.RESOLVE_ACTION, this, 
-                    target, time, action: this.Actions["Stone IV"]);
+                return new QueuedEvent(QueuedEventType.RESOLVE_ACTION, time, this, 
+                    target, action: this.Actions["Stone IV"]);
 
             } else if (time > this.AnimationLockExpires) {
 
                 // Cleric Stance
                 var a = Actions["Cleric Stance"];
                 if (a.RecastAvailable < time) {
-                    return new QueuedEvent(QueuedEventType.RESOLVE_ACTION, this,
-                        time: time, action: a);
+                    return new QueuedEvent(QueuedEventType.RESOLVE_ACTION, time, this,
+                        action: a);
                 }
 
                 // Presence of Mind
                 a = Actions["Presence of Mind"];
                 if (a.RecastAvailable < time) {
-                    return new QueuedEvent(QueuedEventType.RESOLVE_ACTION, this,
-                        time: time, action: a);
+                    return new QueuedEvent(QueuedEventType.RESOLVE_ACTION, time, this,
+                        action: a);
                 }
 
                 // In-between GCDs and no OGCDs available - delay for a bit.
@@ -106,7 +107,7 @@ namespace Simulator_of_Light.Simulator.Models {
                 if (time > tryNextAction) {
                     tryNextAction = this.GlobalRecastAvailable;
                 }
-                return new QueuedEvent(QueuedEventType.ACTOR_READY, this, time: tryNextAction);
+                return new QueuedEvent(QueuedEventType.ACTOR_READY, tryNextAction, this);
             }
 
             throw new Exception("Control passed to actor early.");
@@ -210,7 +211,7 @@ namespace Simulator_of_Light.Simulator.Models {
         }
 
         public Aura GetAuraByName(string auraName) {
-            foreach (Aura aura in this.Auras.Values) {
+            foreach (Aura aura in this.Auras) {
                 if (aura.BaseAura.Name == auraName) {
                     return aura;
                 }
