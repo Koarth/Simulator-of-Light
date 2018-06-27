@@ -19,12 +19,16 @@ namespace Simulator_of_Light.Simulator.Models {
             foreach (string key in actionDict.Keys) {
                 Actions.Add(key, new Action(actionDict[key]));
             }
+
+            this._initializeState();
         }
 
         public PlayerCharacter(string name, CharacterClan clan, JobID jobID, GearSet gearset)
             : this(name, clan, jobID) {
 
             this.EquipGearset(gearset);
+
+            this._initializeState();
         }
 
         // Static properties
@@ -35,13 +39,14 @@ namespace Simulator_of_Light.Simulator.Models {
         // Configured properties
         public long MaxHP { get; private set; }
         public int MaxMP { get; private set; }
+        public int MaxTP { get; private set; }
         public Dictionary<CharacterStat, double> Stats { get; private set; }
         public GearSet GearSet { get; private set; }
 
         // Dynamic properties
         public long CurrentHP { get; set; }
         public int CurrentMP { get; set; }
-        public double CurrentTP { get; set; }
+        public int CurrentTP { get; set; }
 
         public Dictionary<string, Action> Actions { get; private set; }
         public SortedList<long, Aura> Auras { get; private set; }
@@ -286,11 +291,19 @@ namespace Simulator_of_Light.Simulator.Models {
             // TODO: ADD STATS FROM FOOD
 
             // Calculate the dependent stats, HP and MP:
-            //this.Stats[CharacterStat.HP] = Formulas.calculateTotalHP(this.Stats[CharacterStat.VITALITY], this.JobID);
-            //this.Stats[CharacterStat.MP] = Formulas.calculateTotalMana(this.Stats[CharacterStat.PIETY], this.JobID);
             this.MaxHP = (int)Formulas.calculateTotalHP(this.Stats[CharacterStat.VITALITY], this.JobID);
             this.MaxMP = (int)Formulas.calculateTotalMana(this.Stats[CharacterStat.PIETY], this.JobID);
+            this.MaxTP = (int)Constants.BaseTP70;
 
+        }
+
+        private void _initializeState() {
+            this.CurrentHP = this.MaxHP;
+            this.CurrentMP = this.MaxMP;
+            this.CurrentTP = this.MaxTP;
+
+            this.GlobalRecastAvailable = long.MinValue;
+            this.AnimationLockExpires = long.MinValue;
         }
     }
 }

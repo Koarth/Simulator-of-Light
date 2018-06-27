@@ -23,6 +23,7 @@ namespace Simulator_of_Light.Simulator.Resources {
         public static readonly double BaseMain70 = 292;
         public static readonly double BaseMP70 = 12000;
         public static readonly double BaseHP70 = 3600;
+        public static readonly double BaseTP70 = 1000;
 
         /* "Magic Numbers" for secondary stat formulas. */
         // Characters earn less benefit per stat point at higher levels.  This is the penalty divisor at 70.
@@ -59,8 +60,7 @@ namespace Simulator_of_Light.Simulator.Resources {
             {CharacterStat.SKILLSPEED, 364},
             {CharacterStat.SPELLSPEED, 364},
             {CharacterStat.TENACITY, 364},
-            {CharacterStat.PIETY, 292},
-            {CharacterStat.TP, 1000}
+            {CharacterStat.PIETY, 292}
         };
 
         private static Dictionary<JobID, CharacterStat> weaponskillPrimaryStat
