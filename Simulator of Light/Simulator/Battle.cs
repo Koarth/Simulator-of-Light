@@ -14,6 +14,7 @@ namespace Simulator_of_Light.Simulator {
         // pets, or "NPCs" that will stand-in as raid buff simulators.  Enemies do
         // not act, but rather keep track of auras and other state effects.
         public IActor[] Actors { get; private set; }
+        public ITarget[] Friendlies { get; private set; }
         public ITarget[] Enemies { get; private set; }
 
         // Length of the fight in milliseconds.  Battle will dump the queue and report results
@@ -36,6 +37,7 @@ namespace Simulator_of_Light.Simulator {
         public Battle(IActor[] actors, int length = 180, int num_enemies = 1) {
 
             Actors = actors;
+            Friendlies = actors;
             FightLength = length * 1000;
 
             Time = 0;
@@ -71,16 +73,16 @@ namespace Simulator_of_Light.Simulator {
             switch (e.Type) {
                 // Actor-driven events.
                 case QueuedEventType.ACTOR_READY:
-                    // Pass control to actor to decide on next action.
-                    // Generates: 
-                    //     RESOLVE_ACTION
-                    //     ACTOR_READY
+                    // Decision should be either ACTOR_READY or RESOLVE_ACTION.
+                    QueuedEvent decision = e.Source.DecideAction(Time, Actors, Enemies);
+                    EventQueue.Add(decision);
                     break;
                 case QueuedEventType.RESOLVE_ACTION:
                     // Resolve the effects of an action.
                     // Generates:
                     //     Damage/healing battle events
                     //     Cast battle events
+                    //     ACTOR_READY
                     //     APPLY_AURA
                     //     APPLY_AURA_STACK
                     //     EXPIRE_AURA (?)
@@ -118,11 +120,13 @@ namespace Simulator_of_Light.Simulator {
                     // Generates:
                     //     Damage/Healing battle events.
                     //     Refresh battle events.
+                    //     AURA_TICK
                     break;
                 case QueuedEventType.REGEN_TICK:
                     // Tick passive regeneration on all _players_.
                     // Generates:
                     //     HP/MP/TP regeneration battle events.
+                    //     REGEN_TICK
                     break;
                 case QueuedEventType.FIGHT_COMPLETE:
                     // Cleanup; ignore all future events and report all

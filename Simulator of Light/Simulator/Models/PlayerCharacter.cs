@@ -8,7 +8,7 @@ using C5;
 
 namespace Simulator_of_Light.Simulator.Models {
 
-    public class PlayerCharacter : IActor, ITarget {
+    public class PlayerCharacter : IActor {
 
         public PlayerCharacter(string name, CharacterClan clan, JobID jobID) {
             Name = name;
