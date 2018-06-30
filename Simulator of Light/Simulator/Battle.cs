@@ -129,12 +129,27 @@ namespace Simulator_of_Light.Simulator {
                         if (a.AurasApplied != null) {
                             foreach (BaseAura aura in a.AurasApplied) {
                                 if (aura.Targets == AuraTarget.TARGET) {
-                                    EventLog.Add(ApplyAura(aura, source, target));
+                                    EventQueue.Add(new QueuedEvent(QueuedEventType.APPLY_AURA, Time, source, target, baseAura: aura));
                                 }
                             }
                         }
                     }
 
+                    // Apply self-applied auras.
+                    if (a.AurasApplied != null) {
+                        foreach (BaseAura aura in a.AurasApplied) {
+                            if (aura.Targets == AuraTarget.SOURCE) {
+                                EventQueue.Add(new QueuedEvent(QueuedEventType.APPLY_AURA, Time, source, source, baseAura: aura));
+                            }
+                        }
+                    }
+
+                    // Resolve action effects on the source actor, and add any
+                    // resulting events to the queue.
+                    var newEvents = source.ExecuteAction(e.Action, Time);
+                    foreach (QueuedEvent ev in newEvents) {
+                        EventQueue.Add(ev);
+                    }
 
                     break;
                 case QueuedEventType.APPLY_AURA:

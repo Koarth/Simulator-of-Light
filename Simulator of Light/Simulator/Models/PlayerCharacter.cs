@@ -203,12 +203,14 @@ namespace Simulator_of_Light.Simulator.Models {
         /// </summary>
         /// <param name="action">The action to execute.</param>
         /// <param name="time">Current fight time.</param>
-        public void ExecuteAction(Action action, long time) {
+        public QueuedEvent[] ExecuteAction(Action action, long time) {
 
             this.CurrentMP -= action.BaseAction.MpCost;
             this.CurrentTP -= action.BaseAction.TpCost;
 
             // TODO: combo actions
+
+            throw new NotImplementedException();
 
         }
 
