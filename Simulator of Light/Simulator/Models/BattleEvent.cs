@@ -21,7 +21,7 @@ namespace Simulator_of_Light.Simulator.Models {
 
         // Damage values.
         public int RawDamage { get; set; }
-        public int RffectiveDamage { get; set; }
+        public int EffectiveDamage { get; set; }
         public int AbsorbedDamage { get; set; }
         public int BlockedDamage { get; set; }
         public int OverkillDamage { get; set; }

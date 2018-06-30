@@ -97,7 +97,7 @@ namespace Simulator_of_Light.Simulator {
                         EventLog.Add(new BattleEvent(BattleEventType.BEGINCAST, Time, e.Source, action: e.Action.BaseAction));
                     } else {
                         EventQueue.Add(new QueuedEvent(QueuedEventType.RESOLVE_ACTION, Time, e.Source, action: e.Action));
-                        EventLog.Add(new BattleEvent(BattleEventType.CAST, Time, e.Source, action: e.Action.BaseAction));
+                        //EventLog.Add(new BattleEvent(BattleEventType.CAST, Time, e.Source, action: e.Action.BaseAction));
                     }
 
                     break;
@@ -111,6 +111,31 @@ namespace Simulator_of_Light.Simulator {
                     //     APPLY_AURA_STACK
                     //     EXPIRE_AURA (?)
                     //     EXPIRE_AURA_STACK
+
+                    var a = e.Action.BaseAction;
+                    var source = e.Source;
+
+                    ITarget[] targets = getTargetsInRadius(e.Target, a.Radius);
+                    EventLog.Add(new BattleEvent(BattleEventType.CAST, Time, source, action: a));
+
+                    foreach (ITarget target in targets) {
+                        // Calculate and apply damage.
+                        if (a.Potency > 0) {
+                            BattleEvent damage = calculateActionDamage(a, source, target);
+                            EventLog.Add(damage);
+                        }
+
+                        // Apply auras.
+                        if (a.AurasApplied != null) {
+                            foreach (BaseAura aura in a.AurasApplied) {
+                                if (aura.Targets == AuraTarget.TARGET) {
+                                    EventLog.Add(ApplyAura(aura, source, target));
+                                }
+                            }
+                        }
+                    }
+
+
                     break;
                 case QueuedEventType.APPLY_AURA:
                     // Apply an aura to a target.
@@ -159,5 +184,41 @@ namespace Simulator_of_Light.Simulator {
             }
 
         }
+
+        public BattleEvent calculateActionDamage(BaseAction action, IActor source, ITarget target) {
+
+            // Calculate base damage.
+            // Roll for critical.
+            // Roll for direct hit.
+
+            throw new NotImplementedException();
+        }
+
+        public BattleEvent ApplyAura(BaseAura aura, IActor source, ITarget target) {
+
+
+            throw new NotImplementedException();
+        }
+
+        public ITarget[] getTargetsInRadius(ITarget primary, double radius, bool friendly = false) {
+
+            if (primary == null) {
+                return new ITarget[] { };
+            }
+
+            // One day we'll actually check range, for now simply distinguish
+            // between AoE and non-AoE.
+            if (radius <= 0) {
+                return new ITarget[] { primary };
+            }
+
+            if (friendly) {
+                return Friendlies;
+            } else {
+                return Enemies;
+            }
+
+        }
+
     }
 }
