@@ -34,6 +34,8 @@ namespace Simulator_of_Light.Simulator {
         // value = event to be resolved
         public IntervalHeap<QueuedEvent> EventQueue { get; private set; }
 
+        public ArrayList<BattleEvent> EventLog { get; private set; }
+
         public Battle(IActor[] actors, int length = 180, int num_enemies = 1) {
 
             Actors = actors;
@@ -50,6 +52,7 @@ namespace Simulator_of_Light.Simulator {
             }
 
             EventQueue = new IntervalHeap<QueuedEvent>();
+            EventLog = new ArrayList<BattleEvent>();
 
             // Add the inital Actor decisions to the queue.  These should drive the rest of the
             // simulation.
@@ -76,6 +79,27 @@ namespace Simulator_of_Light.Simulator {
                     // Decision should be either ACTOR_READY or RESOLVE_ACTION.
                     QueuedEvent decision = e.Source.DecideAction(Time, Actors, Enemies);
                     EventQueue.Add(decision);
+                    break;
+                case QueuedEventType.USE_ACTION:
+                    // Initiate the use of an action.
+                    // Generates:
+                    //     Begin cast events
+                    //     RESOLVE_ACTION
+                    //     ACTOR_READY
+
+                    // Queue next actor availability.
+                    long t = e.Source.BeginCast(e.Action, Time);
+                    EventQueue.Add(new QueuedEvent(QueuedEventType.ACTOR_READY, t, e.Source));
+
+                    // Resolves later if it has a cast time, else resolves now.
+                    if (e.Action.BaseAction.CastTime > 0) {
+                        EventQueue.Add(new QueuedEvent(QueuedEventType.RESOLVE_ACTION, t, e.Source, action: e.Action));
+                        EventLog.Add(new BattleEvent(BattleEventType.BEGINCAST, Time, e.Source, action: e.Action.BaseAction));
+                    } else {
+                        EventQueue.Add(new QueuedEvent(QueuedEventType.RESOLVE_ACTION, Time, e.Source, action: e.Action));
+                        EventLog.Add(new BattleEvent(BattleEventType.CAST, Time, e.Source, action: e.Action.BaseAction));
+                    }
+
                     break;
                 case QueuedEventType.RESOLVE_ACTION:
                     // Resolve the effects of an action.

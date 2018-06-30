@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Simulator_of_Light.Simulator.Models {
-    public class BattleEvent {
+    public class BattleEvent : IComparable<BattleEvent> {
 
         public BattleEventType Type { get; set; }
         public long Time { get; set; }
@@ -14,7 +14,7 @@ namespace Simulator_of_Light.Simulator.Models {
         public IActor Source { get; set; }
         public ITarget Target { get; set; }
 
-        public Aura Aura { get; set; }
+        public BaseAura Aura { get; set; }
 
         // Action information.
         public BaseAction Ability { get; set; }
@@ -39,5 +39,23 @@ namespace Simulator_of_Light.Simulator.Models {
         // Aura information.
         public BaseAura AuraApplied { get; set; }
         public int AuraStack { get; set; }
+
+        public BattleEvent(BattleEventType type, long time, IActor source,
+            IActor target = null, BaseAura aura = null, BaseAction action = null) {
+
+            Type = type;
+            Time = time;
+            Source = source;
+            Target = target;
+            Aura = aura;
+            Ability = action;
+
+        }
+
+        public int CompareTo(BattleEvent that) {
+            if (this.Time > that.Time) return -1;
+            if (this.Time == that.Time) return 0;
+            return 1;
+        }
     }
 }

@@ -14,6 +14,8 @@ namespace Simulator_of_Light.Simulator.Models {
         QueuedEvent DecideAction(long time,
             ITarget[] friendlyTargets,
             ITarget[] enemyTargets);
+        long BeginCast(Action action, long time);
+        
 
     }
 }

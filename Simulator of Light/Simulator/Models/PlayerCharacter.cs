@@ -73,17 +73,17 @@ namespace Simulator_of_Light.Simulator.Models {
                 // Aero III
                 var a = target.GetAuraByName("Aero III");
                 if (a == null || ((a.Expires - time) < 3000)) {
-                    return new QueuedEvent(QueuedEventType.RESOLVE_ACTION, time, this,
+                    return new QueuedEvent(QueuedEventType.USE_ACTION, time, this,
                         target, action: Actions["Aero III"]);
                 }
                 // Aero II
                 a = target.GetAuraByName("Aero II");
                 if (a == null || ((a.Expires - time) < 3000)) {
-                    return new QueuedEvent(QueuedEventType.RESOLVE_ACTION, time, this,
+                    return new QueuedEvent(QueuedEventType.USE_ACTION, time, this,
                         target, action: this.Actions["Aero II"]);
                 }
                 // Stone IV (no conditions)
-                return new QueuedEvent(QueuedEventType.RESOLVE_ACTION, time, this, 
+                return new QueuedEvent(QueuedEventType.USE_ACTION, time, this, 
                     target, action: this.Actions["Stone IV"]);
 
             } else if (time > this.AnimationLockExpires) {
@@ -91,14 +91,14 @@ namespace Simulator_of_Light.Simulator.Models {
                 // Cleric Stance
                 var a = Actions["Cleric Stance"];
                 if (a.RecastAvailable < time) {
-                    return new QueuedEvent(QueuedEventType.RESOLVE_ACTION, time, this,
+                    return new QueuedEvent(QueuedEventType.USE_ACTION, time, this,
                         action: a);
                 }
 
                 // Presence of Mind
                 a = Actions["Presence of Mind"];
                 if (a.RecastAvailable < time) {
-                    return new QueuedEvent(QueuedEventType.RESOLVE_ACTION, time, this,
+                    return new QueuedEvent(QueuedEventType.USE_ACTION, time, this,
                         action: a);
                 }
 
@@ -189,6 +189,8 @@ namespace Simulator_of_Light.Simulator.Models {
             }
 
             return this.AnimationLockExpires;
+
+            //return new QueuedEvent(QueuedEventType.ACTOR_READY, this.AnimationLockExpires, this);
 
         }
 
