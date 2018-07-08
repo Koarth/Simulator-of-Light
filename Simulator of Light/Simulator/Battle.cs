@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using C5;
 using Simulator_of_Light.Simulator.Models;
 
@@ -11,6 +12,7 @@ namespace Simulator_of_Light.Simulator {
         public IActor[] Actors { get; private set; }
         public ITarget[] Friendlies { get; private set; }
         public ITarget[] Enemies { get; private set; }
+        public ITarget[] Targets { get; private set; }
 
         // Length of the fight in milliseconds.  Battle will dump the queue and report results
         // once this time is reached.
@@ -45,6 +47,8 @@ namespace Simulator_of_Light.Simulator {
             for (int i = 0; i < num_enemies; i++) {
                 Enemies[i] = new StrikingDummy();
             }
+
+            Targets = Friendlies.ToList().Concat(Enemies.ToList()).ToArray();
 
             EventQueue = new IntervalHeap<BattleEvent>();
             EventLog = new ArrayList<CombatLogEvent>();

@@ -181,7 +181,7 @@ namespace Simulator_of_Light.Simulator {
         private void _handleApplyAuraEvent(IActor source, ITarget target, BaseAura aura) {
 
             // Apply the aura.
-            var appliedAura = ApplyAura(aura, source, target);
+            var appliedAura = _applyAura(aura, source, target);
 
             // Log event.
             CombatLogEventType type;
@@ -205,7 +205,7 @@ namespace Simulator_of_Light.Simulator {
         private void _handleExpireAuraEvent(ITarget target, Aura aura) {
 
             // Expire the aura.
-            var expiredAura = ExpireAura(aura, target);
+            var expiredAura = _expireAura(aura, target);
 
             // The target aura may not be found;  this is normal in the case
             // an aura was refreshed early and therefore overwritten, or otherwise
@@ -230,10 +230,47 @@ namespace Simulator_of_Light.Simulator {
         }
 
         private void _handleAuraTickEvent() {
+
+            foreach (ITarget target in Targets) {
+
+                var auraList = target.Auras;
+
+                foreach (Aura aura in auraList) {
+
+                    // Retrieve (not calculate) aura damage
+                    // Roll for crit
+                    // Roll for direct hit
+                    // Generate damage event
+
+                    // Retrieve MP refresh amount
+                    // Generate MP refresh event
+
+                    // Retrieve TP refresh amount
+                    // Generate TP refresh event
+
+                    // Retrieve heal amount
+                    // Roll for crit
+                    // Roll for direct hit
+                    // Generate healing event
+
+                }
+            }
+
             throw new NotImplementedException();
         }
 
         private void _handleRegenTickEvent() {
+
+            foreach (ITarget target in Targets) {
+
+                // Tick HP regen
+
+                // Tick MP regen
+
+                // Tick TP regen
+
+            }
+
             throw new NotImplementedException();
         }
 
@@ -250,17 +287,14 @@ namespace Simulator_of_Light.Simulator {
             throw new NotImplementedException();
         }
 
-        public Aura ApplyAura(BaseAura aura, IActor source, ITarget target) {
-
+        private Aura _applyAura(BaseAura aura, IActor source, ITarget target) {
 
             throw new NotImplementedException();
         }
 
-        public Aura ExpireAura(Aura aura, ITarget target) {
-
+        private Aura _expireAura(Aura aura, ITarget target) {
 
             throw new NotImplementedException();
-
         }
 
         public ITarget[] getTargetsInRadius(ITarget primary, double radius, bool friendly = false) {
