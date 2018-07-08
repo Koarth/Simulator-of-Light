@@ -3,9 +3,9 @@ using System;
 using Action = Simulator_of_Light.Simulator.Models.Action;
 
 namespace Simulator_of_Light.Simulator {
-    public class QueuedEvent : IComparable<QueuedEvent> {
+    public class BattleEvent : IComparable<BattleEvent> {
 
-        public QueuedEventType Type { get; private set; }
+        public BattleEventType Type { get; private set; }
         public IActor Source { get; private set; }
         public ITarget Target { get; private set; }
         public long Time { get; private set; }
@@ -14,7 +14,7 @@ namespace Simulator_of_Light.Simulator {
         public Action Action { get; private set; }
         public BaseAura BaseAura { get; private set; }
 
-        public QueuedEvent(QueuedEventType type, long time) {
+        public BattleEvent(BattleEventType type, long time) {
             Type = type;
             Time = time;
 
@@ -25,7 +25,7 @@ namespace Simulator_of_Light.Simulator {
             BaseAura = null;
         }
 
-        public QueuedEvent (QueuedEventType type,
+        public BattleEvent (BattleEventType type,
                             long time,
                             IActor source, 
                             ITarget target = null,
@@ -45,7 +45,7 @@ namespace Simulator_of_Light.Simulator {
         }
 
         // Sortable by execution time.
-        public int CompareTo(QueuedEvent that) {
+        public int CompareTo(BattleEvent that) {
             if (this.Time > that.Time) return -1;
             if (this.Time == that.Time) return 0;
             return 1;

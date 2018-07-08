@@ -1,14 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using C5;
 using Simulator_of_Light.Simulator.Models;
-using Simulator_of_Light.Simulator.Resources;
 
 namespace Simulator_of_Light.Simulator {
-    public class Battle {
+    public partial class Battle {
 
         // Entities in the fight.  Actors are generally understood to be players,
         // pets, or "NPCs" that will stand-in as raid buff simulators.  Enemies do
@@ -32,9 +27,9 @@ namespace Simulator_of_Light.Simulator {
         // The queue of events to resolve, implemented as a priority queue.
         // key = time in milliseconds at which the event is to be resolved.
         // value = event to be resolved
-        public IntervalHeap<QueuedEvent> EventQueue { get; private set; }
+        public IntervalHeap<BattleEvent> EventQueue { get; private set; }
 
-        public ArrayList<BattleEvent> EventLog { get; private set; }
+        public ArrayList<CombatLogEvent> EventLog { get; private set; }
 
         public Battle(IActor[] actors, int length = 180, int num_enemies = 1) {
 
@@ -51,189 +46,25 @@ namespace Simulator_of_Light.Simulator {
                 Enemies[i] = new StrikingDummy();
             }
 
-            EventQueue = new IntervalHeap<QueuedEvent>();
-            EventLog = new ArrayList<BattleEvent>();
+            EventQueue = new IntervalHeap<BattleEvent>();
+            EventLog = new ArrayList<CombatLogEvent>();
 
             // Add the inital Actor decisions to the queue.  These should drive the rest of the
             // simulation.
             foreach (IActor actor in Actors) {
-                EventQueue.Add(new QueuedEvent(QueuedEventType.ACTOR_READY, Time, actor));
+                EventQueue.Add(new BattleEvent(BattleEventType.ACTOR_READY, Time, actor));
             }
 
             // Event to signal the end of the fight.
-            EventQueue.Add(new QueuedEvent(QueuedEventType.FIGHT_COMPLETE, FightLength));
+            EventQueue.Add(new BattleEvent(BattleEventType.FIGHT_COMPLETE, FightLength));
 
             // Event to signal the next Aura tick.
-            EventQueue.Add(new QueuedEvent(QueuedEventType.AURA_TICK, Time + TickOffset));
+            EventQueue.Add(new BattleEvent(BattleEventType.AURA_TICK, Time + TickOffset));
         }
 
         public void Run() {
             throw new NotImplementedException();
         }
-
-        private void HandleEvent(QueuedEvent e) {
-
-            switch (e.Type) {
-                // Actor-driven events.
-                case QueuedEventType.ACTOR_READY:
-                    // Decision should be either ACTOR_READY or RESOLVE_ACTION.
-                    QueuedEvent decision = e.Source.DecideAction(Time, Actors, Enemies);
-                    EventQueue.Add(decision);
-                    break;
-                case QueuedEventType.USE_ACTION:
-                    // Initiate the use of an action.
-                    // Generates:
-                    //     Begin cast events
-                    //     RESOLVE_ACTION
-                    //     ACTOR_READY
-
-                    // Queue next actor availability.
-                    long t = e.Source.BeginCast(e.Action, Time);
-                    EventQueue.Add(new QueuedEvent(QueuedEventType.ACTOR_READY, t, e.Source));
-
-                    // Resolves later if it has a cast time, else resolves now.
-                    if (e.Action.BaseAction.CastTime > 0) {
-                        EventQueue.Add(new QueuedEvent(QueuedEventType.RESOLVE_ACTION, t, e.Source, action: e.Action));
-                        EventLog.Add(new BattleEvent(BattleEventType.BEGINCAST, Time, e.Source, action: e.Action.BaseAction));
-                    } else {
-                        EventQueue.Add(new QueuedEvent(QueuedEventType.RESOLVE_ACTION, Time, e.Source, action: e.Action));
-                        //EventLog.Add(new BattleEvent(BattleEventType.CAST, Time, e.Source, action: e.Action.BaseAction));
-                    }
-
-                    break;
-                case QueuedEventType.RESOLVE_ACTION:
-                    // Resolve the effects of an action.
-                    // Generates:
-                    //     Damage/healing battle events
-                    //     Cast battle events
-                    //     ACTOR_READY
-                    //     APPLY_AURA
-                    //     APPLY_AURA_STACK
-                    //     EXPIRE_AURA (?)
-                    //     EXPIRE_AURA_STACK
-
-                    var a = e.Action.BaseAction;
-                    var source = e.Source;
-
-                    ITarget[] targets = getTargetsInRadius(e.Target, a.Radius);
-                    EventLog.Add(new BattleEvent(BattleEventType.CAST, Time, source, action: a));
-
-                    foreach (ITarget target in targets) {
-                        // Calculate and apply damage.
-                        if (a.Potency > 0) {
-                            BattleEvent damage = calculateActionDamage(a, source, target);
-                            EventLog.Add(damage);
-                        }
-
-                        // Apply auras.
-                        if (a.AurasApplied != null) {
-                            foreach (BaseAura aura in a.AurasApplied) {
-                                if (aura.Targets == AuraTarget.TARGET) {
-                                    EventQueue.Add(new QueuedEvent(QueuedEventType.APPLY_AURA, Time, source, target, baseAura: aura));
-                                }
-                            }
-                        }
-                    }
-
-                    // Apply self-applied auras.
-                    if (a.AurasApplied != null) {
-                        foreach (BaseAura aura in a.AurasApplied) {
-                            if (aura.Targets == AuraTarget.SOURCE) {
-                                EventQueue.Add(new QueuedEvent(QueuedEventType.APPLY_AURA, Time, source, source, baseAura: aura));
-                            }
-                        }
-                    }
-
-                    // Resolve action effects on the source actor, and add any
-                    // resulting events to the queue.
-                    var newEvents = source.ExecuteAction(e.Action, Time);
-                    foreach (QueuedEvent ev in newEvents) {
-                        EventQueue.Add(ev);
-                    }
-
-                    break;
-                case QueuedEventType.APPLY_AURA:
-                    // Apply an aura to a target.
-                    // Generates:
-                    //     Aura applied battle events
-                    //     Aura refreshed battle events
-                    //     EXPIRE_AURA
-                    //     APPLY_AURA_STACK
-                    break;
-                case QueuedEventType.APPLY_AURA_STACK:
-                    // Add a stack to an existing aura.
-                    // Generates:
-                    //     Aura stack applied battle events.
-                    //     Aura refreshed battle events.
-                    //     EXPIRE_AURA
-                    break;
-                case QueuedEventType.EXPIRE_AURA:
-                    // Remove an aura from the target.
-                    // Generates:
-                    //     Aura expired battle event.
-                    break;
-                case QueuedEventType.REMOVE_AURA_STACK:
-                    // Remove a stack from an existing aura.
-                    // Generates:
-                    //     Aura stack removed battle event.
-                    break;
-
-                // Independent events.
-                case QueuedEventType.AURA_TICK:
-                    // Tick all auras on all targets.
-                    // Generates:
-                    //     Damage/Healing battle events.
-                    //     Refresh battle events.
-                    //     AURA_TICK
-                    break;
-                case QueuedEventType.REGEN_TICK:
-                    // Tick passive regeneration on all _players_.
-                    // Generates:
-                    //     HP/MP/TP regeneration battle events.
-                    //     REGEN_TICK
-                    break;
-                case QueuedEventType.FIGHT_COMPLETE:
-                    // Cleanup; ignore all future events and report all
-                    // generated battle events.
-                    break;
-            }
-
-        }
-
-        public BattleEvent calculateActionDamage(BaseAction action, IActor source, ITarget target) {
-
-            // Calculate base damage.
-            // Roll for critical.
-            // Roll for direct hit.
-
-            throw new NotImplementedException();
-        }
-
-        public BattleEvent ApplyAura(BaseAura aura, IActor source, ITarget target) {
-
-
-            throw new NotImplementedException();
-        }
-
-        public ITarget[] getTargetsInRadius(ITarget primary, double radius, bool friendly = false) {
-
-            if (primary == null) {
-                return new ITarget[] { };
-            }
-
-            // One day we'll actually check range, for now simply distinguish
-            // between AoE and non-AoE.
-            if (radius <= 0) {
-                return new ITarget[] { primary };
-            }
-
-            if (friendly) {
-                return Friendlies;
-            } else {
-                return Enemies;
-            }
-
-        }
-
+        
     }
 }

@@ -58,7 +58,7 @@ namespace Simulator_of_Light.Simulator.Models {
 
 
         // MOCK FUNCTION, REPLACE WITH ACTION LIST DECISIONS
-        public QueuedEvent DecideAction(long time, 
+        public BattleEvent DecideAction(long time, 
             ITarget[] friendlyTargets, 
             ITarget[] enemyTargets) {
 
@@ -73,17 +73,17 @@ namespace Simulator_of_Light.Simulator.Models {
                 // Aero III
                 var a = target.GetAuraByName("Aero III");
                 if (a == null || ((a.Expires - time) < 3000)) {
-                    return new QueuedEvent(QueuedEventType.USE_ACTION, time, this,
+                    return new BattleEvent(BattleEventType.USE_ACTION, time, this,
                         target, action: Actions["Aero III"]);
                 }
                 // Aero II
                 a = target.GetAuraByName("Aero II");
                 if (a == null || ((a.Expires - time) < 3000)) {
-                    return new QueuedEvent(QueuedEventType.USE_ACTION, time, this,
+                    return new BattleEvent(BattleEventType.USE_ACTION, time, this,
                         target, action: this.Actions["Aero II"]);
                 }
                 // Stone IV (no conditions)
-                return new QueuedEvent(QueuedEventType.USE_ACTION, time, this, 
+                return new BattleEvent(BattleEventType.USE_ACTION, time, this, 
                     target, action: this.Actions["Stone IV"]);
 
             } else if (time > this.AnimationLockExpires) {
@@ -91,14 +91,14 @@ namespace Simulator_of_Light.Simulator.Models {
                 // Cleric Stance
                 var a = Actions["Cleric Stance"];
                 if (a.RecastAvailable < time) {
-                    return new QueuedEvent(QueuedEventType.USE_ACTION, time, this,
+                    return new BattleEvent(BattleEventType.USE_ACTION, time, this,
                         action: a);
                 }
 
                 // Presence of Mind
                 a = Actions["Presence of Mind"];
                 if (a.RecastAvailable < time) {
-                    return new QueuedEvent(QueuedEventType.USE_ACTION, time, this,
+                    return new BattleEvent(BattleEventType.USE_ACTION, time, this,
                         action: a);
                 }
 
@@ -107,11 +107,11 @@ namespace Simulator_of_Light.Simulator.Models {
                 if (time > tryNextAction) {
                     tryNextAction = this.GlobalRecastAvailable;
                 }
-                return new QueuedEvent(QueuedEventType.ACTOR_READY, tryNextAction, this);
+                return new BattleEvent(BattleEventType.ACTOR_READY, tryNextAction, this);
             }
 
             throw new Exception("Control passed to actor early.");
-            //return new QueuedEvent(QueuedEventType.ACTOR_READY, this, 
+            //return new BattleEvent(BattleEventType.ACTOR_READY, this, 
             //    time: Math.Min(GlobalRecastAvailable, AnimationLockExpires));
         }
 
@@ -190,7 +190,7 @@ namespace Simulator_of_Light.Simulator.Models {
 
             return this.AnimationLockExpires;
 
-            //return new QueuedEvent(QueuedEventType.ACTOR_READY, this.AnimationLockExpires, this);
+            //return new BattleEvent(BattleEventType.ACTOR_READY, this.AnimationLockExpires, this);
 
         }
 
@@ -203,7 +203,7 @@ namespace Simulator_of_Light.Simulator.Models {
         /// </summary>
         /// <param name="action">The action to execute.</param>
         /// <param name="time">Current fight time.</param>
-        public QueuedEvent[] ExecuteAction(Action action, long time) {
+        public BattleEvent[] ExecuteAction(Action action, long time) {
 
             this.CurrentMP -= action.BaseAction.MpCost;
             this.CurrentTP -= action.BaseAction.TpCost;

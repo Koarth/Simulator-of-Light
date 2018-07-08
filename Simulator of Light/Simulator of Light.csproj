@@ -105,11 +105,12 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Simulator\Battle.cs" />
-    <Compile Include="Simulator\Models\BattleEvent.cs" />
+    <Compile Include="Simulator\BattleEventHandlers.cs" />
+    <Compile Include="Simulator\Models\CombatLogEvent.cs" />
     <Compile Include="Simulator\Models\IActor.cs" />
     <Compile Include="Simulator\Models\ITarget.cs" />
     <Compile Include="Simulator\Models\StrikingDummy.cs" />
-    <Compile Include="Simulator\QueuedEvent.cs" />
+    <Compile Include="Simulator\BattleEvent.cs" />
     <Compile Include="Simulator\Simulator.cs" />
     <Compile Include="Simulator\Enums.cs" />
     <Compile Include="Simulator\Models\Action.cs" />

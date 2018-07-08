@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Simulator_of_Light.Simulator.Models {
-    public class BattleEvent : IComparable<BattleEvent> {
+    public class CombatLogEvent : IComparable<CombatLogEvent> {
 
-        public BattleEventType Type { get; set; }
+        public CombatLogEventType Type { get; set; }
         public long Time { get; set; }
 
         // Involved entities.
@@ -40,7 +40,7 @@ namespace Simulator_of_Light.Simulator.Models {
         public BaseAura AuraApplied { get; set; }
         public int AuraStack { get; set; }
 
-        public BattleEvent(BattleEventType type, long time, IActor source,
+        public CombatLogEvent(CombatLogEventType type, long time, IActor source,
             IActor target = null, BaseAura aura = null, BaseAction action = null) {
 
             Type = type;
@@ -52,7 +52,7 @@ namespace Simulator_of_Light.Simulator.Models {
 
         }
 
-        public int CompareTo(BattleEvent that) {
+        public int CompareTo(CombatLogEvent that) {
             if (this.Time > that.Time) return -1;
             if (this.Time == that.Time) return 0;
             return 1;

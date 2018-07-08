@@ -101,7 +101,7 @@ namespace Simulator_of_Light.Simulator {
      * Based on WarcraftLogs/FFLogs events.
      * TODO: Determine which of these may not apply to FFXIV; these events are from WoW.
      */
-    public enum BattleEventType {
+    public enum CombatLogEventType {
         BEGINCAST,
         CAST,
         DAMAGE,
@@ -132,7 +132,7 @@ namespace Simulator_of_Light.Simulator {
         RESURRECT
     }
 
-    public enum QueuedEventType {
+    public enum BattleEventType {
         ACTOR_READY,
         USE_ACTION,
         AURA_TICK,
