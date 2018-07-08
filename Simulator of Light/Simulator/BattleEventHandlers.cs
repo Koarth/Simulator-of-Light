@@ -44,7 +44,7 @@ namespace Simulator_of_Light.Simulator {
                     //     Aura refreshed battle events
                     //     EXPIRE_AURA
                     //     APPLY_AURA_STACK
-                    _handleApplyAuraEvent();
+                    _handleApplyAuraEvent(e.Source, e.Target, e.BaseAura);
                     break;
                 case BattleEventType.APPLY_AURA_STACK:
                     // Add a stack to an existing aura.
@@ -58,7 +58,7 @@ namespace Simulator_of_Light.Simulator {
                     // Remove an aura from the target.
                     // Generates:
                     //     Aura expired battle event.
-                    _handleExpireAuraEvent();
+                    _handleExpireAuraEvent(e.Target, e.Aura);
                     break;
                 case BattleEventType.REMOVE_AURA_STACK:
                     // Remove a stack from an existing aura.
@@ -178,16 +178,51 @@ namespace Simulator_of_Light.Simulator {
             }
         }
 
-        private void _handleApplyAuraEvent() {
-            throw new NotImplementedException();
+        private void _handleApplyAuraEvent(IActor source, ITarget target, BaseAura aura) {
+
+            // Apply the aura.
+            var appliedAura = ApplyAura(aura, source, target);
+
+            // Log event.
+            CombatLogEventType type;
+            if (appliedAura.isBuff) {
+                type = CombatLogEventType.APPLYBUFF;
+            } else {
+                type = CombatLogEventType.APPLYDEBUFF;
+            }
+            EventLog.Add(new CombatLogEvent(type, appliedAura.Expires, appliedAura.Source, target, appliedAura.BaseAura));
+
+            // Add aura expiration event in the future.
+            EventQueue.Add(new BattleEvent(BattleEventType.EXPIRE_AURA, 
+                            appliedAura.Expires, appliedAura.Source, 
+                            target, aura: appliedAura));
         }
 
         private void _handleApplyAuraStackEvent() {
             throw new NotImplementedException();
         }
 
-        private void _handleExpireAuraEvent() {
-            throw new NotImplementedException();
+        private void _handleExpireAuraEvent(ITarget target, Aura aura) {
+
+            // Expire the aura.
+            var expiredAura = ExpireAura(aura, target);
+
+            // The target aura may not be found;  this is normal in the case
+            // an aura was refreshed early and therefore overwritten, or otherwise
+            // consumed by an action.
+            // Just pass over the event.
+            if (expiredAura == null) {
+                return;
+            }
+
+            // Combat log event for expiring the aura.
+            CombatLogEventType type;
+            if (expiredAura.isBuff) {
+                type = CombatLogEventType.REMOVEBUFF;
+            } else {
+                type = CombatLogEventType.REMOVEDEBUFF;
+            }
+            EventLog.Add(new CombatLogEvent(type, Time, expiredAura.Source, target, expiredAura.BaseAura));
         }
 
         private void _handleRemoveAuraStackEvent() {
@@ -215,10 +250,17 @@ namespace Simulator_of_Light.Simulator {
             throw new NotImplementedException();
         }
 
-        public CombatLogEvent ApplyAura(BaseAura aura, IActor source, ITarget target) {
+        public Aura ApplyAura(BaseAura aura, IActor source, ITarget target) {
 
 
             throw new NotImplementedException();
+        }
+
+        public Aura ExpireAura(Aura aura, ITarget target) {
+
+
+            throw new NotImplementedException();
+
         }
 
         public ITarget[] getTargetsInRadius(ITarget primary, double radius, bool friendly = false) {

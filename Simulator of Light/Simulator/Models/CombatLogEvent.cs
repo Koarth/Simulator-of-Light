@@ -41,7 +41,7 @@ namespace Simulator_of_Light.Simulator.Models {
         public int AuraStack { get; set; }
 
         public CombatLogEvent(CombatLogEventType type, long time, IActor source,
-            IActor target = null, BaseAura aura = null, BaseAction action = null) {
+            ITarget target = null, BaseAura aura = null, BaseAction action = null) {
 
             Type = type;
             Time = time;

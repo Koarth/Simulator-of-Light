@@ -12,12 +12,13 @@ namespace Simulator_of_Light.Simulator.Models {
 
         public IActor Source { get; set; }
         public long Expires { get; set; }
+        public bool isBuff { get; set; }
 
         public double DamageModifier { get; set; }
         public double CriticalHitRate { get; set; }
         public double DirectHitRate { get; set; }
 
-        public Aura(BaseAura baseAura, IActor source, long expires,
+        public Aura(BaseAura baseAura, IActor source, long expires, bool isBuff,
             double damageModifier = 1,
             double criticalHitRate = 0,
             double directHitRate = 0) {
