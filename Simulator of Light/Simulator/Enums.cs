@@ -63,6 +63,8 @@ namespace Simulator_of_Light.Simulator {
         HP,
         MP,
         TP,
+        ATTACKPOWER,
+        WEAPONDAMAGE
     }
 
     public enum EquipSlot {

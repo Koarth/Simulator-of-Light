@@ -305,6 +305,7 @@ namespace Simulator_of_Light.Simulator {
 
             // One day we'll actually check range, for now simply distinguish
             // between AoE and non-AoE.
+            // TODO
             if (radius <= 0) {
                 return new ITarget[] { primary };
             }

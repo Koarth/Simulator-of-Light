@@ -105,6 +105,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Simulator\Battle.cs" />
+    <Compile Include="Simulator\BattleCalculations.cs" />
     <Compile Include="Simulator\BattleEventHandlers.cs" />
     <Compile Include="Simulator\Models\CombatLogEvent.cs" />
     <Compile Include="Simulator\Models\IActor.cs" />

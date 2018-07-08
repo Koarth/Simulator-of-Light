@@ -60,29 +60,44 @@ namespace Simulator_of_Light.Simulator.Models {
 
         public double DamageOverTimePotency { get; private set; }
         public double HealingOverTimePotency { get; private set; }
+        [DefaultValue(ActionAspect.UNASPECTED)]
         public ActionAspect DamageAspect { get; private set; }
         public double RefreshPotency { get; private set; }
 
         // Properties affecting outgoing actions
+        [DefaultValue(1)]
         public double MagicDamageModifier { get; private set; }
+        [DefaultValue(1)]
         public double HealingSpellModifier { get; private set; }
+        [DefaultValue(1)]
         public double PhysicalDamageModifier { get; private set; }
+        [DefaultValue(1)]
         public double GlobalDamageModifier { get; private set; }
 
+        [DefaultValue(0)]
         public double Type1Haste { get; private set; }
+        [DefaultValue(0)]
         public double Type2Haste { get; private set; }
         public double AutoAttackDelayModifier { get; private set; }
 
+        [DefaultValue(0)]
         public double CriticalHitRateModifier { get; private set; }
+        [DefaultValue(0)]
         public double DirectHitRateModifier { get; private set; }
 
+        [DefaultValue(1)]
         public double MpCostModifier { get; private set; }
 
         // Properties affecting incoming actions
+        [DefaultValue(1)]
         public double SlashingResistanceModifier { get; private set; }
+        [DefaultValue(1)]
         public double PiercingResistanceModifier { get; private set; }
+        [DefaultValue(1)]
         public double BluntResistanceModifier { get; private set; }
+        [DefaultValue(1)]
         public double DamageTakenModifier { get; private set; }
+        [DefaultValue(0)]
         public double IncomingCriticalHitRateModifier { get; private set; }
 
     }

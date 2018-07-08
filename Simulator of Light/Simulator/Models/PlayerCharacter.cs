@@ -224,6 +224,10 @@ namespace Simulator_of_Light.Simulator.Models {
             return null;
         }
 
+        public double getStat(CharacterStat statID) {
+
+            return this.Stats[statID];
+        }
 
         public void ApplyDamage() {
             throw new NotImplementedException();
@@ -295,10 +299,43 @@ namespace Simulator_of_Light.Simulator.Models {
 
             // TODO: ADD STATS FROM FOOD
 
+            // Correct secondary stats that the character's job does not benefit from.
+            // This is to prevent constant discarding of Tenacity and Piety calculations for jobs
+            // that explicitly do not benefit from those stats.
+            if (!(JobID == JobID.WAR || JobID == JobID.DRK || JobID == JobID.PLD)) {
+                this.Stats[CharacterStat.TENACITY] = Constants.getBaseStat(CharacterStat.TENACITY);
+            }
+            if (!(JobID == JobID.AST || JobID == JobID.SCH || JobID == JobID.WHM)) {
+                this.Stats[CharacterStat.PIETY] = Constants.getBaseStat(CharacterStat.PIETY);
+            }
+
             // Calculate the dependent stats, HP and MP:
             this.MaxHP = (int)Formulas.calculateTotalHP(this.Stats[CharacterStat.VITALITY], this.JobID);
             this.MaxMP = (int)Formulas.calculateTotalMana(this.Stats[CharacterStat.PIETY], this.JobID);
             this.MaxTP = (int)Constants.BaseTP70;
+
+            // Create shortcut stats for Weapon Damage and Attack Power.
+            var primaryStat = Constants.getDefaultPrimaryStat(JobID);
+            switch (primaryStat) {
+                case CharacterStat.MIND:
+                    this.Stats[CharacterStat.WEAPONDAMAGE] = this.Stats[CharacterStat.MAGICDAMAGE];
+                    this.Stats[CharacterStat.ATTACKPOWER] = this.Stats[CharacterStat.MIND];
+                    break;
+                case CharacterStat.INTELLIGENCE:
+                    this.Stats[CharacterStat.WEAPONDAMAGE] = this.Stats[CharacterStat.MAGICDAMAGE];
+                    this.Stats[CharacterStat.ATTACKPOWER] = this.Stats[CharacterStat.INTELLIGENCE];
+                    break;
+                case CharacterStat.STRENGTH:
+                    this.Stats[CharacterStat.WEAPONDAMAGE] = this.Stats[CharacterStat.PHYSICALDAMAGE];
+                    this.Stats[CharacterStat.ATTACKPOWER] = this.Stats[CharacterStat.STRENGTH];
+                    break;
+                case CharacterStat.DEXTERITY:
+                    this.Stats[CharacterStat.WEAPONDAMAGE] = this.Stats[CharacterStat.PHYSICALDAMAGE];
+                    this.Stats[CharacterStat.ATTACKPOWER] = this.Stats[CharacterStat.DEXTERITY];
+                    break;
+                default:
+                    throw new ArgumentException("Invalid primary stat for job: " + JobID.ToString());
+            }
 
         }
 
