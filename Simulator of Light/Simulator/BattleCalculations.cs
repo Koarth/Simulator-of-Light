@@ -10,7 +10,9 @@ using Action = Simulator_of_Light.Simulator.Models.Action;
 namespace Simulator_of_Light.Simulator {
     public static class BattleCalculations {
 
-        public static int calculateDamage(Action action, IActor source, ITarget target) {
+        public static Random r = new Random();
+
+        public static int CalculateDamage(Action action, IActor source, ITarget target) {
 
             var potency = action.BaseAction.Potency;
 
@@ -65,6 +67,37 @@ namespace Simulator_of_Light.Simulator {
             return (int)Math.Floor(damage);
         }
 
+        public static double CalculateCriticalHitRate(IActor source, ITarget target, Action action) {
+
+            double rate = source.getCriticalHitRate(action);
+
+            foreach (Aura aura in source.Auras) {
+                rate += aura.BaseAura.CriticalHitRateModifier;
+            }
+
+            return Math.Min(1, rate);
+        }
+
+        public static double CalculateDirectHitRate(IActor source, ITarget target, Action action) {
+
+            double rate = source.getDirectHitRate();
+
+            foreach (Aura aura in source.Auras) {
+                rate += aura.BaseAura.IncomingCriticalHitRateModifier;
+            }
+
+            return Math.Min(1, rate);
+
+        }
+
+        public static bool RollConditionalSuccess(double rate) {
+
+            // Proc rates use 1 decimal of precision (XX.X% success rate)
+            int maximum = (int)(rate * 1000);
+            int roll = BattleCalculations.r.Next(1000) + 1;
+
+            return (roll <= maximum);
+        }
 
 
 

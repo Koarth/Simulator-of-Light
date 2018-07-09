@@ -17,7 +17,9 @@ namespace Simulator_of_Light.Simulator.Models {
         BattleEvent[] ExecuteAction(Action action, long time);
 
         double getStat(CharacterStat statID);
-        double getWeaponDamage();
+
+        double getCriticalHitRate(Action action);
+        double getDirectHitRate();
 
 
 

@@ -224,6 +224,27 @@ namespace Simulator_of_Light.Simulator.Models {
             return null;
         }
 
+        /// <summary>
+        /// Calculates the actor's current critical hit rate, which may be conditionally
+        /// modified beyond simply the critical hit stat.  Critical hit rate may also be
+        /// conditionally modified for a specific action, so the contextual action must
+        /// be provided.
+        /// </summary>
+        /// <param name="action">The action for which the critical hit rate is needed.</param>
+        /// <returns>The current critical hit rate for this Actor.</returns>
+        public virtual double getCriticalHitRate(Action action) {
+            return Formulas.calculateCriticalHitRate(Stats[CharacterStat.CRITICALHIT]);
+        }
+
+        /// <summary>
+        /// Calculates the actor's current direct hit rate, which may be conditionally
+        /// modified beyond simply the direct hit stat.  (e.g. WAR Inner Release)
+        /// </summary>
+        /// <returns>The actor's current direct hit rate.</returns>
+        public virtual double getDirectHitRate() {
+            return Formulas.calculateDirectHitRate(Stats[CharacterStat.DIRECTHIT]);
+        }
+
         public double getStat(CharacterStat statID) {
 
             return this.Stats[statID];
