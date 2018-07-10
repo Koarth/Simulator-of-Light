@@ -305,8 +305,8 @@ namespace Simulator_of_Light.Simulator.Models {
                 this.Stats[stat] += clanStats[stat];
             }
 
-
-            // TODO ADD STATS FROM TRAITS
+            // Primary stat increase from job traits.
+            this.Stats[Constants.getTraitStat(JobID)] += Constants.MainTraitIncrease70;
 
             // Add stats from gear.
             var statsFromGear = GearSet.StatSummary;
@@ -341,18 +341,22 @@ namespace Simulator_of_Light.Simulator.Models {
                 case CharacterStat.MIND:
                     this.Stats[CharacterStat.WEAPONDAMAGE] = this.Stats[CharacterStat.MAGICDAMAGE];
                     this.Stats[CharacterStat.ATTACKPOWER] = this.Stats[CharacterStat.MIND];
+                    this.Stats[CharacterStat.SPEED] = this.Stats[CharacterStat.SPELLSPEED];
                     break;
                 case CharacterStat.INTELLIGENCE:
                     this.Stats[CharacterStat.WEAPONDAMAGE] = this.Stats[CharacterStat.MAGICDAMAGE];
                     this.Stats[CharacterStat.ATTACKPOWER] = this.Stats[CharacterStat.INTELLIGENCE];
+                    this.Stats[CharacterStat.SPEED] = this.Stats[CharacterStat.SPELLSPEED];
                     break;
                 case CharacterStat.STRENGTH:
                     this.Stats[CharacterStat.WEAPONDAMAGE] = this.Stats[CharacterStat.PHYSICALDAMAGE];
                     this.Stats[CharacterStat.ATTACKPOWER] = this.Stats[CharacterStat.STRENGTH];
+                    this.Stats[CharacterStat.SPEED] = this.Stats[CharacterStat.SKILLSPEED];
                     break;
                 case CharacterStat.DEXTERITY:
                     this.Stats[CharacterStat.WEAPONDAMAGE] = this.Stats[CharacterStat.PHYSICALDAMAGE];
                     this.Stats[CharacterStat.ATTACKPOWER] = this.Stats[CharacterStat.DEXTERITY];
+                    this.Stats[CharacterStat.SPEED] = this.Stats[CharacterStat.SKILLSPEED];
                     break;
                 default:
                     throw new ArgumentException("Invalid primary stat for job: " + JobID.ToString());

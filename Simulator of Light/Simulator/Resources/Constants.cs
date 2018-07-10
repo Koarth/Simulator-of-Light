@@ -25,6 +25,8 @@ namespace Simulator_of_Light.Simulator.Resources {
         public static readonly double BaseHP70 = 3600;
         public static readonly double BaseTP70 = 1000;
 
+        public static readonly double MainTraitIncrease70 = 48;
+
         /* "Magic Numbers" for secondary stat formulas. */
         // Characters earn less benefit per stat point at higher levels.  This is the penalty divisor at 70.
         public static readonly double LevelGrowthPenalty70 = 2170;
@@ -264,6 +266,24 @@ namespace Simulator_of_Light.Simulator.Resources {
             {CharacterStat.MP, mpJobMods},
         };
 
+        private static Dictionary<JobID, CharacterStat> statsFromTraits
+            = new Dictionary<JobID, CharacterStat>() {
+            {JobID.AST, CharacterStat.MIND},
+            {JobID.BLM, CharacterStat.INTELLIGENCE},
+            {JobID.BRD, CharacterStat.DEXTERITY},
+            {JobID.DRG, CharacterStat.STRENGTH},
+            {JobID.DRK, CharacterStat.VITALITY},
+            {JobID.MCH, CharacterStat.DEXTERITY},
+            {JobID.MNK, CharacterStat.STRENGTH},
+            {JobID.NIN, CharacterStat.DEXTERITY},
+            {JobID.PLD, CharacterStat.VITALITY},
+            {JobID.RDM, CharacterStat.INTELLIGENCE},
+            {JobID.SAM, CharacterStat.STRENGTH},
+            {JobID.SCH, CharacterStat.MIND},
+            {JobID.SMN, CharacterStat.INTELLIGENCE},
+            {JobID.WAR, CharacterStat.VITALITY},
+            {JobID.WHM, CharacterStat.MIND}
+        };
 
         // I hate everything about this.
         private static Dictionary<CharacterClan, Dictionary<CharacterStat, double>> clanMods
@@ -379,7 +399,45 @@ namespace Simulator_of_Light.Simulator.Resources {
                 }
 
             };
-        
+
+        private static Dictionary<JobID, double> traitDamageModifier
+            = new Dictionary<JobID, double>() {
+                {JobID.AST, 1.3},
+                {JobID.BLM, 1},
+                {JobID.BRD, 1},
+                {JobID.DRG, 1},
+                {JobID.DRK, 1},
+                {JobID.MCH, 1.2},
+                {JobID.MNK, 1},
+                {JobID.NIN, 1.2},
+                {JobID.PLD, 1},
+                {JobID.RDM, 1.3},
+                {JobID.SAM, 1},
+                {JobID.SCH, 1.3},
+                {JobID.SMN, 1.3},
+                {JobID.WAR, 1},
+                {JobID.WHM, 1.3}
+            };
+
+        private static Dictionary<JobID, double> traitHealingModifier
+            = new Dictionary<JobID, double>() {
+                {JobID.AST, 1.3},
+                {JobID.BLM, 1},
+                {JobID.BRD, 1},
+                {JobID.DRG, 1},
+                {JobID.DRK, 1},
+                {JobID.MCH, 1},
+                {JobID.MNK, 1},
+                {JobID.NIN, 1},
+                {JobID.PLD, 1},
+                {JobID.RDM, 1.3},
+                {JobID.SAM, 1},
+                {JobID.SCH, 1.3},
+                {JobID.SMN, 1.3},
+                {JobID.WAR, 1},
+                {JobID.WHM, 1.3}
+            };
+
         public static double getBaseStat(CharacterStat stat) {
             try {
                 return baseStats[stat];
@@ -432,6 +490,30 @@ namespace Simulator_of_Light.Simulator.Resources {
         public static CharacterStat getDefaultPrimaryStat(JobID id) {
             try {
                 return defaultActionPrimaryStat[id];
+            } catch (KeyNotFoundException) {
+                throw new ArgumentException("Invalid JobID");
+            }
+        }
+
+        public static CharacterStat getTraitStat(JobID id) {
+            try {
+                return statsFromTraits[id];
+            } catch (KeyNotFoundException) {
+                throw new ArgumentException("Invalid JobID");
+            }
+        }
+
+        public static double getTraitDamageModifier(JobID id) {
+            try {
+                return traitDamageModifier[id];
+            } catch (KeyNotFoundException) {
+                throw new ArgumentException("Invalid JobID");
+            }
+        }
+
+        public static double getTraitHealingModifier(JobID id) {
+            try {
+                return traitHealingModifier[id];
             } catch (KeyNotFoundException) {
                 throw new ArgumentException("Invalid JobID");
             }
