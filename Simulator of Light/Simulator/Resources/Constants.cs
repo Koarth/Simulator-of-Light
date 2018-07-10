@@ -48,6 +48,12 @@ namespace Simulator_of_Light.Simulator.Resources {
         public static readonly long GlobalAnimationDelay = 650;
         /* Base global recast time */
         public static readonly long GlobalRecastTime = 2500;
+        /* This is an empirical value representing how long an auto-attack is delayed 
+         by an action with a cast time.  For example, casting Holy Spirit (1.5 second cast time)
+         appears to delay the timing of the next auto-attack by ~(1.5 * 0.7 = 1.05) seconds.
+         The next auto-attack will be executed at the newly delayed timing, or at the end of the
+         current cast, whichever is later. */
+        public static readonly double AutoAttackCastDelayFactor = 0.70;
 
         private static Dictionary<CharacterStat, double> baseStats
             = new Dictionary<CharacterStat, double>() {

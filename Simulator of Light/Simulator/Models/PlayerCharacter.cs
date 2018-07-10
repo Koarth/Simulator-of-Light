@@ -55,6 +55,7 @@ namespace Simulator_of_Light.Simulator.Models {
         // Timing properties
         public long GlobalRecastAvailable { get; set; }
         public long AnimationLockExpires { get; set; }
+        public bool IsCasting { get; set; }
 
 
         // MOCK FUNCTION, REPLACE WITH ACTION LIST DECISIONS
@@ -371,6 +372,7 @@ namespace Simulator_of_Light.Simulator.Models {
 
             this.GlobalRecastAvailable = long.MinValue;
             this.AnimationLockExpires = long.MinValue;
+            this.IsCasting = false;
         }
     }
 }
