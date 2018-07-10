@@ -41,12 +41,12 @@ namespace Simulator_of_Light.Simulator {
     }
 
     public enum CharacterStat {
-        UNKNOWN,
-        STRENGTH,
-        DEXTERITY,
-        INTELLIGENCE,
-        MIND,
-        VITALITY,
+        UNKNOWN = -1,
+        STRENGTH = 0,
+        DEXTERITY = 1,
+        VITALITY = 2,
+        INTELLIGENCE = 3,
+        MIND = 4,
         DETERMINATION,
         DIRECTHIT,
         CRITICALHIT,

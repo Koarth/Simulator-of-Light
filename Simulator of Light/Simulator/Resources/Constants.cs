@@ -285,6 +285,23 @@ namespace Simulator_of_Light.Simulator.Resources {
             {JobID.WHM, CharacterStat.MIND}
         };
 
+
+        private static int[][] clanMods = new int[][] {
+            new int[]{ 0,  3, -1,  2, -1}, // Elezen Wildwood
+            new int[]{ 0,  0, -1,  3,  1}, // Elezen Duskwight
+            new int[]{ 2, -1,  0,  3, -1}, // Hyur Midlander
+            new int[]{ 3,  0,  2, -2,  0}, // Hyur Highlander
+            new int[]{-1,  3, -1,  2,  0}, // Lalafell Plainsfolk
+            new int[]{-1,  1, -2,  2,  3}, // Lalafell Dunesfolk
+            new int[]{ 2,  3,  0, -1, -1}, // Miqo'te Seeker of the Sun
+            new int[]{-1,  2, -2,  1,  3}, // Miqo'te Keeper of the Moon
+            new int[]{ 2, -1,  3, -2,  1}, // Roegadyn Sea Wolf
+            new int[]{ 0, -2,  3,  0,  2}, // Roegadyn Hellsguard
+            new int[]{-1,  2, -1,  0,  3}, // Au Ra Raen
+            new int[]{ 3,  0,  2,  0, -2}  // Au Ra Xaela
+        };
+
+        /*
         // I hate everything about this.
         private static Dictionary<CharacterClan, Dictionary<CharacterStat, double>> clanMods
             = new Dictionary<CharacterClan, Dictionary<CharacterStat, double>>() {
@@ -399,6 +416,7 @@ namespace Simulator_of_Light.Simulator.Resources {
                 }
 
             };
+        */
 
         private static Dictionary<JobID, double> traitDamageModifier
             = new Dictionary<JobID, double>() {
@@ -446,9 +464,9 @@ namespace Simulator_of_Light.Simulator.Resources {
             }
         }
 
-        public static Dictionary<CharacterStat, double> getClanBaseStats(CharacterClan race) {
+        public static int[] getClanBaseStats(CharacterClan race) {
             try {
-                return clanMods[race];
+                return clanMods[(int)race];
             } catch (KeyNotFoundException) {
                 throw new ArgumentException("Invalid race/clan");
             }

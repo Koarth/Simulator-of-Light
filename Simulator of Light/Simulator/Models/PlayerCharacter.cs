@@ -301,8 +301,8 @@ namespace Simulator_of_Light.Simulator.Models {
 
             // Add race bonuses/penalties.
             var clanStats = Constants.getClanBaseStats(this.Clan);
-            foreach (CharacterStat stat in clanStats.Keys) {
-                this.Stats[stat] += clanStats[stat];
+            for (int i = 0; i < clanStats.Length; i++) {
+                this.Stats[(CharacterStat)i] += clanStats[i];
             }
 
             // Primary stat increase from job traits.

@@ -10,6 +10,7 @@ using Action = Simulator_of_Light.Simulator.Models.Action;
 namespace Simulator_of_Light.Simulator {
     public static class BattleCalculations {
 
+        // Allow RNG to be overridden for testing purposes.
         public static Random r = new Random();
 
         /// <summary>
@@ -221,9 +222,6 @@ namespace Simulator_of_Light.Simulator {
 
             return (roll <= maximum);
         }
-
-
-
 
     }
 }
