@@ -2,6 +2,7 @@
 using System.Linq;
 using C5;
 using Simulator_of_Light.Simulator.Models;
+using Simulator_of_Light.Simulator.Models.CombatLogEvents;
 
 namespace Simulator_of_Light.Simulator {
     public partial class Battle {

@@ -112,11 +112,11 @@ namespace Simulator_of_Light.Simulator {
                                 source,
                                 target,
                                 action: action));
-                EventLog.Add(new CombatLogEvent(
-                                CombatLogEventType.BEGINCAST,
-                                Time,
-                                source,
-                                action: action.BaseAction));
+                //EventLog.Add(new CombatLogEvent(
+                //                CombatLogEventType.BEGINCAST,
+                //                Time,
+                //               source,
+                //               action: action.BaseAction));
             } else {
                 EventQueue.Add(new BattleEvent(
                                 BattleEventType.RESOLVE_ACTION,
@@ -132,13 +132,13 @@ namespace Simulator_of_Light.Simulator {
             var a = action.BaseAction;
 
             ITarget[] targets = getTargetsInRadius(target, a.Radius);
-            EventLog.Add(new CombatLogEvent(CombatLogEventType.CAST, Time, source, action: a));
+            //EventLog.Add(new CombatLogEvent(CombatLogEventType.CAST, Time, source, action: a));
 
             foreach (ITarget tar in targets) {
                 // Calculate and apply damage.
                 if (a.Potency > 0) {
-                    CombatLogEvent damage = calculateActionDamage(a, source, tar);
-                    EventLog.Add(damage);
+                    //CombatLogEvent damage = calculateActionDamage(a, source, tar);
+                    //EventLog.Add(damage);
                 }
 
                 // Apply auras.
@@ -190,7 +190,7 @@ namespace Simulator_of_Light.Simulator {
             } else {
                 type = CombatLogEventType.APPLYDEBUFF;
             }
-            EventLog.Add(new CombatLogEvent(type, appliedAura.Expires, appliedAura.Source, target, appliedAura.BaseAura));
+            //EventLog.Add(new CombatLogEvent(type, appliedAura.Expires, appliedAura.Source, target, appliedAura.BaseAura));
 
             // Add aura expiration event in the future.
             EventQueue.Add(new BattleEvent(BattleEventType.EXPIRE_AURA, 
@@ -222,7 +222,7 @@ namespace Simulator_of_Light.Simulator {
             } else {
                 type = CombatLogEventType.REMOVEDEBUFF;
             }
-            EventLog.Add(new CombatLogEvent(type, Time, expiredAura.Source, target, expiredAura.BaseAura));
+            //EventLog.Add(new CombatLogEvent(type, Time, expiredAura.Source, target, expiredAura.BaseAura));
         }
 
         private void _handleRemoveAuraStackEvent() {
@@ -275,15 +275,6 @@ namespace Simulator_of_Light.Simulator {
         }
 
         private void _handleFightCompleteEvent() {
-            throw new NotImplementedException();
-        }
-
-        public CombatLogEvent calculateActionDamage(BaseAction action, IActor source, ITarget target) {
-
-            // Calculate base damage.
-            // Roll for critical.
-            // Roll for direct hit.
-
             throw new NotImplementedException();
         }
 
