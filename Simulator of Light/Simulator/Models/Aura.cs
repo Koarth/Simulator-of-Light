@@ -14,22 +14,24 @@ namespace Simulator_of_Light.Simulator.Models {
         public long Expires { get; set; }
         public bool isBuff { get; set; }
 
-        public double DamageModifier { get; set; }
+        // Properties for damage-over-time auras.
+        public double BaseDamage { get; set; }
         public double CriticalHitRate { get; set; }
+        public double CriticalHitMultiplier { get; set; }
         public double DirectHitRate { get; set; }
+        public List<double> DamageMultipliers { get; set; }
 
-        public Aura(BaseAura baseAura, IActor source, long expires, bool isBuff,
-            double damageModifier = 1,
-            double criticalHitRate = 0,
-            double directHitRate = 0) {
+        public Aura(BaseAura baseAura, IActor source, long expires, bool isBuff) {
 
             BaseAura = baseAura;
             Source = source;
             Expires = expires;
 
-            DamageModifier = damageModifier;
-            CriticalHitRate = criticalHitRate;
-            DirectHitRate = directHitRate;
+            BaseDamage = 0;
+            CriticalHitRate = 0;
+            CriticalHitMultiplier = 0;
+            DirectHitRate = 0;
+            DamageMultipliers = null;
         }
 
         // Sortable by expiry time.
