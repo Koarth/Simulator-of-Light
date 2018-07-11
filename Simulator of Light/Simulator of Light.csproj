@@ -111,6 +111,7 @@
     <Compile Include="Simulator\Models\CombatLogEvents\CastEvent.cs" />
     <Compile Include="Simulator\Models\CombatLogEvents\CombatLogEvent.cs" />
     <Compile Include="Simulator\Models\CombatLogEvents\DamageEvent.cs" />
+    <Compile Include="Simulator\Models\CombatLogEvents\HealingEvent.cs" />
     <Compile Include="Simulator\Models\IActor.cs" />
     <Compile Include="Simulator\Models\ITarget.cs" />
     <Compile Include="Simulator\Models\StrikingDummy.cs" />
