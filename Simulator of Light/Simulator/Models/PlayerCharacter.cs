@@ -374,5 +374,9 @@ namespace Simulator_of_Light.Simulator.Models {
             this.AnimationLockExpires = long.MinValue;
             this.IsCasting = false;
         }
+
+        public override string ToString() {
+            return this.Name;
+        }
     }
 }

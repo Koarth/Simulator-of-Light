@@ -107,6 +107,7 @@
     <Compile Include="Simulator\Battle.cs" />
     <Compile Include="Simulator\BattleCalculations.cs" />
     <Compile Include="Simulator\BattleEventHandlers.cs" />
+    <Compile Include="Simulator\BattleEventQueue.cs" />
     <Compile Include="Simulator\Models\CombatLogEvents\AuraEvent.cs" />
     <Compile Include="Simulator\Models\CombatLogEvents\CastEvent.cs" />
     <Compile Include="Simulator\Models\CombatLogEvents\CombatLogEvent.cs" />
@@ -145,6 +146,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources1.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="NLog.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Simulator of Light_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
@@ -178,6 +182,9 @@
     </PackageReference>
     <PackageReference Include="Newtonsoft.Json">
       <Version>11.0.2</Version>
+    </PackageReference>
+    <PackageReference Include="NLog">
+      <Version>4.5.6</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup />

@@ -39,4 +39,8 @@ namespace Simulator_of_Light.Simulator.Models {
         }
 
     }
+
+    public override string ToString() {
+        return this.Name;
+    }
 }

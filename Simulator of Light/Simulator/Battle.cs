@@ -7,6 +7,8 @@ using Simulator_of_Light.Simulator.Models.CombatLogEvents;
 namespace Simulator_of_Light.Simulator {
     public partial class Battle {
 
+        private static NLog.Logger _logger = NLog.LogManager.GetCurrentClassLogger();
+
         // Entities in the fight.  Actors are generally understood to be players,
         // pets, or "NPCs" that will stand-in as raid buff simulators.  Enemies do
         // not act, but rather keep track of auras and other state effects.
@@ -39,14 +41,21 @@ namespace Simulator_of_Light.Simulator {
             Actors = actors;
             Friendlies = actors;
             FightLength = length * 1000;
+            _logger.Debug("Fight length: {0}", FightLength);
 
             Time = 0;
             TickOffset = new Random().Next(0, 3000);
+            _logger.Debug("Tick offset: {0}", TickOffset);
+
+            foreach (IActor actor in actors) {
+                _logger.Debug("Actor added: [{0}] {1}", actor.JobID.ToString(), actor.Name);
+            }
 
             // Initialize enemies.
             Enemies = new ITarget[num_enemies];
             for (int i = 0; i < num_enemies; i++) {
                 Enemies[i] = new StrikingDummy();
+                _logger.Debug("Enemy added: {0}", Enemies[i].Name);
             }
 
             Targets = Friendlies.ToList().Concat(Enemies.ToList()).ToArray();
@@ -65,9 +74,17 @@ namespace Simulator_of_Light.Simulator {
 
             // Event to signal the next Aura tick.
             EventQueue.Add(new BattleEvent(BattleEventType.AURA_TICK, Time + TickOffset));
+
+            if (TickOffset > 1500) {
+                EventQueue.Add(new BattleEvent(BattleEventType.REGEN_TICK, 1500 - TickOffset));
+            } else {
+                EventQueue.Add(new BattleEvent(BattleEventType.REGEN_TICK, TickOffset + 1500));
+            }
         }
 
         public void Run() {
+
+            // TODO: Log time advancements.
             throw new NotImplementedException();
         }
         

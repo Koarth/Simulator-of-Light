@@ -112,11 +112,6 @@ namespace Simulator_of_Light.Simulator {
                                 source,
                                 target,
                                 action: action));
-                //EventLog.Add(new CombatLogEvent(
-                //                CombatLogEventType.BEGINCAST,
-                //                Time,
-                //               source,
-                //               action: action.BaseAction));
             } else {
                 EventQueue.Add(new BattleEvent(
                                 BattleEventType.RESOLVE_ACTION,
@@ -124,7 +119,6 @@ namespace Simulator_of_Light.Simulator {
                                 source,
                                 target,
                                 action: action));
-                //EventLog.Add(new CombatLogEvent(CombatLogEventType.CAST, Time, e.Source, action: e.Action.BaseAction));
             }
         }
 
@@ -151,6 +145,7 @@ namespace Simulator_of_Light.Simulator {
                                             source,
                                             tar,
                                             baseAura: aura));
+                            _logger.Debug("{0} Event added: Apply {1}'s aura {2} to {3}", Time, source, aura.Name, tar);
                         }
                     }
                 }
@@ -166,6 +161,7 @@ namespace Simulator_of_Light.Simulator {
                                         source,
                                         source,
                                         baseAura: aura));
+                        _logger.Debug("{0} Event added: Apply {1}'s aura {2} to {3}", Time, source, aura.Name, source);
                     }
                 }
             }

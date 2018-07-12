@@ -20,8 +20,5 @@ namespace Simulator_of_Light.Simulator.Models {
 
         double getCriticalHitRate(Action action);
         double getDirectHitRate();
-
-
-
     }
 }
